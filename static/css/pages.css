@@ -1,0 +1,301 @@
+/* ==========================================
+   HOME
+========================================== */
+
+.home-about{
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+gap:var(--space-10);
+}
+
+.home-about__content{
+max-width:640px;
+}
+
+.home-about__image{
+overflow:hidden;
+border-radius:var(--radius-xl);
+}
+
+.home-about__image img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.home-services{
+margin-top:var(--space-10);
+}
+
+.home-gallery{
+margin-top:var(--space-10);
+}
+
+.home-reviews{
+margin-top:var(--space-10);
+}
+
+.home-cta{
+margin-top:var(--space-12);
+}
+
+
+
+/* ==========================================
+   PORTFOLIO
+========================================== */
+
+.portfolio-header{
+margin-bottom:var(--space-8);
+}
+
+.portfolio-filter{
+display:flex;
+justify-content:center;
+gap:var(--space-3);
+flex-wrap:wrap;
+margin-bottom:var(--space-8);
+}
+
+.portfolio-empty{
+margin-top:var(--space-8);
+}
+
+.portfolio-detail{
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:var(--space-10);
+align-items:start;
+}
+
+.portfolio-detail__gallery{
+display:grid;
+gap:var(--space-4);
+}
+
+.portfolio-detail__info{
+position:sticky;
+top:110px;
+}
+
+.portfolio-detail__meta{
+display:flex;
+flex-direction:column;
+gap:var(--space-3);
+margin-top:var(--space-6);
+}
+
+.photo-navigation{
+display:flex;
+justify-content:space-between;
+margin-top:var(--space-8);
+}
+
+
+
+/* ==========================================
+   SERVICES
+========================================== */
+
+.services-intro{
+max-width:760px;
+margin:0 auto var(--space-10);
+text-align:center;
+}
+
+.workflow{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:var(--space-6);
+margin-top:var(--space-10);
+}
+
+.workflow-card{
+text-align:center;
+}
+
+.workflow-card__number{
+width:60px;
+height:60px;
+margin:0 auto var(--space-4);
+border-radius:50%;
+background:var(--color-primary);
+color:var(--color-white);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:var(--fw-bold);
+font-size:var(--fs-lg);
+}
+
+.pricing-note{
+margin-top:var(--space-8);
+text-align:center;
+}
+
+
+
+/* ==========================================
+   REVIEWS
+========================================== */
+
+.review-form{
+max-width:700px;
+margin:0 auto var(--space-10);
+}
+
+.review-summary{
+display:flex;
+justify-content:center;
+gap:var(--space-8);
+margin-bottom:var(--space-8);
+}
+
+
+
+/* ==========================================
+   FAQ
+========================================== */
+
+.faq-page{
+max-width:900px;
+margin-inline:auto;
+}
+
+
+
+/* ==========================================
+   AVAILABLE DATES
+========================================== */
+
+.available-dates{
+max-width:1000px;
+margin-inline:auto;
+}
+
+.calendar-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:var(--space-6);
+}
+
+.calendar-month{
+font-size:var(--fs-xl);
+font-weight:var(--fw-semibold);
+}
+
+
+
+/* ==========================================
+   BOOKING
+========================================== */
+
+.booking-layout{
+display:grid;
+grid-template-columns:1fr 360px;
+gap:var(--space-10);
+align-items:start;
+}
+
+.booking-sidebar{
+position:sticky;
+top:110px;
+display:flex;
+flex-direction:column;
+gap:var(--space-5);
+}
+
+.booking-summary{
+padding:var(--card-padding);
+border:1px solid var(--color-border);
+border-radius:var(--radius-lg);
+background:var(--color-white);
+box-shadow:var(--shadow-xs);
+}
+
+.booking-summary__item{
+display:flex;
+justify-content:space-between;
+padding:.75rem 0;
+border-bottom:1px solid var(--color-border);
+}
+
+.booking-summary__item:last-child{
+border-bottom:none;
+}
+
+
+
+/* ==========================================
+   PREPARATION GUIDE
+========================================== */
+
+.preparation-guide{
+max-width:900px;
+margin-inline:auto;
+}
+
+.preparation-guide__list{
+display:grid;
+gap:var(--space-5);
+margin-top:var(--space-8);
+}
+
+.preparation-guide__item{
+padding:var(--space-5);
+border-left:4px solid var(--color-primary);
+background:var(--color-surface);
+border-radius:var(--radius-md);
+}
+
+
+
+/* ==========================================
+   CONTACTS
+========================================== */
+
+.contacts-grid{
+display:grid;
+grid-template-columns:380px 1fr;
+gap:var(--space-10);
+align-items:start;
+}
+
+.contact-info{
+display:flex;
+flex-direction:column;
+gap:var(--space-5);
+}
+
+.contact-item{
+display:flex;
+gap:var(--space-4);
+align-items:flex-start;
+}
+
+.contact-item__icon{
+flex-shrink:0;
+width:44px;
+height:44px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:var(--color-surface);
+color:var(--color-primary);
+}
+
+.contact-map{
+overflow:hidden;
+border-radius:var(--radius-xl);
+min-height:480px;
+}
+
+.contact-map iframe{
+width:100%;
+height:100%;
+border:none;
+}
+

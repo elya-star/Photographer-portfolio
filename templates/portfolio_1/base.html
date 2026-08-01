@@ -1,0 +1,270 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+    {% block title %}
+        Portfolio
+    {% endblock %}
+    </title>
+
+    <meta
+        name="description"
+        content="{% block description %}{% endblock %}"
+    >
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container">
+
+        <div class="site-logo">
+            <a href="{% url 'portfolio:home' %}">
+                {% if site_settings %}
+                    {{ site_settings.photographer_name }}
+                {% else %}
+                    Portfolio
+                {% endif %}
+            </a>
+        </div>
+
+        <nav class="site-nav">
+
+            <a href="{% url 'portfolio:home' %}">
+                {% translate "Главная" %}
+            </a>
+
+            <a href="{% url 'portfolio:portfolio_list' %}">
+                {% translate "Портфолио" %}
+            </a>
+
+            <a href="{% url 'portfolio:services' %}">
+                {% translate "Услуги" %}
+            </a>
+
+            <a href="{% url 'portfolio:reviews' %}">
+                {% translate "Отзывы" %}
+            </a>
+
+            <a href="{% url 'portfolio:faq' %}">
+                FAQ
+            </a>
+
+            <a href="{% url 'portfolio:available_dates' %}">
+                {% translate "Свободные даты" %}
+            </a>
+
+            <a href="{% url 'portfolio:contacts' %}">
+                {% translate "Контакты" %}
+            </a>
+
+        </nav>
+
+        <div class="header-actions">
+
+            <form
+                action="{% url 'set_language' %}"
+                method="post"
+                class="language-form"
+            >
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="next"
+                    value="{{ request.get_full_path }}"
+                >
+
+                <button
+                    type="submit"
+                    name="language"
+                    value="ru"
+                    {% if LANGUAGE_CODE == "ru" %}disabled{% endif %}
+                >
+                    RU
+                </button>
+
+                <button
+                    type="submit"
+                    name="language"
+                    value="en"
+                    {% if LANGUAGE_CODE == "en" %}disabled{% endif %}
+                >
+                    EN
+                </button>
+
+            </form>
+
+            <a
+                class="booking-button"
+                href="{% url 'portfolio:booking' %}"
+            >
+                {% translate "Записаться" %}
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+{% if messages %}
+<section class="messages">
+
+    <div class="container">
+
+        {% for message in messages %}
+
+            <div class="message message--{{ message.tags }}">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+{% endif %}
+
+<main class="site-main">
+
+    <div class="container">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</main>
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <div class="footer-about">
+
+            {% if site_settings %}
+
+                <h3>
+                    {{ site_settings.photographer_name }}
+                </h3>
+
+                {% if site_settings.city %}
+                    <p>{{ site_settings.address }}</p>
+                {% endif %}
+
+                {% if site_settings.phone %}
+                    <p>
+
+                        <a href="tel:{{ site_settings.phone }}">
+                            {{ site_settings.phone }}
+                        </a>
+
+                    </p>
+                {% endif %}
+
+                {% if site_settings.email %}
+                    <p>
+
+                        <a href="mailto:{{ site_settings.email }}">
+                            {{ site_settings.email }}
+                        </a>
+
+                    </p>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+        <div class="footer-menu">
+
+            <h4>{% translate "Навигация" %}</h4>
+
+            <a href="{% url 'portfolio:portfolio_list' %}">
+                {% translate "Портфолио" %}
+            </a>
+
+            <a href="{% url 'portfolio:services' %}">
+                {% translate "Услуги" %}
+            </a>
+
+            <a href="{% url 'portfolio:reviews' %}">
+                {% translate "Отзывы" %}
+            </a>
+
+            <a href="{% url 'portfolio:faq' %}">
+                FAQ
+            </a>
+
+            <a href="{% url 'portfolio:preparation_guide' %}">
+                {% translate "Подготовка к фотосессии" %}
+            </a>
+
+            <a href="{% url 'portfolio:booking' %}">
+                {% translate "Записаться" %}
+            </a>
+
+        </div>
+
+        <div class="footer-socials">
+
+            <h4>{% translate "Социальные сети" %}</h4>
+
+            {% for social in social_links %}
+
+                <a
+                    href="{{ social.url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {{ social.name }}
+                </a>
+
+            {% empty %}
+
+                <p>
+                    {% translate "Социальные сети пока не добавлены." %}
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        {% if site_settings and site_settings.copyright %}
+            <p>{{ site_settings.copyright }}</p>
+        {% else %}
+            <p>© Portfolio</p>
+        {% endif %}
+
+    </div>
+
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+</html>

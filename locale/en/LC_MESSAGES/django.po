@@ -1,0 +1,584 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-25 12:54+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: main/settings.py:114
+msgid "Русский"
+msgstr ""
+
+#: main/settings.py:115
+msgid "English"
+msgstr ""
+
+#: portfolio_1/forms.py:12
+msgid "Я согласен(на) на обработку персональных данных"
+msgstr "I consent to the processing of my personal data."
+
+#: portfolio_1/forms.py:15
+msgid ""
+"Для отправки заявки необходимо согласиться на обработку персональных данных."
+msgstr ""
+"To submit the application, you must consent to the processing of your "
+"personal data."
+
+#: portfolio_1/forms.py:37 portfolio_1/forms.py:49
+msgid "Ваше имя"
+msgstr "Your name"
+
+#: portfolio_1/forms.py:38 portfolio_1/forms.py:55
+#: templates/portfolio_1/contacts.html:27
+msgid "Телефон"
+msgstr "Phone number"
+
+#: portfolio_1/forms.py:39 portfolio_1/forms.py:62
+msgid "Email"
+msgstr ""
+
+#: portfolio_1/forms.py:40
+#, fuzzy
+#| msgid "Telegram, WhatsApp или другая социальная сеть"
+msgid "Мессенджер или социальная сеть"
+msgstr "Telegram, WhatsApp or another social network"
+
+#: portfolio_1/forms.py:41
+#, fuzzy
+#| msgid "Услуги"
+msgid "Услуга"
+msgstr "Services"
+
+#: portfolio_1/forms.py:42
+msgid "Желаемая дата"
+msgstr "Preferred date"
+
+#: portfolio_1/forms.py:43
+msgid "Сообщение"
+msgstr "Message"
+
+#: portfolio_1/forms.py:70
+msgid "Telegram, WhatsApp или другая социальная сеть"
+msgstr "Telegram, WhatsApp or another social network"
+
+#: portfolio_1/forms.py:82
+msgid "Расскажите о вашей идее"
+msgstr "Tell me about your inspiration"
+
+#: portfolio_1/forms.py:93
+msgid "Введите корректный номер телефона."
+msgstr "Enter a valid phone number."
+
+#: portfolio_1/forms.py:113
+msgid "Нельзя выбрать прошедшую дату."
+msgstr "You cannot select a past date."
+
+#: portfolio_1/forms.py:123
+msgid "Эта дата недоступна. Выберите другую."
+msgstr "This date is unavailable. Please choose another one."
+
+#: portfolio_1/forms.py:139
+msgid "Укажите хотя бы один способ связи: телефон, email или мессенджер."
+msgstr ""
+"Specify at least one method of communication: phone number, email or "
+"messenger."
+
+#: portfolio_1/forms.py:156
+msgid "Эта дата уже забронирована."
+msgstr "This date is already booked."
+
+#: portfolio_1/views.py:315
+#, fuzzy
+#| msgid "Спасибо! Заявка отправлена. Фотограф свяжется с вами."
+msgid "Спасибо! Заявка успешно отправлена. Фотограф свяжется с вами."
+msgstr ""
+"Thanks! The application has been sent, and the photographer will contact you."
+
+#: templates/portfolio_1/base.html:35 templates/portfolio_1/home.html:5
+#: templates/portfolio_1/photo_detail.html:15
+#: templates/portfolio_1/portfolio_detail.html:15
+msgid "Главная"
+msgstr "Home"
+
+#: templates/portfolio_1/base.html:39 templates/portfolio_1/home.html:49
+#: templates/portfolio_1/photo_detail.html:21
+#: templates/portfolio_1/portfolio_detail.html:21
+#: templates/portfolio_1/portfolio_list.html:5
+#: templates/portfolio_1/portfolio_list.html:10
+msgid "Портфолио"
+msgstr "Portfolio"
+
+#: templates/portfolio_1/base.html:43 templates/portfolio_1/home.html:70
+#: templates/portfolio_1/services.html:5 templates/portfolio_1/services.html:15
+msgid "Услуги"
+msgstr "Services"
+
+#: templates/portfolio_1/base.html:47 templates/portfolio_1/home.html:96
+#: templates/portfolio_1/reviews.html:5 templates/portfolio_1/reviews.html:15
+msgid "Отзывы"
+msgstr "Reviews"
+
+#: templates/portfolio_1/base.html:55 templates/portfolio_1/contacts.html:5
+#: templates/portfolio_1/contacts.html:15
+msgid "Контакты"
+msgstr "Contacts"
+
+#: templates/portfolio_1/base.html:59 templates/portfolio_1/home.html:87
+msgid "Записаться"
+msgstr "Book now"
+
+#: templates/portfolio_1/base.html:118
+#: templates/portfolio_1/preparation_guide.html:5
+#: templates/portfolio_1/preparation_guide.html:15
+#, fuzzy
+#| msgid "Записаться на съёмку"
+msgid "Подготовка к фотосессии"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/booking.html:5 templates/portfolio_1/booking.html:10
+#, fuzzy
+#| msgid "Записаться на съёмку"
+msgid "Запись на съёмку"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/booking.html:13
+#, fuzzy
+#| msgid "Спасибо! Заявка отправлена. Фотограф свяжется с вами."
+msgid "Заполните форму, и фотограф свяжется с вами."
+msgstr ""
+"Thanks! The application has been sent, and the photographer will contact you."
+
+#: templates/portfolio_1/booking.html:18
+msgid "Вы выбрали услугу:"
+msgstr "You have selected the service:"
+
+#: templates/portfolio_1/booking.html:36
+msgid "Посмотреть все услуги"
+msgstr "View all services"
+
+#: templates/portfolio_1/booking.html:123
+msgid "Отправить заявку"
+msgstr "Submit a request"
+
+#: templates/portfolio_1/contacts.html:9
+#, fuzzy
+#| msgid "Услуги фотографа и запись на фотосессию."
+msgid "Контакты фотографа и способы связи для записи на фотосессию."
+msgstr "Photography services and photoshoot booking."
+
+#: templates/portfolio_1/contacts.html:18
+msgid "Свяжитесь со мной удобным способом, чтобы обсудить фотосессию."
+msgstr "Contact me via your preferred method to discuss the photoshoot."
+
+#: templates/portfolio_1/contacts.html:37
+#, fuzzy
+#| msgid "Избранные работы"
+msgid "Электронная почта"
+msgstr "Featured work"
+
+#: templates/portfolio_1/contacts.html:47
+msgid "Город"
+msgstr "City"
+
+#: templates/portfolio_1/contacts.html:55
+#, fuzzy
+#| msgid "Избранные работы"
+msgid "Время работы"
+msgstr "Featured work"
+
+#: templates/portfolio_1/contacts.html:66
+msgid "Социальные сети"
+msgstr "Social media"
+
+#: templates/portfolio_1/contacts.html:85
+#, fuzzy
+#| msgid "Записаться на съёмку"
+msgid "Запись на фотосессию"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/contacts.html:88
+#, fuzzy
+#| msgid "Выберите подходящий формат съёмки и оставьте заявку."
+msgid "Вы можете посмотреть свободные даты или сразу оставить заявку."
+msgstr "Choose a suitable shooting format and submit a request."
+
+#: templates/portfolio_1/contacts.html:93
+#, fuzzy
+#| msgid "Посмотреть все отзывы"
+msgid "Посмотреть свободные даты"
+msgstr "View all reviews"
+
+#: templates/portfolio_1/contacts.html:97
+#: templates/portfolio_1/preparation_guide.html:95
+#, fuzzy
+#| msgid "Отправить заявку"
+msgid "Оставить заявку"
+msgstr "Submit a request"
+
+#: templates/portfolio_1/home.html:14
+msgid "Портфолио фотографа"
+msgstr "Photographer portfolio"
+
+#: templates/portfolio_1/home.html:25 templates/portfolio_1/reviews.html:75
+msgid "Записаться на съёмку"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/home.html:30
+msgid "Избранные работы"
+msgstr "Featured work"
+
+#: templates/portfolio_1/home.html:44
+msgid "Пока слайды не добавлены."
+msgstr "No slides have been added yet."
+
+#: templates/portfolio_1/home.html:64
+msgid "Категории портфолио пока не добавлены."
+msgstr "No portfolio categories have been added yet."
+
+#: templates/portfolio_1/home.html:91
+msgid "Услуги пока не добавлены."
+msgstr "No services have been added yet."
+
+#: templates/portfolio_1/home.html:111 templates/portfolio_1/reviews.html:38
+#, python-format
+msgid "Оценка %(rating)s из 5"
+msgstr "Rating: %(rating)s out of 5"
+
+#: templates/portfolio_1/home.html:128
+msgid "Отзывов пока нет."
+msgstr "There are no reviews yet."
+
+#: templates/portfolio_1/home.html:135
+msgid "Посмотреть все отзывы"
+msgstr "View all reviews"
+
+#: templates/portfolio_1/photo_detail.html:13
+#: templates/portfolio_1/portfolio_detail.html:13
+msgid "Навигация по странице"
+msgstr "Page navigation"
+
+#: templates/portfolio_1/photo_detail.html:36
+msgid "Фотография"
+msgstr "Photo"
+
+#: templates/portfolio_1/photo_detail.html:53
+msgid "Навигация между фотографиями"
+msgstr "Navigation between photos"
+
+#: templates/portfolio_1/photo_detail.html:56
+#, fuzzy
+#| msgid "Портфолио фотографа"
+msgid "Предыдущая фотография"
+msgstr "Photographer portfolio"
+
+#: templates/portfolio_1/photo_detail.html:61
+msgid "Вернуться в галерею"
+msgstr "Return to the gallery"
+
+#: templates/portfolio_1/photo_detail.html:66
+#, fuzzy
+#| msgid "Портфолио фотографа"
+msgid "Следующая фотография"
+msgstr "Photographer portfolio"
+
+#: templates/portfolio_1/photo_detail.html:74
+msgid "Другие фотографии из этой серии"
+msgstr "Other photos from this series"
+
+#: templates/portfolio_1/portfolio_detail.html:38
+msgid "Фильтры"
+msgstr "Filters"
+
+#: templates/portfolio_1/portfolio_detail.html:43
+#, fuzzy
+#| msgid "Портфолио фотографа"
+msgid "Ориентация фотографии"
+msgstr "Photographer portfolio"
+
+#: templates/portfolio_1/portfolio_detail.html:51
+#, fuzzy
+#| msgid "Портфолио фотографа"
+msgid "Все фотографии"
+msgstr "Photographer portfolio"
+
+#: templates/portfolio_1/portfolio_detail.html:76
+msgid "Только избранные"
+msgstr "The Chosen Few"
+
+#: templates/portfolio_1/portfolio_detail.html:81
+msgid "Применить"
+msgstr "Apply"
+
+#: templates/portfolio_1/portfolio_detail.html:86
+msgid "Сбросить фильтры"
+msgstr "Clear filters"
+
+#: templates/portfolio_1/portfolio_detail.html:93
+msgid "Фотографии"
+msgstr "Photos"
+
+#: templates/portfolio_1/portfolio_detail.html:118
+#, fuzzy
+#| msgid "Избранные работы"
+msgid "Избранная работа"
+msgstr "Featured work"
+
+#: templates/portfolio_1/portfolio_detail.html:125
+msgid "По выбранным параметрам фотографии не найдены."
+msgstr "No photos were found matching the selected parameters."
+
+#: templates/portfolio_1/portfolio_detail.html:131
+msgid "Навигация по страницам"
+msgstr "Page navigation"
+
+#: templates/portfolio_1/portfolio_detail.html:134
+msgid "Предыдущая страница"
+msgstr "Previous page"
+
+#: templates/portfolio_1/portfolio_detail.html:139
+#, python-format
+msgid ""
+"\n"
+"                Страница %(current)s из %(total)s\n"
+"            "
+msgstr ""
+
+#: templates/portfolio_1/portfolio_detail.html:146
+msgid "Следующая страница"
+msgstr "Next page"
+
+#: templates/portfolio_1/portfolio_detail.html:154
+msgid "Другие категории"
+msgstr "Other categories"
+
+#: templates/portfolio_1/portfolio_detail.html:168
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s фотография\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(counter)s фотографий\n"
+"                        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/portfolio_1/portfolio_list.html:38
+#, python-format
+msgid ""
+"\n"
+"                        %(counter)s фотография\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        %(counter)s фотографий\n"
+"                    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/portfolio_1/portfolio_list.html:48
+#, fuzzy
+#| msgid "Категории портфолио пока не добавлены."
+msgid "Категории пока не добавлены."
+msgstr "No portfolio categories have been added yet."
+
+#: templates/portfolio_1/preparation_guide.html:9
+msgid ""
+"Рекомендации по подготовке к фотосессии: одежда, макияж, аксессуары и "
+"настроение."
+msgstr ""
+"Recommendations for preparing for a photoshoot: clothing, makeup, accessories, and "
+"mood."
+
+#: templates/portfolio_1/preparation_guide.html:18
+msgid ""
+"Небольшая подготовка поможет вам чувствовать себя увереннее и получить более "
+"гармоничные фотографии."
+msgstr ""
+"A little preparation will help you feel more confident and get more "
+"harmonious photos."
+
+#: templates/portfolio_1/preparation_guide.html:25
+msgid "Выбор одежды"
+msgstr "Choosing clothes"
+
+#: templates/portfolio_1/preparation_guide.html:28
+msgid ""
+"Выбирайте одежду, в которой вам удобно и которая соответствует вашему "
+"характеру. Лучше избегать крупных надписей, слишком ярких принтов и большого "
+"количества разных цветов."
+msgstr ""
+"Choose clothing that is comfortable and suits your personality. "
+"It is best to avoid large lettering, overly bright prints, and an excessive "
+"number of different colors."
+
+#: templates/portfolio_1/preparation_guide.html:33
+msgid "Цветовая гамма"
+msgstr "Color palette"
+
+#: templates/portfolio_1/preparation_guide.html:36
+msgid ""
+"Для семейной или парной съёмки рекомендуется заранее подобрать одежду в "
+"похожей цветовой гамме. Вещи не должны быть одинаковыми, но должны хорошо "
+"сочетаться между собой."
+msgstr ""
+"For family or couples' photo sessions, it is recommended to select outfits "
+"in a similar color palette in advance. The clothes do not need to be identical, but they should "
+"coordinate well with one another."
+
+#: templates/portfolio_1/preparation_guide.html:41
+msgid "Макияж и причёска"
+msgstr "Hair and makeup"
+
+#: templates/portfolio_1/preparation_guide.html:44
+msgid ""
+"Макияж лучше сделать немного выразительнее обычного, но сохранить "
+"естественность. Причёска должна быть аккуратной и подходить к выбранному "
+"образу."
+msgstr ""
+"It is best to make your makeup slightly more defined than usual while maintaining "
+"a natural look. Your hairstyle should be neat and complement your chosen "
+"look."
+
+#: templates/portfolio_1/preparation_guide.html:49
+msgid "Что взять с собой"
+msgstr "What to bring"
+
+#: templates/portfolio_1/preparation_guide.html:52
+msgid ""
+"Возьмите запасной комплект одежды, удобную обувь, расчёску, косметику для "
+"небольшого обновления макияжа и воду."
+msgstr ""
+"Bring a spare set of clothes, comfortable shoes, a comb, makeup for " 
+"a quick touch-up, and water."
+
+#: templates/portfolio_1/preparation_guide.html:57
+msgid "Подготовка детей"
+msgstr "Preparing Children"
+
+#: templates/portfolio_1/preparation_guide.html:60
+msgid ""
+"Перед съёмкой ребёнку желательно хорошо отдохнуть и поесть. Можно взять "
+"любимую игрушку, воду и небольшой перекус."
+msgstr ""
+"Before the shoot, it is advisable for the child to be well-rested and have eaten. You can bring "
+"a favorite toy, water, and a small snack."
+
+#: templates/portfolio_1/preparation_guide.html:65
+msgid "Перед съёмкой"
+msgstr "Before the shoot"
+
+#: templates/portfolio_1/preparation_guide.html:68
+msgid ""
+"Постарайтесь хорошо выспаться и не планировать слишком много дел перед "
+"фотосессией. Лучше приехать заранее, чтобы спокойно подготовиться."
+msgstr ""
+"Try to get a good night's sleep and avoid planning too many things before "
+"the photo session. It is best to arrive early so you can get ready without rushing."
+
+#: templates/portfolio_1/preparation_guide.html:73
+#, fuzzy
+#| msgid "Записаться на съёмку"
+msgid "Во время фотосессии"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/preparation_guide.html:76
+msgid ""
+"Не переживайте, если вы не умеете позировать. Фотограф подскажет, куда "
+"смотреть, как встать и что делать в кадре."
+msgstr ""
+"Don't worry if you don't know how to pose. The photographer will tell you "
+"where to look, how to stand, and what to do in the shot."
+
+#: templates/portfolio_1/preparation_guide.html:83
+#, fuzzy
+#| msgid "Записаться"
+msgid "Готовы записаться?"
+msgstr "Book now"
+
+#: templates/portfolio_1/preparation_guide.html:86
+#, fuzzy
+#| msgid "Выберите подходящий формат съёмки и оставьте заявку."
+msgid "Выберите подходящую дату и оставьте заявку на фотосессию."
+msgstr "Choose a suitable shooting format and submit a request."
+
+#: templates/portfolio_1/preparation_guide.html:91
+#, fuzzy
+#| msgid "Посмотреть все отзывы"
+msgid "Свободные даты"
+msgstr "View all reviews"
+
+#: templates/portfolio_1/reviews.html:9
+msgid "Отзывы клиентов о фотосессиях и работе фотографа."
+msgstr "Client reviews of photoshoots and the photographer's work."
+
+#: templates/portfolio_1/reviews.html:18
+msgid "Мнения клиентов, которые уже побывали на съёмке."
+msgstr "Feedback from clients who have already attended a shoot."
+
+#: templates/portfolio_1/reviews.html:61
+#, fuzzy
+#| msgid "Услуги пока не добавлены."
+msgid "Отзывы пока не добавлены."
+msgstr "No services have been added yet."
+
+#: templates/portfolio_1/reviews.html:68
+#, fuzzy
+#| msgid "Записаться на съёмку"
+msgid "Хотите записаться на съёмку?"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/reviews.html:71
+msgid ""
+"Выберите услугу и оставьте заявку. Фотограф свяжется с вами для уточнения "
+"деталей."
+msgstr ""
+"Choose a service and submit a request. The photographer will contact you to "
+"discuss the details."
+
+#: templates/portfolio_1/services.html:9
+msgid "Услуги фотографа и запись на фотосессию."
+msgstr "Photography services and photoshoot booking."
+
+#: templates/portfolio_1/services.html:18
+msgid "Выберите подходящий формат съёмки и оставьте заявку."
+msgstr "Choose a suitable shooting format and submit a request."
+
+#: templates/portfolio_1/services.html:42
+msgid "Продолжительность:"
+msgstr "Duration:"
+
+#: templates/portfolio_1/services.html:44
+msgid "минут"
+msgstr "minutes"
+
+#: templates/portfolio_1/services.html:50
+#: templates/portfolio_1/services.html:55
+msgid "Стоимость:"
+msgstr "Price:"
+
+#: templates/portfolio_1/services.html:61
+#, fuzzy
+#| msgid "Записаться на съёмку"
+msgid "Записаться на эту съёмку"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/services.html:66
+#, fuzzy
+#| msgid "Категории портфолио пока не добавлены."
+msgid "Информация об услугах пока не добавлена."
+msgstr "No portfolio categories have been added yet."

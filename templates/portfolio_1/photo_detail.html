@@ -1,0 +1,249 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {{ photo.title|default:category.title }}
+{% endblock %}
+
+{% block description %}
+    {{ photo.alt_text|default:category.description|striptags }}
+{% endblock %}
+
+{% block content %}
+
+<nav
+    class="breadcrumbs"
+    aria-label="{% translate 'Навигационная цепочка' %}"
+>
+
+    <a href="{% url 'portfolio:home' %}">
+        {% translate "Главная" %}
+    </a>
+
+    <span class="breadcrumbs__separator">/</span>
+
+    <a href="{% url 'portfolio:portfolio_list' %}">
+        {% translate "Портфолио" %}
+    </a>
+
+    <span class="breadcrumbs__separator">/</span>
+
+    <a href="{{ category.get_absolute_url }}">
+        {{ category.title }}
+    </a>
+
+    <span class="breadcrumbs__separator">/</span>
+
+    <span>
+
+        {% if photo.title %}
+            {{ photo.title }}
+        {% else %}
+            {% translate "Фотография" %}
+        {% endif %}
+
+    </span>
+
+</nav>
+
+
+<article class="photo-detail">
+
+    <header class="photo-detail__header">
+
+        <h1 class="photo-detail__title">
+
+            {{ photo.title|default:category.title }}
+
+        </h1>
+
+        <p class="photo-detail__category">
+
+            {{ category.title }}
+
+        </p>
+
+    </header>
+
+    <figure class="photo-detail__figure">
+
+        <img
+            class="photo-detail__image"
+            src="{{ photo.image.url }}"
+            alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
+        >
+
+        {% if photo.alt_text %}
+
+            <figcaption class="photo-detail__caption">
+
+                {{ photo.alt_text }}
+
+            </figcaption>
+
+        {% endif %}
+
+    </figure>
+
+</article>
+
+
+{% if previous_photo or next_photo %}
+
+<nav
+    class="photo-navigation"
+    aria-label="{% translate 'Навигация между фотографиями' %}"
+>
+
+    {% if previous_photo %}
+
+        <a
+            class="photo-navigation__button"
+            href="{{ previous_photo.get_absolute_url }}"
+        >
+
+            ← {% translate "Предыдущая фотография" %}
+
+        </a>
+
+    {% else %}
+
+        <span></span>
+
+    {% endif %}
+
+    <a
+        class="photo-navigation__gallery"
+        href="{{ category.get_absolute_url }}"
+    >
+
+        {% translate "Вернуться в галерею" %}
+
+    </a>
+
+    {% if next_photo %}
+
+        <a
+            class="photo-navigation__button"
+            href="{{ next_photo.get_absolute_url }}"
+        >
+
+            {% translate "Следующая фотография" %} →
+
+        </a>
+
+    {% else %}
+
+        <span></span>
+
+    {% endif %}
+
+</nav>
+
+{% endif %}
+
+
+{% if related_photos %}
+
+<section class="related-photos">
+
+    <header class="section-header">
+
+        <p class="section-header__subtitle">
+
+            {% translate "Похожие фотографии" %}
+
+        </p>
+
+        <h2 class="section-header__title">
+
+            {% translate "Другие фотографии из этой серии" %}
+
+        </h2>
+
+    </header>
+
+    <div class="related-photos__grid">
+
+        {% for related_photo in related_photos %}
+
+            <article class="related-photo">
+
+                <a href="{{ related_photo.get_absolute_url }}">
+
+                    {% if related_photo.thumbnail %}
+
+                        <img
+                            src="{{ related_photo.thumbnail.url }}"
+                            alt="{{ related_photo.alt_text|default:related_photo.title|default:category.title }}"
+                            loading="lazy"
+                        >
+
+                    {% else %}
+
+                        <img
+                            src="{{ related_photo.image.url }}"
+                            alt="{{ related_photo.alt_text|default:related_photo.title|default:category.title }}"
+                            loading="lazy"
+                        >
+
+                    {% endif %}
+
+                </a>
+
+            </article>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<section class="photo-cta">
+
+    <div class="photo-cta__content">
+
+        <p class="photo-cta__subtitle">
+
+            {% translate "Понравились фотографии?" %}
+
+        </p>
+
+        <h2 class="photo-cta__title">
+
+            {% translate "Запишитесь на собственную фотосессию" %}
+
+        </h2>
+
+        <p class="photo-cta__description">
+
+            {% translate "Выберите свободную дату или отправьте заявку, и мы обсудим детали будущей съёмки." %}
+
+        </p>
+
+    </div>
+
+    <div class="photo-cta__actions">
+
+        <a
+            class="photo-cta__button photo-cta__button--secondary"
+            href="{% url 'portfolio:available_dates' %}"
+        >
+            {% translate "Свободные даты" %}
+        </a>
+
+        <a
+            class="photo-cta__button photo-cta__button--primary"
+            href="{% url 'portfolio:booking' %}"
+        >
+            {% translate "Записаться" %}
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

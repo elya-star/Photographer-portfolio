@@ -1,0 +1,245 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% translate "Запись на фотосессию" %}
+{% endblock %}
+
+{% block description %}
+    {% translate "Заполните форму, чтобы записаться на фотосессию. Выберите услугу, дату и оставьте свои контактные данные." %}
+{% endblock %}
+
+{% block content %}
+
+<section class="booking">
+
+    <header class="booking__header">
+
+        <p class="booking__subtitle">
+            {% translate "Онлайн-заявка" %}
+        </p>
+
+        <h1 class="booking__title">
+            {% translate "Запись на фотосессию" %}
+        </h1>
+
+        <p class="booking__description">
+            {% translate "Заполните форму ниже. После получения заявки фотограф свяжется с вами для подтверждения даты и обсуждения деталей съёмки." %}
+        </p>
+
+    </header>
+
+    <div class="booking__links">
+
+        <a href="{% url 'portfolio:services' %}">
+            ← {% translate "Все услуги" %}
+        </a>
+
+        <a href="{% url 'portfolio:available_dates' %}">
+            ← {% translate "Свободные даты" %}
+        </a>
+
+    </div>
+
+    {% if selected_service %}
+        <div class="booking__selected">
+
+            <p>
+
+                <strong>
+                    {% translate "Выбранная услуга:" %}
+                </strong>
+
+                {{ selected_service.title }}
+
+            </p>
+
+        </div>
+    {% endif %}
+
+    {% if selected_date %}
+        <div class="booking__selected">
+
+            <p>
+
+                <strong>
+                    {% translate "Выбранная дата:" %}
+                </strong>
+
+                {{ selected_date|date:"d.m.Y" }}
+
+            </p>
+
+        </div>
+    {% endif %}
+
+    <div class="booking__form-wrapper">
+
+        <form
+            method="post"
+            novalidate
+            class="booking-form"
+        >
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+
+                <div class="booking-form__errors">
+
+                    {% for error in form.non_field_errors %}
+                        <p class="form-error">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+            <p class="booking-form__note">
+                {% translate "Поля, отмеченные звёздочкой, обязательны для заполнения." %}
+            </p>
+
+            <div class="form-group">
+
+                {{ form.name.label_tag }}
+
+                {{ form.name }}
+
+                {% for error in form.name.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.phone.label_tag }}
+
+                {{ form.phone }}
+
+                {% for error in form.phone.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.email.label_tag }}
+
+                {{ form.email }}
+
+                {% for error in form.email.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.messenger.label_tag }}
+
+                {{ form.messenger }}
+
+                {% for error in form.messenger.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.service.label_tag }}
+
+                {{ form.service }}
+
+                {% for error in form.service.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.preferred_date.label_tag }}
+
+                {{ form.preferred_date }}
+
+                {% for error in form.preferred_date.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="form-group">
+
+                {{ form.message.label_tag }}
+
+                {{ form.message }}
+
+                {% for error in form.message.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="booking-form__consent">
+
+                {{ form.consent }}
+
+                {{ form.consent.label_tag }}
+
+                {% for error in form.consent.errors %}
+                    <p class="form-error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <button
+                type="submit"
+                class="booking-form__submit"
+            >
+                {% translate "Отправить заявку" %}
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+const preferredDate = document.getElementById(
+    "{{ form.preferred_date.id_for_label }}"
+);
+
+if (preferredDate) {
+    preferredDate.min = "{{ today }}";
+}
+
+</script>
+
+{% endblock %}

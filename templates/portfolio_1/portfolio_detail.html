@@ -1,0 +1,386 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {{ category.seo_title|default:category.title }}
+{% endblock %}
+
+{% block description %}
+    {{ category.seo_description|default:category.description|striptags }}
+{% endblock %}
+
+{% block content %}
+
+<nav
+    class="breadcrumbs"
+    aria-label="{% translate 'Навигационная цепочка' %}"
+>
+
+    <a href="{% url 'portfolio:home' %}">
+        {% translate "Главная" %}
+    </a>
+
+    <span class="breadcrumbs__separator">/</span>
+
+    <a href="{% url 'portfolio:portfolio_list' %}">
+        {% translate "Портфолио" %}
+    </a>
+
+    <span class="breadcrumbs__separator">/</span>
+
+    <span>{{ category.title }}</span>
+
+</nav>
+
+
+<header class="portfolio-header">
+
+    <h1 class="portfolio-header__title">
+
+        {{ category.title }}
+
+    </h1>
+
+    {% if category.description %}
+
+        <p class="portfolio-header__description">
+
+            {{ category.description }}
+
+        </p>
+
+    {% endif %}
+
+</header>
+
+
+<section class="portfolio-filters">
+
+    <h2>
+
+        {% translate "Фильтры" %}
+
+    </h2>
+
+    <form
+        method="get"
+        class="portfolio-filters__form"
+    >
+
+        <div class="portfolio-filters__group">
+
+            <label for="orientation">
+
+                {% translate "Ориентация фотографии" %}
+
+            </label>
+
+            <select
+                name="orientation"
+                id="orientation"
+            >
+
+                <option value="">
+                    {% translate "Все фотографии" %}
+                </option>
+
+                {% for value, label in orientation_choices %}
+
+                    <option
+                        value="{{ value }}"
+                        {% if selected_orientation == value %}
+                            selected
+                        {% endif %}
+                    >
+
+                        {{ label }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="portfolio-filters__checkbox">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    name="featured"
+                    value="1"
+                    {% if featured_only %}
+                        checked
+                    {% endif %}
+                >
+
+                {% translate "Только избранные" %}
+
+            </label>
+
+        </div>
+
+        <div class="portfolio-filters__actions">
+
+            <button type="submit">
+
+                {% translate "Применить" %}
+
+            </button>
+
+            {% if selected_orientation or featured_only %}
+
+                <a href="{{ category.get_absolute_url }}">
+
+                    {% translate "Сбросить фильтры" %}
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </form>
+
+</section>
+
+
+<section class="portfolio-gallery">
+
+    <header class="section-header">
+
+        <h2>
+
+            {% translate "Фотографии" %}
+
+        </h2>
+
+        <p>
+
+            {{ page_obj.paginator.count }}
+
+            {% translate "работ найдено" %}
+
+        </p>
+
+    </header>
+
+    {% if photos %}
+
+        <div class="portfolio-gallery__grid">
+
+            {% for photo in photos %}
+
+                <article class="portfolio-photo">
+
+                    <a href="{{ photo.get_absolute_url }}">
+
+                        <figure>
+
+                            {% if photo.thumbnail %}
+
+                                <img
+                                    src="{{ photo.thumbnail.url }}"
+                                    alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <img
+                                    src="{{ photo.image.url }}"
+                                    alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
+                                    loading="lazy"
+                                >
+
+                            {% endif %}
+
+                            {% if photo.title %}
+
+                                <figcaption>
+
+                                    {{ photo.title }}
+
+                                </figcaption>
+
+                            {% endif %}
+
+                        </figure>
+
+                        {% if photo.is_featured %}
+
+                            <span class="portfolio-photo__badge">
+
+                                {% translate "Избранная" %}
+
+                            </span>
+
+                        {% endif %}
+
+                    </a>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="portfolio-gallery__empty">
+
+            <p>
+
+                {% translate "По выбранным параметрам фотографии не найдены." %}
+
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+{% if page_obj.paginator.num_pages > 1 %}
+
+<nav
+    class="pagination"
+    aria-label="{% translate 'Навигация по страницам' %}"
+>
+
+    {% if page_obj.has_previous %}
+
+        <a
+            href="?page={{ page_obj.previous_page_number }}{% if selected_orientation %}&orientation={{ selected_orientation }}{% endif %}{% if featured_only %}&featured=1{% endif %}"
+        >
+
+            ← {% translate "Предыдущая" %}
+
+        </a>
+
+    {% endif %}
+
+    <span>
+
+        {% blocktranslate with current=page_obj.number total=page_obj.paginator.num_pages %}
+            Страница {{ current }} из {{ total }}
+        {% endblocktranslate %}
+
+    </span>
+
+    {% if page_obj.has_next %}
+
+        <a
+            href="?page={{ page_obj.next_page_number }}{% if selected_orientation %}&orientation={{ selected_orientation }}{% endif %}{% if featured_only %}&featured=1{% endif %}"
+        >
+
+            {% translate "Следующая" %} →
+
+        </a>
+
+    {% endif %}
+
+</nav>
+
+{% endif %}
+
+
+{% if other_categories %}
+
+<section class="related-categories">
+
+    <header class="section-header">
+
+        <h2>
+
+            {% translate "Другие категории" %}
+
+        </h2>
+
+    </header>
+
+    <div class="related-categories__grid">
+
+        {% for item in other_categories %}
+
+            <article class="related-category">
+
+                <a href="{{ item.get_absolute_url }}">
+
+                    <img
+                        src="{{ item.cover.url }}"
+                        alt="{{ item.title }}"
+                        loading="lazy"
+                    >
+
+                    <h3>
+
+                        {{ item.title }}
+
+                    </h3>
+
+                    <p>
+
+                        {% blocktranslate count counter=item.photos_count %}
+                            {{ counter }} фотография
+                        {% plural %}
+                            {{ counter }} фотографий
+                        {% endblocktranslate %}
+
+                    </p>
+
+                </a>
+
+            </article>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<section class="portfolio-cta">
+
+    <div class="portfolio-cta__content">
+
+        <h2>
+
+            {% translate "Понравились фотографии?" %}
+
+        </h2>
+
+        <p>
+
+            {% translate "Запишитесь на фотосессию и создадим красивые кадры вместе." %}
+
+        </p>
+
+    </div>
+
+    <div class="portfolio-cta__actions">
+
+        <a
+            class="button"
+            href="{% url 'portfolio:available_dates' %}"
+        >
+            {% translate "Свободные даты" %}
+        </a>
+
+        <a
+            class="button"
+            href="{% url 'portfolio:booking' %}"
+        >
+            {% translate "Записаться" %}
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

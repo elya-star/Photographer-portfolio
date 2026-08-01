@@ -1,0 +1,199 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% translate "Свободные даты" %}
+    {% if site_settings %}
+        — {{ site_settings.photographer_name }}
+    {% endif %}
+{% endblock %}
+
+{% block description %}
+    {% translate "Свободные даты для записи на фотосессию. Выберите подходящий день и оставьте заявку." %}
+{% endblock %}
+
+{% block content %}
+
+<section class="available-dates">
+
+    <header class="available-dates__header">
+        <p class="available-dates__subtitle">
+            {% translate "Запись на фотосессию" %}
+        </p>
+
+        <h1 class="available-dates__title">
+            {% translate "Свободные даты" %}
+        </h1>
+
+        <p class="available-dates__description">
+            {% translate "Выберите подходящую дату и перейдите к оформлению заявки. После отправки заявки фотограф свяжется с вами для подтверждения записи." %}
+        </p>
+    </header>
+
+    {% if available_dates %}
+
+        <div class="available-dates__grid">
+
+            {% for available_date in available_dates %}
+
+                <article class="date-card">
+
+                    <div class="date-card__calendar">
+
+                        <span class="date-card__month">
+                            {{ available_date.date|date:"F" }}
+                        </span>
+
+                        <span class="date-card__day">
+                            {{ available_date.date|date:"j" }}
+                        </span>
+
+                        <span class="date-card__weekday">
+                            {{ available_date.date|date:"l" }}
+                        </span>
+
+                    </div>
+
+                    <div class="date-card__content">
+
+                        <h2 class="date-card__title">
+                            {{ available_date.date|date:"d.m.Y" }}
+                        </h2>
+
+                        {% if available_date.note %}
+                            <p class="date-card__note">
+                                {{ available_date.note }}
+                            </p>
+                        {% else %}
+                            <p class="date-card__note">
+                                {% translate "Дата доступна для бронирования." %}
+                            </p>
+                        {% endif %}
+
+                        <a
+                            class="date-card__button"
+                            href="{% url 'portfolio:booking' %}?date={{ available_date.date|date:'Y-m-d' }}"
+                        >
+                            {% translate "Выбрать эту дату" %}
+                        </a>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="available-dates__empty">
+
+            <h2>
+                {% translate "Свободных дат пока нет" %}
+            </h2>
+
+            <p>
+                {% translate "На данный момент все опубликованные даты заняты или расписание ещё не обновлено." %}
+            </p>
+
+            <p>
+                {% translate "Вы можете оставить заявку без выбора даты, и фотограф предложит ближайшие доступные варианты." %}
+            </p>
+
+            <a
+                class="available-dates__booking-button"
+                href="{% url 'portfolio:booking' %}"
+            >
+                {% translate "Оставить заявку" %}
+            </a>
+
+        </div>
+
+    {% endif %}
+
+    <div class="available-dates__info">
+
+        <h2>
+            {% translate "Как проходит бронирование" %}
+        </h2>
+
+        <div class="available-dates__steps">
+
+            <article class="booking-step">
+                <span class="booking-step__number">01</span>
+
+                <h3>
+                    {% translate "Выберите дату" %}
+                </h3>
+
+                <p>
+                    {% translate "Найдите подходящий свободный день в списке и нажмите кнопку выбора." %}
+                </p>
+            </article>
+
+            <article class="booking-step">
+                <span class="booking-step__number">02</span>
+
+                <h3>
+                    {% translate "Заполните заявку" %}
+                </h3>
+
+                <p>
+                    {% translate "Укажите имя, способ связи, желаемую услугу и дополнительную информацию." %}
+                </p>
+            </article>
+
+            <article class="booking-step">
+                <span class="booking-step__number">03</span>
+
+                <h3>
+                    {% translate "Дождитесь подтверждения" %}
+                </h3>
+
+                <p>
+                    {% translate "Фотограф свяжется с вами, чтобы обсудить детали и подтвердить запись." %}
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+
+    <div class="available-dates__actions">
+
+        <div class="available-dates__actions-content">
+
+            <h2>
+                {% translate "Не нашли подходящую дату?" %}
+            </h2>
+
+            <p>
+                {% translate "Оставьте заявку и укажите желаемый период. Возможно, фотограф сможет предложить дополнительное время для съёмки." %}
+            </p>
+
+        </div>
+
+        <div class="available-dates__actions-buttons">
+
+            <a
+                class="available-dates__primary-button"
+                href="{% url 'portfolio:booking' %}"
+            >
+                {% translate "Оставить заявку" %}
+            </a>
+
+            <a
+                class="available-dates__secondary-button"
+                href="{% url 'portfolio:contacts' %}"
+            >
+                {% translate "Связаться с фотографом" %}
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

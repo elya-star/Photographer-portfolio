@@ -1,0 +1,184 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% translate "Контакты" %}
+    {% if site_settings %}
+        — {{ site_settings.photographer_name }}
+    {% endif %}
+{% endblock %}
+
+{% block description %}
+    {% translate "Контакты фотографа и способы связи для записи на фотосессию." %}
+{% endblock %}
+
+{% block content %}
+
+<section class="contacts">
+
+    <header class="contacts__header">
+
+        <p class="contacts__subtitle">
+            {% translate "Связаться с фотографом" %}
+        </p>
+
+        <h1 class="contacts__title">
+            {% translate "Контакты" %}
+        </h1>
+
+        <p class="contacts__description">
+            {% translate "Свяжитесь со мной удобным способом, чтобы обсудить фотосессию, выбрать услугу и подходящую дату." %}
+        </p>
+
+    </header>
+
+    {% if site_settings %}
+
+        <div class="contacts__info">
+
+            {% if site_settings.phone %}
+
+                <article class="contacts__item">
+
+                    <h2 class="contacts__item-title">
+                        {% translate "Телефон" %}
+                    </h2>
+
+                    <a
+                        class="contacts__link"
+                        href="tel:{{ site_settings.phone }}"
+                    >
+                        {{ site_settings.phone }}
+                    </a>
+
+                </article>
+
+            {% endif %}
+
+            {% if site_settings.email %}
+
+                <article class="contacts__item">
+
+                    <h2 class="contacts__item-title">
+                        {% translate "Электронная почта" %}
+                    </h2>
+
+                    <a
+                        class="contacts__link"
+                        href="mailto:{{ site_settings.email }}"
+                    >
+                        {{ site_settings.email }}
+                    </a>
+
+                </article>
+
+            {% endif %}
+
+            {% if site_settings.address %}
+
+                <article class="contacts__item">
+
+                    <h2 class="contacts__item-title">
+                        {% translate "Адрес" %}
+                    </h2>
+
+                    <p class="contacts__text">
+                        {{ site_settings.address }}
+                    </p>
+
+                </article>
+
+            {% endif %}
+
+        </div>
+
+    {% else %}
+
+        <div class="contacts__empty">
+
+            <p>
+                {% translate "Контактные данные пока не добавлены." %}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+    {% if social_links %}
+
+        <section class="contacts__socials">
+
+            <h2 class="contacts__section-title">
+                {% translate "Социальные сети" %}
+            </h2>
+
+            <p class="contacts__section-description">
+                {% translate "Вы также можете написать фотографу в социальной сети или мессенджере." %}
+            </p>
+
+            <ul class="contacts__social-list">
+
+                {% for social in social_links %}
+
+                    <li class="contacts__social-item">
+
+                        <a
+                            class="contacts__social-link"
+                            href="{{ social.url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {{ social.name }}
+                        </a>
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </section>
+
+    {% endif %}
+
+    <section class="contacts__booking">
+
+        <div class="contacts__booking-content">
+
+            <p class="contacts__booking-subtitle">
+                {% translate "Планируете съёмку?" %}
+            </p>
+
+            <h2 class="contacts__booking-title">
+                {% translate "Запись на фотосессию" %}
+            </h2>
+
+            <p class="contacts__booking-description">
+                {% translate "Посмотрите свободные даты или сразу заполните форму заявки. После отправки фотограф свяжется с вами для обсуждения деталей." %}
+            </p>
+
+        </div>
+
+        <div class="contacts__booking-actions">
+
+            <a
+                class="contacts__button contacts__button--secondary"
+                href="{% url 'portfolio:available_dates' %}"
+            >
+                {% translate "Посмотреть свободные даты" %}
+            </a>
+
+            <a
+                class="contacts__button contacts__button--primary"
+                href="{% url 'portfolio:booking' %}"
+            >
+                {% translate "Оставить заявку" %}
+            </a>
+
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}

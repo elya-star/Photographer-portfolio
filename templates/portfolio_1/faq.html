@@ -1,0 +1,117 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% translate "Часто задаваемые вопросы" %}
+    {% if site_settings %}
+        — {{ site_settings.photographer_name }}
+    {% endif %}
+{% endblock %}
+
+{% block description %}
+    {% translate "Ответы на самые популярные вопросы о фотосессиях, подготовке, стоимости и бронировании." %}
+{% endblock %}
+
+{% block content %}
+
+<section class="faq">
+
+    <header class="faq__header">
+
+        <p class="faq__subtitle">
+            {% translate "Полезная информация" %}
+        </p>
+
+        <h1 class="faq__title">
+            {% translate "Часто задаваемые вопросы" %}
+        </h1>
+
+        <p class="faq__description">
+            {% translate "Здесь собраны ответы на самые распространённые вопросы. Если вы не нашли нужную информацию, свяжитесь со мной любым удобным способом." %}
+        </p>
+
+    </header>
+
+    {% if faq_list %}
+
+        <div class="faq__list">
+
+            {% for item in faq_list %}
+
+                <details class="faq__item">
+
+                    <summary class="faq__question">
+                        {{ item.question }}
+                    </summary>
+
+                    <div class="faq__answer">
+
+                        <p>
+                            {{ item.answer|linebreaks }}
+                        </p>
+
+                    </div>
+
+                </details>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="faq__empty">
+
+            <h2>
+                {% translate "Вопросов пока нет" %}
+            </h2>
+
+            <p>
+                {% translate "В данный момент раздел находится в стадии заполнения." %}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+    <section class="faq__contact">
+
+        <div class="faq__contact-content">
+
+            <p class="faq__contact-subtitle">
+                {% translate "Остались вопросы?" %}
+            </p>
+
+            <h2 class="faq__contact-title">
+                {% translate "Свяжитесь со мной" %}
+            </h2>
+
+            <p class="faq__contact-description">
+                {% translate "Если вы не нашли ответ на свой вопрос, напишите мне. Я с удовольствием помогу подобрать подходящую фотосессию и отвечу на все ваши вопросы." %}
+            </p>
+
+        </div>
+
+        <div class="faq__contact-actions">
+
+            <a
+                class="faq__button faq__button--primary"
+                href="{% url 'portfolio:contacts' %}"
+            >
+                {% translate "Контакты" %}
+            </a>
+
+            <a
+                class="faq__button faq__button--secondary"
+                href="{% url 'portfolio:booking' %}"
+            >
+                {% translate "Записаться на съёмку" %}
+            </a>
+
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Услуги" %}{% endblock %}
+
+{% block description %}{% translate "Профессиональные фотосессии: индивидуальные, семейные, свадебные, love story и другие виды съёмок." %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+<nav class="breadcrumbs" aria-label="{% translate 'Навигационная цепочка' %}">
+    <a href="{% url 'portfolio:home' %}">{% translate "Главная" %}</a>
+    <span class="breadcrumbs__separator">/</span>
+    <span aria-current="page">{% translate "Услуги" %}</span>
+</nav>
+
+<section class="section">
+
+    <header class="section-header">
+        <p class="section-header__subtitle">{% translate "Фотосессии" %}</p>
+        <h1 class="section-header__title">{% translate "Услуги" %}</h1>
+        <p class="section-header__description">
+            {% translate "Выберите подходящий формат съёмки. Если не уверены, какой вариант подойдёт именно вам, я помогу определиться." %}
+        </p>
+    </header>
+
+    {% if services %}
+
+    <div class="services-grid">
+
+        {% for service in services %}
+
+        <article class="service-card">
+
+            {% if service.image %}
+            <img class="service-card__image" src="{{ service.image.url }}" alt="{{ service.title }}" loading="lazy">
+            {% endif %}
+
+            <div class="service-card__content">
+
+                <h2 class="service-card__title">{{ service.title }}</h2>
+
+                {% if service.description %}
+                <div class="service-card__description">
+                    {{ service.description|linebreaks }}
+                </div>
+                {% endif %}
+
+                <div class="service-card__meta">
+
+                    {% if service.duration_minutes %}
+                    <div class="service-card__meta-item">
+                        <strong>{% translate "Продолжительность" %}</strong>
+                        <span>{{ service.duration_minutes }} {% translate "мин." %}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if service.price_text %}
+                    <div class="service-card__meta-item">
+                        <strong>{% translate "Стоимость" %}</strong>
+                        <span>{{ service.price_text }}</span>
+                    </div>
+                    {% elif service.price %}
+                    <div class="service-card__meta-item">
+                        <strong>{% translate "Стоимость" %}</strong>
+                        <span>{{ service.price }} сом</span>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <a class="button button--full" href="{% url 'portfolio:booking' %}?service={{ service.pk }}">
+                    {% translate "Записаться на съёмку" %}
+                </a>
+
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <h2>{% translate "Услуги пока не добавлены" %}</h2>
+        <p>{% translate "Информация о фотосессиях появится здесь немного позже." %}</p>
+    </div>
+
+    {% endif %}
+
+</section>
+
+<section class="section">
+
+    <header class="section-header">
+        <p class="section-header__subtitle">{% translate "Как проходит работа" %}</p>
+        <h2 class="section-header__title">{% translate "Этапы сотрудничества" %}</h2>
+    </header>
+
+    <div class="workflow-grid">
+
+        <article class="workflow-card">
+            <span class="workflow-card__number">01</span>
+            <h3>{% translate "Заявка" %}</h3>
+            <p>{% translate "Вы оставляете заявку через сайт или связываетесь со мной удобным способом." %}</p>
+        </article>
+
+        <article class="workflow-card">
+            <span class="workflow-card__number">02</span>
+            <h3>{% translate "Обсуждение" %}</h3>
+            <p>{% translate "Мы выбираем стиль съёмки, место проведения, дату и обсуждаем все детали." %}</p>
+        </article>
+
+        <article class="workflow-card">
+            <span class="workflow-card__number">03</span>
+            <h3>{% translate "Фотосессия" %}</h3>
+            <p>{% translate "Во время съёмки я помогу с позированием и создам комфортную атмосферу." %}</p>
+        </article>
+
+        <article class="workflow-card">
+            <span class="workflow-card__number">04</span>
+            <h3>{% translate "Получение фотографий" %}</h3>
+            <p>{% translate "После обработки вы получите готовые фотографии в высоком качестве." %}</p>
+        </article>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="section-header">
+        <p class="section-header__subtitle">{% translate "Готовы начать?" %}</p>
+        <h2 class="section-header__title">{% translate "Запишитесь на фотосессию" %}</h2>
+        <p class="section-header__description">
+            {% translate "Выберите удобную дату или сразу отправьте заявку. Я свяжусь с вами в ближайшее время и помогу подобрать лучший формат съёмки." %}
+        </p>
+
+        <div class="button-group">
+            <a class="button button--secondary" href="{% url 'portfolio:available_dates' %}">
+                {% translate "Свободные даты" %}
+            </a>
+
+            <a class="button" href="{% url 'portfolio:booking' %}">
+                {% translate "Оставить заявку" %}
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+{% endblock %}

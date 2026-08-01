@@ -1,0 +1,179 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% translate "Портфолио" %}
+    {% if site_settings %}
+        — {{ site_settings.photographer_name }}
+    {% endif %}
+{% endblock %}
+
+{% block description %}
+    {% translate "Портфолио фотографа: индивидуальные, семейные, студийные и другие фотосессии." %}
+{% endblock %}
+
+{% block content %}
+
+<nav
+    class="breadcrumbs"
+    aria-label="{% translate 'Навигационная цепочка' %}"
+>
+    <a href="{% url 'portfolio:home' %}">
+        {% translate "Главная" %}
+    </a>
+
+    <span class="breadcrumbs__separator">/</span>
+
+    <span aria-current="page">
+        {% translate "Портфолио" %}
+    </span>
+</nav>
+
+<section class="portfolio-list">
+
+    <header class="portfolio-list__header">
+
+        <p class="portfolio-list__subtitle">
+            {% translate "Мои работы" %}
+        </p>
+
+        <h1 class="portfolio-list__title">
+            {% translate "Портфолио" %}
+        </h1>
+
+        <p class="portfolio-list__description">
+            {% translate "Выберите интересующую категорию, чтобы посмотреть полную серию фотографий." %}
+        </p>
+
+    </header>
+
+    {% if categories %}
+
+        <div class="portfolio-list__grid">
+
+            {% for category in categories %}
+
+                <article class="portfolio-category-card">
+
+                    <a
+                        class="portfolio-category-card__link"
+                        href="{{ category.get_absolute_url }}"
+                    >
+
+                        <div class="portfolio-category-card__image-wrapper">
+
+                            <picture>
+
+                                {% if category.cover_mobile %}
+                                    <source
+                                        media="(max-width: 767px)"
+                                        srcset="{{ category.cover_mobile.url }}"
+                                    >
+                                {% endif %}
+
+                                <img
+                                    class="portfolio-category-card__image"
+                                    src="{{ category.cover.url }}"
+                                    alt="{{ category.title }}"
+                                    loading="lazy"
+                                >
+
+                            </picture>
+
+                        </div>
+
+                        <div class="portfolio-category-card__content">
+
+                            <h2 class="portfolio-category-card__title">
+                                {{ category.title }}
+                            </h2>
+
+                            {% if category.description %}
+
+                                <p class="portfolio-category-card__description">
+                                    {{ category.description|truncatewords:25 }}
+                                </p>
+
+                            {% endif %}
+
+                            <p class="portfolio-category-card__count">
+
+                                {% blocktranslate count counter=category.photos_count %}
+                                    {{ counter }} фотография
+                                {% plural %}
+                                    {{ counter }} фотографий
+                                {% endblocktranslate %}
+
+                            </p>
+
+                            <span class="portfolio-category-card__action">
+                                {% translate "Смотреть фотографии" %} →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="portfolio-list__empty">
+
+            <h2>
+                {% translate "Категории пока не добавлены" %}
+            </h2>
+
+            <p>
+                {% translate "Раздел портфолио находится в стадии заполнения. Фотографии появятся здесь позже." %}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+<section class="portfolio-list-cta">
+
+    <div class="portfolio-list-cta__content">
+
+        <p class="portfolio-list-cta__subtitle">
+            {% translate "Понравились работы?" %}
+        </p>
+
+        <h2 class="portfolio-list-cta__title">
+            {% translate "Давайте создадим вашу историю" %}
+        </h2>
+
+        <p class="portfolio-list-cta__description">
+            {% translate "Посмотрите свободные даты или оставьте заявку на фотосессию. После отправки формы фотограф свяжется с вами для обсуждения деталей." %}
+        </p>
+
+    </div>
+
+    <div class="portfolio-list-cta__actions">
+
+        <a
+            class="portfolio-list-cta__button portfolio-list-cta__button--secondary"
+            href="{% url 'portfolio:available_dates' %}"
+        >
+            {% translate "Свободные даты" %}
+        </a>
+
+        <a
+            class="portfolio-list-cta__button portfolio-list-cta__button--primary"
+            href="{% url 'portfolio:booking' %}"
+        >
+            {% translate "Записаться на съёмку" %}
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}
