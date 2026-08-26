@@ -1,249 +1,345 @@
 {% extends "portfolio_1/base.html" %}
 {% load i18n %}
+{% block body_class %}photo-detail-page{% endblock %}
 
 {% block title %}
-    {{ photo.title|default:category.title }}
+{{ photo.title|default:category.title }}
 {% endblock %}
 
 {% block description %}
-    {{ photo.alt_text|default:category.description|striptags }}
+{{ photo.alt_text|default:category.description|striptags }}
 {% endblock %}
 
 {% block content %}
 
-<nav
-    class="breadcrumbs"
-    aria-label="{% translate 'Навигационная цепочка' %}"
+<section class="photo-viewer">
+
+<div class="photo-viewer__header">
+<div class="container photo-viewer__header-container">
+
+<a
+class="photo-viewer__back"
+href="{{ category.get_absolute_url }}"
 >
+← {% translate "Вернуться в серию" %}
+</a>
 
-    <a href="{% url 'portfolio:home' %}">
-        {% translate "Главная" %}
-    </a>
+<p class="photo-viewer__category">
+{{ category.title }}
+</p>
 
-    <span class="breadcrumbs__separator">/</span>
+</div>
+</div>
 
-    <a href="{% url 'portfolio:portfolio_list' %}">
-        {% translate "Портфолио" %}
-    </a>
+<figure class="photo-viewer__figure">
 
-    <span class="breadcrumbs__separator">/</span>
+<button
+class="photo-viewer__open"
+type="button"
+data-lightbox-open
+aria-label="{% translate 'Открыть фотографию на весь экран' %}"
+>
+<img
+class="photo-viewer__image"
+src="{{ photo.image.url }}"
+alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
+>
+<span class="photo-viewer__zoom" aria-hidden="true">
+<svg viewBox="0 0 24 24">
+<path
+d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm0 3v8M7 11h8M16 16l4 4"
+fill="none"
+stroke="currentColor"
+stroke-width="1.6"
+stroke-linecap="round"
+/>
+</svg>
+</span>
+</button>
 
-    <a href="{{ category.get_absolute_url }}">
-        {{ category.title }}
-    </a>
+{% if photo.title %}
+<figcaption class="photo-viewer__caption">
+{{ photo.title }}
+</figcaption>
+{% endif %}
 
-    <span class="breadcrumbs__separator">/</span>
-
-    <span>
-
-        {% if photo.title %}
-            {{ photo.title }}
-        {% else %}
-            {% translate "Фотография" %}
-        {% endif %}
-
-    </span>
-
-</nav>
-
-
-<article class="photo-detail">
-
-    <header class="photo-detail__header">
-
-        <h1 class="photo-detail__title">
-
-            {{ photo.title|default:category.title }}
-
-        </h1>
-
-        <p class="photo-detail__category">
-
-            {{ category.title }}
-
-        </p>
-
-    </header>
-
-    <figure class="photo-detail__figure">
-
-        <img
-            class="photo-detail__image"
-            src="{{ photo.image.url }}"
-            alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
-        >
-
-        {% if photo.alt_text %}
-
-            <figcaption class="photo-detail__caption">
-
-                {{ photo.alt_text }}
-
-            </figcaption>
-
-        {% endif %}
-
-    </figure>
-
-</article>
-
+</figure>
 
 {% if previous_photo or next_photo %}
-
 <nav
-    class="photo-navigation"
-    aria-label="{% translate 'Навигация между фотографиями' %}"
+class="photo-viewer__navigation"
+aria-label="{% translate 'Навигация между фотографиями' %}"
 >
 
-    {% if previous_photo %}
+{% if previous_photo %}
+<a
+class="photo-viewer__nav-link"
+href="{{ previous_photo.get_absolute_url }}"
+>
+← {% translate "Предыдущая" %}
+</a>
+{% else %}
+<span></span>
+{% endif %}
 
-        <a
-            class="photo-navigation__button"
-            href="{{ previous_photo.get_absolute_url }}"
-        >
+<a
+class="photo-viewer__all"
+href="{{ category.get_absolute_url }}"
+>
+{% translate "Все фотографии" %}
+</a>
 
-            ← {% translate "Предыдущая фотография" %}
-
-        </a>
-
-    {% else %}
-
-        <span></span>
-
-    {% endif %}
-
-    <a
-        class="photo-navigation__gallery"
-        href="{{ category.get_absolute_url }}"
-    >
-
-        {% translate "Вернуться в галерею" %}
-
-    </a>
-
-    {% if next_photo %}
-
-        <a
-            class="photo-navigation__button"
-            href="{{ next_photo.get_absolute_url }}"
-        >
-
-            {% translate "Следующая фотография" %} →
-
-        </a>
-
-    {% else %}
-
-        <span></span>
-
-    {% endif %}
+{% if next_photo %}
+<a
+class="photo-viewer__nav-link"
+href="{{ next_photo.get_absolute_url }}"
+>
+{% translate "Следующая" %} →
+</a>
+{% else %}
+<span></span>
+{% endif %}
 
 </nav>
-
 {% endif %}
 
+</section>
 
 {% if related_photos %}
+<section class="photo-related">
 
-<section class="related-photos">
+<div class="container">
 
-    <header class="section-header">
+<header class="photo-related__header">
+<p>{% translate "Эта серия" %}</p>
 
-        <p class="section-header__subtitle">
+<h2>{% translate "Другие фотографии" %}</h2>
+</header>
 
-            {% translate "Похожие фотографии" %}
+<div class="photo-related__grid">
 
-        </p>
+{% for related_photo in related_photos %}
 
-        <h2 class="section-header__title">
+<a
+class="photo-related__item"
+href="{{ related_photo.get_absolute_url }}"
+>
 
-            {% translate "Другие фотографии из этой серии" %}
-
-        </h2>
-
-    </header>
-
-    <div class="related-photos__grid">
-
-        {% for related_photo in related_photos %}
-
-            <article class="related-photo">
-
-                <a href="{{ related_photo.get_absolute_url }}">
-
-                    {% if related_photo.thumbnail %}
-
-                        <img
-                            src="{{ related_photo.thumbnail.url }}"
-                            alt="{{ related_photo.alt_text|default:related_photo.title|default:category.title }}"
-                            loading="lazy"
-                        >
-
-                    {% else %}
-
-                        <img
-                            src="{{ related_photo.image.url }}"
-                            alt="{{ related_photo.alt_text|default:related_photo.title|default:category.title }}"
-                            loading="lazy"
-                        >
-
-                    {% endif %}
-
-                </a>
-
-            </article>
-
-        {% endfor %}
-
-    </div>
-
-</section>
-
+{% if related_photo.thumbnail %}
+<img
+src="{{ related_photo.thumbnail.url }}"
+alt="{{ related_photo.alt_text|default:related_photo.title|default:category.title }}"
+loading="lazy"
+>
+{% else %}
+<img
+src="{{ related_photo.image.url }}"
+alt="{{ related_photo.alt_text|default:related_photo.title|default:category.title }}"
+loading="lazy"
+>
 {% endif %}
 
+</a>
 
-<section class="photo-cta">
+{% endfor %}
 
-    <div class="photo-cta__content">
+</div>
 
-        <p class="photo-cta__subtitle">
+</div>
 
-            {% translate "Понравились фотографии?" %}
-
-        </p>
-
-        <h2 class="photo-cta__title">
-
-            {% translate "Запишитесь на собственную фотосессию" %}
-
-        </h2>
-
-        <p class="photo-cta__description">
-
-            {% translate "Выберите свободную дату или отправьте заявку, и мы обсудим детали будущей съёмки." %}
-
-        </p>
-
-    </div>
-
-    <div class="photo-cta__actions">
-
-        <a
-            class="photo-cta__button photo-cta__button--secondary"
-            href="{% url 'portfolio:available_dates' %}"
-        >
-            {% translate "Свободные даты" %}
-        </a>
-
-        <a
-            class="photo-cta__button photo-cta__button--primary"
-            href="{% url 'portfolio:booking' %}"
-        >
-            {% translate "Записаться" %}
-        </a>
-
-    </div>
+<script type="application/json" id="photo-gallery-data">
+[
+{% for item in category_photos %}
+{
+"url":"{{ item.image.url|escapejs }}",
+"title":"{{ item.title|default:category.title|escapejs }}",
+"alt":"{{ item.alt_text|default:item.title|default:category.title|escapejs }}",
+"detailUrl":"{{ item.get_absolute_url|escapejs }}",
+"active":{% if item.pk == photo.pk %}true{% else %}false{% endif %}
+}{% if not forloop.last %},{% endif %}
+{% endfor %}
+]
+</script>
 
 </section>
+{% endif %}
+
+{{ lightbox_photos|json_script:"photo-gallery-data" }}
+
+<div
+class="photo-lightbox"
+data-lightbox
+data-theme="dark"
+data-current-index="{{ current_photo_index }}"
+aria-hidden="true"
+role="dialog"
+aria-modal="true"
+aria-label="{% translate 'Полноэкранный просмотр фотографий' %}"
+>
+<div class="photo-lightbox__toolbar">
+
+<div class="photo-lightbox__zoom-controls">
+<button
+class="photo-lightbox__control"
+type="button"
+data-lightbox-zoom-out
+aria-label="{% translate 'Уменьшить фотографию' %}"
+>
+−
+</button>
+
+<span
+class="photo-lightbox__zoom-value"
+data-lightbox-zoom-value
+aria-live="polite"
+>
+100%
+</span>
+
+<button
+class="photo-lightbox__control"
+type="button"
+data-lightbox-zoom-in
+aria-label="{% translate 'Увеличить фотографию' %}"
+>
++
+</button>
+
+<button
+class="photo-lightbox__control photo-lightbox__control--text"
+type="button"
+data-lightbox-reset
+>
+{% translate "Сбросить" %}
+</button>
+</div>
+
+<div class="photo-lightbox__theme-controls">
+
+<button
+class="photo-lightbox__theme is-active"
+type="button"
+data-lightbox-theme="dark"
+aria-label="{% translate 'Тёмный фон' %}"
+aria-pressed="true"
+>
+<span class="photo-lightbox__theme-circle photo-lightbox__theme-circle--dark"></span>
+</button>
+
+<button
+class="photo-lightbox__theme"
+type="button"
+data-lightbox-theme="gray"
+aria-label="{% translate 'Серый фон' %}"
+aria-pressed="false"
+>
+<span class="photo-lightbox__theme-circle photo-lightbox__theme-circle--gray"></span>
+</button>
+
+<button
+class="photo-lightbox__theme"
+type="button"
+data-lightbox-theme="light"
+aria-label="{% translate 'Светлый фон' %}"
+aria-pressed="false"
+>
+<span class="photo-lightbox__theme-circle photo-lightbox__theme-circle--light"></span>
+</button>
+
+</div>
+
+<button
+class="photo-lightbox__close"
+type="button"
+data-lightbox-close
+aria-label="{% translate 'Закрыть' %}"
+>
+×
+</button>
+
+</div>
+
+<div class="photo-lightbox__viewer">
+
+<button
+class="photo-lightbox__navigation photo-lightbox__navigation--previous"
+type="button"
+data-lightbox-previous
+aria-label="{% translate 'Предыдущая фотография' %}"
+>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path
+d="M15 5l-7 7 7 7"
+fill="none"
+stroke="currentColor"
+stroke-width="1.6"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+</svg>
+</button>
+
+<div
+class="photo-lightbox__viewport"
+data-lightbox-viewport
+>
+<div
+class="photo-lightbox__content"
+data-lightbox-content
+>
+<img
+class="photo-lightbox__image"
+data-lightbox-image
+src="{{ photo.image.url }}"
+alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
+draggable="false"
+>
+</div>
+</div>
+
+<button
+class="photo-lightbox__navigation photo-lightbox__navigation--next"
+type="button"
+data-lightbox-next
+aria-label="{% translate 'Следующая фотография' %}"
+>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path
+d="M9 5l7 7-7 7"
+fill="none"
+stroke="currentColor"
+stroke-width="1.6"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+</svg>
+</button>
+
+</div>
+
+<div class="photo-lightbox__footer">
+
+<p
+class="photo-lightbox__title"
+data-lightbox-title
+>
+{{ photo.title|default:category.title }}
+</p>
+
+<p class="photo-lightbox__counter">
+<span data-lightbox-current>
+{{ current_photo_index|add:1 }}
+</span>
+<span>/</span>
+<span data-lightbox-total>
+{{ category_photos|length }}
+</span>
+</p>
+
+</div>
+
+</div>
+
+
 
 {% endblock %}

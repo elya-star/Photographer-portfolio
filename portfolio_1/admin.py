@@ -3,14 +3,17 @@ from django.contrib import admin
 from .models import (
     AvailableDate,
     BookingRequest,
+    BlockedDate,
     FAQ,
     HomeSlide,
     Photo,
     PortfolioCategory,
     Review,
     Service,
+    ServiceImage,
     SiteSettings,
     SocialLink,
+    FeatureSlide,
 )
 
 
@@ -36,9 +39,15 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 "fields": (
                     "logo",
                     "photographer_photo",
+                    "services_background",
+                    "booking_photographer_photo",
+                    "reviews_background",
+                    "available_dates_cta_background",
+                    
                 )
             },
         ),
+        
         (
             "Контакты",
             {
@@ -180,6 +189,7 @@ class PhotoInline(admin.TabularInline):
         "order",
         "id",
     )
+
 
 
 @admin.register(PortfolioCategory)
@@ -354,6 +364,9 @@ class PhotoAdmin(admin.ModelAdmin):
     def photo_name(self, obj):
         return obj.title_ru or f"Фотография №{obj.pk}"
 
+class ServiceImageInline(admin.TabularInline):
+    model = ServiceImage
+    extra = 1
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
@@ -364,6 +377,7 @@ class ServiceAdmin(admin.ModelAdmin):
         "order",
         "is_active",
     )
+    inlines = [ServiceImageInline]
     list_editable = (
         "order",
         "is_active",
@@ -558,6 +572,102 @@ class AvailableDateAdmin(admin.ModelAdmin):
         "date",
     )
 
+@admin.register(FeatureSlide)
+class FeatureSlideAdmin(admin.ModelAdmin):
+    list_display = (
+        "title_ru",
+        "title_en",
+        "order",
+        "is_active",
+    )
+
+    list_editable = (
+        "order",
+        "is_active",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    search_fields = (
+        "title_ru",
+        "title_en",
+        "subtitle_ru",
+        "subtitle_en",
+        "description_ru",
+        "description_en",
+    )
+
+    ordering = (
+        "order",
+        "id",
+    )
+
+    fieldsets = (
+        (
+            "Основное",
+            {
+                "fields": (
+                    "image",
+                    "order",
+                    "is_active",
+                )
+            },
+        ),
+        (
+            "Русская версия",
+            {
+                "fields": (
+                    "subtitle_ru",
+                    "title_ru",
+                    "description_ru",
+                    "link_text_ru",
+                )
+            },
+        ),
+        (
+            "English version",
+            {
+                "fields": (
+                    "subtitle_en",
+                    "title_en",
+                    "description_en",
+                    "link_text_en",
+                )
+            },
+        ),
+        (
+            "Ссылка",
+            {
+                "fields": (
+                    "link_url",
+                )
+            },
+        ),
+    )
+
+@admin.register(BlockedDate)
+class BlockedDateAdmin(admin.ModelAdmin):
+    list_display = (
+        "date",
+        "reason",
+        "is_active",
+    )
+    list_editable = (
+        "is_active",
+    )
+    list_filter = (
+        "is_active",
+        "date",
+    )
+    search_fields = (
+        "reason",
+    )
+    date_hierarchy = "date"
+    ordering = (
+        "date",
+    )
 
 @admin.register(BookingRequest)
 class BookingRequestAdmin(admin.ModelAdmin):

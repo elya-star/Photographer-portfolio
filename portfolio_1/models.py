@@ -55,12 +55,14 @@ class SiteSettings(TimeStampedModel):
         upload_to="site/logo/",
         blank=True,
         null=True,
+        max_length=500,
     )
     photographer_photo = models.ImageField(
         "Фотография фотографа",
         upload_to="site/photographer/",
         blank=True,
         null=True,
+        max_length=500,
     )
 
     phone = models.CharField(
@@ -92,6 +94,38 @@ class SiteSettings(TimeStampedModel):
         "Авторское право на английском",
         max_length=255,
         blank=True,
+    )
+
+    services_background = models.ImageField(
+        "Фон страницы услуг",
+        upload_to="site/services/",
+        blank=True,
+        null=True,
+        max_length=500,
+    )
+
+    available_dates_cta_background = models.ImageField(
+        "Фон нижнего блока свободных дат",
+        upload_to="site/available_dates/",
+        blank=True,
+        null=True,
+        max_length=500,
+    )
+
+    booking_photographer_photo = models.ImageField(
+        "Фотография фотографа на странице записи",
+        upload_to="site/booking/",
+        blank=True,
+        null=True,
+        max_length=500,
+    )
+
+    reviews_background = models.ImageField(
+        "Фон блока отзывов",
+        upload_to="site/reviews/",
+        blank=True,
+        null=True,
+        max_length=500,
     )
 
     class Meta:
@@ -192,12 +226,15 @@ class HomeSlide(TimeStampedModel):
     image_desktop = models.ImageField(
         "Изображение для компьютера",
         upload_to="slides/desktop/",
+        max_length=500,
+        null=True,
     )
     image_mobile = models.ImageField(
         "Изображение для телефона",
         upload_to="slides/mobile/",
         blank=True,
         null=True,
+        max_length=500,
     )
 
     link = models.CharField(
@@ -267,12 +304,15 @@ class PortfolioCategory(TimeStampedModel):
     cover = models.ImageField(
         "Обложка",
         upload_to="portfolio/covers/",
+        null=True,
+        max_length=500,
     )
     cover_mobile = models.ImageField(
         "Обложка для телефона",
         upload_to="portfolio/covers/mobile/",
         blank=True,
         null=True,
+        max_length=500,
     )
 
     order = models.PositiveIntegerField(
@@ -356,12 +396,15 @@ class Photo(TimeStampedModel):
     image = models.ImageField(
         "Фотография",
         upload_to="portfolio/photos/",
+        max_length=500,
+        null=True,
     )
     thumbnail = models.ImageField(
         "Миниатюра",
         upload_to="portfolio/thumbnails/",
         blank=True,
         null=True,
+        max_length=500,
     )
 
     title_ru = models.CharField(
@@ -472,6 +515,7 @@ class Service(TimeStampedModel):
         upload_to="services/",
         blank=True,
         null=True,
+        max_length=500,
     )
 
     order = models.PositiveIntegerField(
@@ -532,11 +576,8 @@ class Review(TimeStampedModel):
         "Фотография клиента",
         upload_to="reviews/",
         blank=True,
+        max_length=500,
         null=True,
-    )
-    rating = models.PositiveSmallIntegerField(
-        "Оценка",
-        default=5,
     )
     is_active = models.BooleanField(
         "Опубликован",
@@ -670,6 +711,31 @@ class AvailableDate(TimeStampedModel):
     def __str__(self):
         return str(self.date)
 
+class BlockedDate(TimeStampedModel):
+    date = models.DateField(
+        "Недоступная дата",
+        unique=True,
+    )
+    reason = models.CharField(
+        "Причина",
+        max_length=255,
+        blank=True,
+    )
+    is_active = models.BooleanField(
+        "Заблокирована",
+        default=True,
+    )
+
+    class Meta:
+        ordering = ["date"]
+        verbose_name = "Недоступная дата"
+        verbose_name_plural = "Недоступные даты"
+
+    def __str__(self):
+        if self.reason:
+            return f"{self.date:%d.%m.%Y} — {self.reason}"
+
+        return self.date.strftime("%d.%m.%Y")
 
 class BookingRequest(TimeStampedModel):
     class Status(models.TextChoices):
@@ -738,3 +804,147 @@ class BookingRequest(TimeStampedModel):
 
     def __str__(self):
         return f"{self.name} — {self.created_at:%d.%m.%Y}"
+
+class ServiceImage(models.Model):
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="gallery_images",
+        verbose_name="Услуга",
+    )
+
+    image = models.ImageField(
+        "Фотография",
+        upload_to="services/gallery/",
+        max_length=500,
+        null=True,
+    )
+
+    order = models.PositiveIntegerField(
+        "Порядок",
+        default=0,
+    )
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "Фотография услуги"
+        verbose_name_plural = "Фотографии услуг"
+
+    def __str__(self):
+        return f"{self.service} — {self.order}"
+
+class FeatureSlide(models.Model):
+    image = models.ImageField(
+        "Фотография",
+        upload_to="feature_slider/",
+        null=True,
+        max_length=500,
+    )
+
+    subtitle_ru = models.CharField(
+        "Подзаголовок (RU)",
+        max_length=150,
+        blank=True,
+    )
+
+    subtitle_en = models.CharField(
+        "Подзаголовок (EN)",
+        max_length=150,
+        blank=True,
+    )
+
+    title_ru = models.CharField(
+        "Заголовок (RU)",
+        max_length=200,
+    )
+
+    title_en = models.CharField(
+        "Заголовок (EN)",
+        max_length=200,
+        blank=True,
+    )
+
+    description_ru = models.TextField(
+        "Описание (RU)",
+        blank=True,
+    )
+
+    description_en = models.TextField(
+        "Описание (EN)",
+        blank=True,
+    )
+
+    link_text_ru = models.CharField(
+        "Текст ссылки (RU)",
+        max_length=120,
+        blank=True,
+    )
+
+    link_text_en = models.CharField(
+        "Текст ссылки (EN)",
+        max_length=120,
+        blank=True,
+    )
+
+    link_url = models.CharField(
+        "Ссылка",
+        max_length=500,
+        blank=True,
+        help_text=(
+            "Можно указать обычный URL, например /booking/ "
+            "или https://example.com"
+        ),
+    )
+
+    order = models.PositiveIntegerField(
+        "Порядок",
+        default=0,
+    )
+
+    is_active = models.BooleanField(
+        "Показывать",
+        default=True,
+    )
+    
+    @property
+    def subtitle(self):
+        if get_language() == "en" and self.subtitle_en:
+            return self.subtitle_en
+
+        return self.subtitle_ru
+
+
+    @property
+    def title(self):
+        if get_language() == "en" and self.title_en:
+            return self.title_en
+
+        return self.title_ru
+
+
+    @property
+    def description(self):
+        if get_language() == "en" and self.description_en:
+            return self.description_en
+
+        return self.description_ru
+
+
+    @property
+    def link_text(self):
+        if get_language() == "en" and self.link_text_en:
+            return self.link_text_en
+
+        return self.link_text_ru
+
+    class Meta:
+        ordering = [
+            "order",
+            "id",
+        ]
+        verbose_name = "Слайд нижнего блока"
+        verbose_name_plural = "Слайды нижнего блока"
+
+
+    def __str__(self):
+        return self.title_ru

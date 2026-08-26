@@ -1,158 +1,249 @@
 {% extends "portfolio_1/base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
-{% block title %}{% translate "Услуги" %}{% endblock %}
+{% block body_class %}
+has-overlay-header
+{% endblock %}
 
-{% block description %}{% translate "Профессиональные фотосессии: индивидуальные, семейные, свадебные, love story и другие виды съёмок." %}{% endblock %}
+{% block title %}
+{% translate "Услуги" %}
+{% if site_settings %}
+— {{ site_settings.photographer_name }}
+{% endif %}
+{% endblock %}
+
+{% block description %}
+{% translate "Фотосессии, стоимость, продолжительность и запись на съёмку." %}
+{% endblock %}
 
 {% block content %}
 
-<div class="container">
+<section class="services-page">
 
-<nav class="breadcrumbs" aria-label="{% translate 'Навигационная цепочка' %}">
-    <a href="{% url 'portfolio:home' %}">{% translate "Главная" %}</a>
-    <span class="breadcrumbs__separator">/</span>
-    <span aria-current="page">{% translate "Услуги" %}</span>
-</nav>
+{% if site_settings and site_settings.services_background %}
 
-<section class="section">
+<header
+    class="services-photo-break services-photo-break--hero"
+    style="--services-photo:url('{{ site_settings.services_background.url }}');"
+>
 
-    <header class="section-header">
-        <p class="section-header__subtitle">{% translate "Фотосессии" %}</p>
-        <h1 class="section-header__title">{% translate "Услуги" %}</h1>
-        <p class="section-header__description">
-            {% translate "Выберите подходящий формат съёмки. Если не уверены, какой вариант подойдёт именно вам, я помогу определиться." %}
+    <div class="services-photo-break__shade"></div>
+
+    <div class="container services-photo-break__container">
+
+        <div class="services-photo-break__content services-photo-break__content--hero">
+
+            <p class="services-photo-break__subtitle">
+                {% translate "Форматы съёмки" %}
+            </p>
+
+            <h1 class="services-photo-break__title">
+                {% translate "Услуги" %}
+            </h1>
+
+            <p class="services-photo-break__description">
+                {% translate "Выберите подходящий формат. Детали каждой съёмки мы обсудим индивидуально." %}
+            </p>
+
+            <a
+                class="services-photo-break__link"
+                href="#services-list"
+            >
+                {% translate "Посмотреть форматы" %}
+                <span aria-hidden="true">↓</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+{% else %}
+
+<header class="services-header">
+
+    <div class="container">
+
+        <p class="services-header__subtitle">
+            {% translate "Форматы съёмки" %}
         </p>
-    </header>
 
-    {% if services %}
+        <h1 class="services-header__title">
+            {% translate "Услуги" %}
+        </h1>
 
-    <div class="services-grid">
+        <p class="services-header__description">
+            {% translate "Выберите подходящий формат. Детали каждой съёмки мы обсудим индивидуально." %}
+        </p>
+
+    </div>
+
+</header>
+
+{% endif %}
+
+
+    <div
+        class="services-list"
+        id="services-list">
 
         {% for service in services %}
 
-        <article class="service-card">
+            <section
+                class="service-section {% if forloop.counter|divisibleby:'2' %}service-section--reverse{% endif %}"
+            >
 
-            {% if service.image %}
-            <img class="service-card__image" src="{{ service.image.url }}" alt="{{ service.title }}" loading="lazy">
-            {% endif %}
+                <div class="service-section__info">
 
-            <div class="service-card__content">
+                    <span class="service-section__number">
+                        0{{ forloop.counter }}
+                    </span>
 
-                <h2 class="service-card__title">{{ service.title }}</h2>
+                    <h2 class="service-section__title">
+                        {{ service.title }}
+                    </h2>
 
-                {% if service.description %}
-                <div class="service-card__description">
-                    {{ service.description|linebreaks }}
-                </div>
-                {% endif %}
-
-                <div class="service-card__meta">
-
-                    {% if service.duration_minutes %}
-                    <div class="service-card__meta-item">
-                        <strong>{% translate "Продолжительность" %}</strong>
-                        <span>{{ service.duration_minutes }} {% translate "мин." %}</span>
-                    </div>
+                    {% if service.description %}
+                        <div class="service-section__description">
+                            {{ service.description|linebreaks }}
+                        </div>
                     {% endif %}
 
-                    {% if service.price_text %}
-                    <div class="service-card__meta-item">
-                        <strong>{% translate "Стоимость" %}</strong>
-                        <span>{{ service.price_text }}</span>
+                    <div class="service-section__meta">
+
+                        {% if service.duration_minutes %}
+                            <div class="service-section__meta-row">
+
+                                <span>
+                                    {% translate "Продолжительность" %}
+                                </span>
+
+                                <strong>
+                                    {{ service.duration_minutes }}
+                                    {% translate "мин." %}
+                                </strong>
+
+                            </div>
+                        {% endif %}
+
+                        {% if service.price %}
+                            <div class="service-section__meta-row">
+
+                                <span>
+                                    {% translate "Стоимость" %}
+                                </span>
+
+                                <strong>
+                                    {{ service.price }}
+                                </strong>
+
+                            </div>
+                        {% endif %}
+
                     </div>
-                    {% elif service.price %}
-                    <div class="service-card__meta-item">
-                        <strong>{% translate "Стоимость" %}</strong>
-                        <span>{{ service.price }} сом</span>
-                    </div>
-                    {% endif %}
+
+                    <a
+                        class="service-section__booking"
+                        href="{% url 'portfolio:booking' %}?service={{ service.pk }}"
+                    >
+                        {% translate "Записаться на съёмку" %}
+                        <span aria-hidden="true">→</span>
+                    </a>
 
                 </div>
 
-                <a class="button button--full" href="{% url 'portfolio:booking' %}?service={{ service.pk }}">
-                    {% translate "Записаться на съёмку" %}
-                </a>
 
-            </div>
+                <div
+                    class="service-gallery"
+                    data-service-gallery
+                >
 
-        </article>
+                    <div class="service-gallery__viewport">
+
+                        <div class="service-gallery__track">
+
+                            {% for photo in service.gallery_images.all %}
+
+                                <figure
+                                    class="service-gallery__slide {% if forloop.first %}is-active{% endif %}"
+                                    data-service-slide
+                                >
+                                    <img
+                                        src="{{ photo.image.url }}"
+                                        alt="{{ service.title }}"
+                                        loading="lazy"
+                                    >
+                                </figure>
+
+                            {% empty %}
+
+                                {% if service.image %}
+                                    <figure
+                                        class="service-gallery__slide is-active"
+                                        data-service-slide
+                                    >
+                                        <img
+                                            src="{{ service.image.url }}"
+                                            alt="{{ service.title }}"
+                                            loading="lazy"
+                                        >
+                                    </figure>
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="service-gallery__navigation">
+
+                        <button
+                            class="service-gallery__arrow"
+                            type="button"
+                            data-service-prev
+                            aria-label="{% translate 'Предыдущее фото' %}"
+                        >
+                            ←
+                        </button>
+
+                        <div class="service-gallery__counter">
+
+                            <span data-service-current>
+                                01
+                            </span>
+
+                            <span>
+                                /
+                            </span>
+
+                            <span data-service-total>
+                                01
+                            </span>
+
+                        </div>
+
+                        <button
+                            class="service-gallery__arrow"
+                            type="button"
+                            data-service-next
+                            aria-label="{% translate 'Следующее фото' %}"
+                        >
+                            →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
 
         {% endfor %}
 
     </div>
 
-    {% else %}
-
-    <div class="empty-state">
-        <h2>{% translate "Услуги пока не добавлены" %}</h2>
-        <p>{% translate "Информация о фотосессиях появится здесь немного позже." %}</p>
-    </div>
-
-    {% endif %}
-
 </section>
-
-<section class="section">
-
-    <header class="section-header">
-        <p class="section-header__subtitle">{% translate "Как проходит работа" %}</p>
-        <h2 class="section-header__title">{% translate "Этапы сотрудничества" %}</h2>
-    </header>
-
-    <div class="workflow-grid">
-
-        <article class="workflow-card">
-            <span class="workflow-card__number">01</span>
-            <h3>{% translate "Заявка" %}</h3>
-            <p>{% translate "Вы оставляете заявку через сайт или связываетесь со мной удобным способом." %}</p>
-        </article>
-
-        <article class="workflow-card">
-            <span class="workflow-card__number">02</span>
-            <h3>{% translate "Обсуждение" %}</h3>
-            <p>{% translate "Мы выбираем стиль съёмки, место проведения, дату и обсуждаем все детали." %}</p>
-        </article>
-
-        <article class="workflow-card">
-            <span class="workflow-card__number">03</span>
-            <h3>{% translate "Фотосессия" %}</h3>
-            <p>{% translate "Во время съёмки я помогу с позированием и создам комфортную атмосферу." %}</p>
-        </article>
-
-        <article class="workflow-card">
-            <span class="workflow-card__number">04</span>
-            <h3>{% translate "Получение фотографий" %}</h3>
-            <p>{% translate "После обработки вы получите готовые фотографии в высоком качестве." %}</p>
-        </article>
-
-    </div>
-
-</section>
-
-<section class="section">
-
-    <div class="section-header">
-        <p class="section-header__subtitle">{% translate "Готовы начать?" %}</p>
-        <h2 class="section-header__title">{% translate "Запишитесь на фотосессию" %}</h2>
-        <p class="section-header__description">
-            {% translate "Выберите удобную дату или сразу отправьте заявку. Я свяжусь с вами в ближайшее время и помогу подобрать лучший формат съёмки." %}
-        </p>
-
-        <div class="button-group">
-            <a class="button button--secondary" href="{% url 'portfolio:available_dates' %}">
-                {% translate "Свободные даты" %}
-            </a>
-
-            <a class="button" href="{% url 'portfolio:booking' %}">
-                {% translate "Оставить заявку" %}
-            </a>
-        </div>
-
-    </div>
-
-</section>
-
-</div>
 
 {% endblock %}

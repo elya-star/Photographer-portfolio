@@ -1,16 +1,48 @@
-venv/
 .env
+.env.*
+!.env.example
+
+venv/
+.venv/
+env/
 
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
 
 db.sqlite3
+db.sqlite3-*
+*.sqlite3
+*.sqlite3.backup
+
 media/
 staticfiles/
+
+# Backups / migration files
+# созданные вручную
+
+data_backup.json
+media_backup_before_compression/
+django_backup.po
+
+*.log
 
 .vscode/
 .idea/
 
+
 .DS_Store
 Thumbs.db
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+
+
+build/
+dist/
+*.egg-info/

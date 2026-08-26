@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-25 12:54+0600\n"
+"POT-Creation-Date: 2026-08-25 19:20+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,12 +37,12 @@ msgstr ""
 "To submit the application, you must consent to the processing of your "
 "personal data."
 
-#: portfolio_1/forms.py:37 portfolio_1/forms.py:49
+#: portfolio_1/forms.py:37 portfolio_1/forms.py:49 portfolio_1/forms.py:202
+#: portfolio_1/forms.py:210
 msgid "Ваше имя"
 msgstr "Your name"
 
 #: portfolio_1/forms.py:38 portfolio_1/forms.py:55
-#: templates/portfolio_1/contacts.html:27
 msgid "Телефон"
 msgstr "Phone number"
 
@@ -51,18 +51,14 @@ msgid "Email"
 msgstr ""
 
 #: portfolio_1/forms.py:40
-#, fuzzy
-#| msgid "Telegram, WhatsApp или другая социальная сеть"
 msgid "Мессенджер или социальная сеть"
-msgstr "Telegram, WhatsApp or another social network"
+msgstr "Messenger or social network"
 
-#: portfolio_1/forms.py:41
-#, fuzzy
-#| msgid "Услуги"
+#: portfolio_1/forms.py:41 templates/portfolio_1/booking.html:165
 msgid "Услуга"
-msgstr "Services"
+msgstr "Service"
 
-#: portfolio_1/forms.py:42
+#: portfolio_1/forms.py:42 templates/portfolio_1/available_dates.html:377
 msgid "Желаемая дата"
 msgstr "Preferred date"
 
@@ -70,515 +66,2357 @@ msgstr "Preferred date"
 msgid "Сообщение"
 msgstr "Message"
 
-#: portfolio_1/forms.py:70
+#: portfolio_1/forms.py:78
 msgid "Telegram, WhatsApp или другая социальная сеть"
 msgstr "Telegram, WhatsApp or another social network"
 
-#: portfolio_1/forms.py:82
+#: portfolio_1/forms.py:84 portfolio_1/forms.py:218
 msgid "Расскажите о вашей идее"
 msgstr "Tell me about your inspiration"
 
-#: portfolio_1/forms.py:93
+#: portfolio_1/forms.py:95
 msgid "Введите корректный номер телефона."
 msgstr "Enter a valid phone number."
 
-#: portfolio_1/forms.py:113
+#: portfolio_1/forms.py:126
 msgid "Нельзя выбрать прошедшую дату."
 msgstr "You cannot select a past date."
 
-#: portfolio_1/forms.py:123
+#: portfolio_1/forms.py:136
 msgid "Эта дата недоступна. Выберите другую."
 msgstr "This date is unavailable. Please choose another one."
 
-#: portfolio_1/forms.py:139
+#: portfolio_1/forms.py:152 templates/portfolio_1/booking.html:106
 msgid "Укажите хотя бы один способ связи: телефон, email или мессенджер."
 msgstr ""
 "Specify at least one method of communication: phone number, email or "
 "messenger."
 
-#: portfolio_1/forms.py:156
-msgid "Эта дата уже забронирована."
-msgstr "This date is already booked."
+#: portfolio_1/forms.py:169
+msgid "На эту дату уже есть активная заявка."
+msgstr "There is already an active request for this date."
 
-#: portfolio_1/views.py:315
+#: portfolio_1/forms.py:203
+msgid "Фотография"
+msgstr "Photo"
+
+#: portfolio_1/forms.py:204 templates/portfolio_1/base.html:99
+#: templates/portfolio_1/reviews.html:9
+msgid "Отзывы"
+msgstr "Reviews"
+
+msgid "Ваш отзыв"
+msgstr "Your review"
+
+msgid "Расскажите о ваших впечатлениях от съёмки"
+msgstr "Tell us about your impressions of the shoot."
+
+#: portfolio_1/views.py:391
+msgid "Не выбрана"
+msgstr ""
+
+#: portfolio_1/views.py:397
+msgid "Не указана"
+msgstr ""
+
+#: portfolio_1/views.py:401
+#, fuzzy, python-format
+#| msgid "Записаться на съёмку"
+msgid "Новая заявка на фотосессию: %(name)s"
+msgstr "Book a photo session"
+
+#: portfolio_1/views.py:407
+#, python-format
+msgid ""
+"Имя: %(name)s\n"
+"Телефон: %(phone)s\n"
+"Email: %(email)s\n"
+"Мессенджер: %(messenger)s\n"
+"Дата: %(date)s\n"
+"Услуга: %(service)s\n"
+"\n"
+"Сообщение:\n"
+"%(message)s"
+msgstr ""
+
+#: portfolio_1/views.py:416 portfolio_1/views.py:417 portfolio_1/views.py:420
+msgid "Не указан"
+msgstr ""
+
+#: portfolio_1/views.py:424
+msgid "Не указано"
+msgstr ""
+
+#: portfolio_1/views.py:445
 #, fuzzy
 #| msgid "Спасибо! Заявка отправлена. Фотограф свяжется с вами."
 msgid "Спасибо! Заявка успешно отправлена. Фотограф свяжется с вами."
 msgstr ""
 "Thanks! The application has been sent, and the photographer will contact you."
 
-#: templates/portfolio_1/base.html:35 templates/portfolio_1/home.html:5
-#: templates/portfolio_1/photo_detail.html:15
-#: templates/portfolio_1/portfolio_detail.html:15
-msgid "Главная"
-msgstr "Home"
+#: templates/portfolio_1/available_dates.html:5
+#: templates/portfolio_1/available_dates.html:29
+#: templates/portfolio_1/base.html:111 templates/portfolio_1/booking.html:205
+#: templates/portfolio_1/portfolio_detail.html:303
+msgid "Свободные даты"
+msgstr "Available dates"
 
-#: templates/portfolio_1/base.html:39 templates/portfolio_1/home.html:49
-#: templates/portfolio_1/photo_detail.html:21
-#: templates/portfolio_1/portfolio_detail.html:21
-#: templates/portfolio_1/portfolio_list.html:5
-#: templates/portfolio_1/portfolio_list.html:10
-msgid "Портфолио"
-msgstr "Portfolio"
-
-#: templates/portfolio_1/base.html:43 templates/portfolio_1/home.html:70
-#: templates/portfolio_1/services.html:5 templates/portfolio_1/services.html:15
-msgid "Услуги"
-msgstr "Services"
-
-#: templates/portfolio_1/base.html:47 templates/portfolio_1/home.html:96
-#: templates/portfolio_1/reviews.html:5 templates/portfolio_1/reviews.html:15
-msgid "Отзывы"
-msgstr "Reviews"
-
-#: templates/portfolio_1/base.html:55 templates/portfolio_1/contacts.html:5
-#: templates/portfolio_1/contacts.html:15
-msgid "Контакты"
-msgstr "Contacts"
-
-#: templates/portfolio_1/base.html:59 templates/portfolio_1/home.html:87
-msgid "Записаться"
-msgstr "Book now"
-
-#: templates/portfolio_1/base.html:118
-#: templates/portfolio_1/preparation_guide.html:5
-#: templates/portfolio_1/preparation_guide.html:15
-#, fuzzy
-#| msgid "Записаться на съёмку"
-msgid "Подготовка к фотосессии"
-msgstr "Book a photo session"
-
-#: templates/portfolio_1/booking.html:5 templates/portfolio_1/booking.html:10
-#, fuzzy
-#| msgid "Записаться на съёмку"
-msgid "Запись на съёмку"
-msgstr "Book a photo session"
-
-#: templates/portfolio_1/booking.html:13
-#, fuzzy
-#| msgid "Спасибо! Заявка отправлена. Фотограф свяжется с вами."
-msgid "Заполните форму, и фотограф свяжется с вами."
-msgstr ""
-"Thanks! The application has been sent, and the photographer will contact you."
-
-#: templates/portfolio_1/booking.html:18
-msgid "Вы выбрали услугу:"
-msgstr "You have selected the service:"
-
-#: templates/portfolio_1/booking.html:36
-msgid "Посмотреть все услуги"
-msgstr "View all services"
-
-#: templates/portfolio_1/booking.html:123
-msgid "Отправить заявку"
-msgstr "Submit a request"
-
-#: templates/portfolio_1/contacts.html:9
-#, fuzzy
-#| msgid "Услуги фотографа и запись на фотосессию."
-msgid "Контакты фотографа и способы связи для записи на фотосессию."
-msgstr "Photography services and photoshoot booking."
-
-#: templates/portfolio_1/contacts.html:18
-msgid "Свяжитесь со мной удобным способом, чтобы обсудить фотосессию."
-msgstr "Contact me via your preferred method to discuss the photoshoot."
-
-#: templates/portfolio_1/contacts.html:37
-#, fuzzy
-#| msgid "Избранные работы"
-msgid "Электронная почта"
-msgstr "Featured work"
-
-#: templates/portfolio_1/contacts.html:47
-msgid "Город"
-msgstr "City"
-
-#: templates/portfolio_1/contacts.html:55
-#, fuzzy
-#| msgid "Избранные работы"
-msgid "Время работы"
-msgstr "Featured work"
-
-#: templates/portfolio_1/contacts.html:66
-msgid "Социальные сети"
-msgstr "Social media"
-
-#: templates/portfolio_1/contacts.html:85
-#, fuzzy
-#| msgid "Записаться на съёмку"
-msgid "Запись на фотосессию"
-msgstr "Book a photo session"
-
-#: templates/portfolio_1/contacts.html:88
-#, fuzzy
-#| msgid "Выберите подходящий формат съёмки и оставьте заявку."
-msgid "Вы можете посмотреть свободные даты или сразу оставить заявку."
-msgstr "Choose a suitable shooting format and submit a request."
-
-#: templates/portfolio_1/contacts.html:93
-#, fuzzy
-#| msgid "Посмотреть все отзывы"
-msgid "Посмотреть свободные даты"
-msgstr "View all reviews"
-
-#: templates/portfolio_1/contacts.html:97
-#: templates/portfolio_1/preparation_guide.html:95
-#, fuzzy
-#| msgid "Отправить заявку"
-msgid "Оставить заявку"
-msgstr "Submit a request"
-
-#: templates/portfolio_1/home.html:14
-msgid "Портфолио фотографа"
-msgstr "Photographer portfolio"
-
-#: templates/portfolio_1/home.html:25 templates/portfolio_1/reviews.html:75
-msgid "Записаться на съёмку"
-msgstr "Book a photo session"
-
-#: templates/portfolio_1/home.html:30
-msgid "Избранные работы"
-msgstr "Featured work"
-
-#: templates/portfolio_1/home.html:44
-msgid "Пока слайды не добавлены."
-msgstr "No slides have been added yet."
-
-#: templates/portfolio_1/home.html:64
-msgid "Категории портфолио пока не добавлены."
-msgstr "No portfolio categories have been added yet."
-
-#: templates/portfolio_1/home.html:91
-msgid "Услуги пока не добавлены."
-msgstr "No services have been added yet."
-
-#: templates/portfolio_1/home.html:111 templates/portfolio_1/reviews.html:38
+#: templates/portfolio_1/available_dates.html:43
+#: templates/portfolio_1/available_dates.html:115
+#: templates/portfolio_1/available_dates.html:198
+#: templates/portfolio_1/available_dates.html:206
+#: templates/portfolio_1/available_dates.html:197
+#: templates/portfolio_1/booking.html:378
+#: templates/portfolio_1/services.html:52
 #, python-format
-msgid "Оценка %(rating)s из 5"
-msgstr "Rating: %(rating)s out of 5"
-
-#: templates/portfolio_1/home.html:128
-msgid "Отзывов пока нет."
-msgstr "There are no reviews yet."
-
-#: templates/portfolio_1/home.html:135
 msgid "Посмотреть все отзывы"
 msgstr "View all reviews"
 
-#: templates/portfolio_1/photo_detail.html:13
-#: templates/portfolio_1/portfolio_detail.html:13
-msgid "Навигация по странице"
-msgstr "Page navigation"
+#: templates/portfolio_1/available_dates.html:12
+#: templates/portfolio_1/review_form.html:139
+msgid "Услуги фотографа и запись на фотосессию."
+msgstr "Photography services and photoshoot booking."
 
-#: templates/portfolio_1/photo_detail.html:36
-msgid "Фотография"
-msgstr "Photo"
+msgid "Календарь свободных дат для записи на фотосессию."
+msgstr "Calendar of available dates for booking a photoshoot"
 
-#: templates/portfolio_1/photo_detail.html:53
-msgid "Навигация между фотографиями"
-msgstr "Navigation between photos"
-
-#: templates/portfolio_1/photo_detail.html:56
-#, fuzzy
-#| msgid "Портфолио фотографа"
-msgid "Предыдущая фотография"
-msgstr "Photographer portfolio"
-
-#: templates/portfolio_1/photo_detail.html:61
-msgid "Вернуться в галерею"
-msgstr "Return to the gallery"
-
-#: templates/portfolio_1/photo_detail.html:66
-#, fuzzy
-#| msgid "Портфолио фотографа"
-msgid "Следующая фотография"
-msgstr "Photographer portfolio"
-
-#: templates/portfolio_1/photo_detail.html:74
-msgid "Другие фотографии из этой серии"
-msgstr "Other photos from this series"
-
-#: templates/portfolio_1/portfolio_detail.html:38
-msgid "Фильтры"
-msgstr "Filters"
-
-#: templates/portfolio_1/portfolio_detail.html:43
-#, fuzzy
-#| msgid "Портфолио фотографа"
-msgid "Ориентация фотографии"
-msgstr "Photographer portfolio"
-
-#: templates/portfolio_1/portfolio_detail.html:51
-#, fuzzy
-#| msgid "Портфолио фотографа"
-msgid "Все фотографии"
-msgstr "Photographer portfolio"
-
-#: templates/portfolio_1/portfolio_detail.html:76
-msgid "Только избранные"
-msgstr "The Chosen Few"
-
-#: templates/portfolio_1/portfolio_detail.html:81
-msgid "Применить"
-msgstr "Apply"
-
-#: templates/portfolio_1/portfolio_detail.html:86
-msgid "Сбросить фильтры"
-msgstr "Clear filters"
-
-#: templates/portfolio_1/portfolio_detail.html:93
-msgid "Фотографии"
-msgstr "Photos"
-
-#: templates/portfolio_1/portfolio_detail.html:118
-#, fuzzy
-#| msgid "Избранные работы"
-msgid "Избранная работа"
-msgstr "Featured work"
-
-#: templates/portfolio_1/portfolio_detail.html:125
-msgid "По выбранным параметрам фотографии не найдены."
-msgstr "No photos were found matching the selected parameters."
-
-#: templates/portfolio_1/portfolio_detail.html:131
-msgid "Навигация по страницам"
-msgstr "Page navigation"
-
-#: templates/portfolio_1/portfolio_detail.html:134
-msgid "Предыдущая страница"
-msgstr "Previous page"
-
-#: templates/portfolio_1/portfolio_detail.html:139
-#, python-format
-msgid ""
-"\n"
-"                Страница %(current)s из %(total)s\n"
-"            "
-msgstr ""
-
-#: templates/portfolio_1/portfolio_detail.html:146
-msgid "Следующая страница"
-msgstr "Next page"
-
-#: templates/portfolio_1/portfolio_detail.html:154
-msgid "Другие категории"
-msgstr "Other categories"
-
-#: templates/portfolio_1/portfolio_detail.html:168
-#, python-format
-msgid ""
-"\n"
-"                            %(counter)s фотография\n"
-"                        "
-msgid_plural ""
-"\n"
-"                            %(counter)s фотографий\n"
-"                        "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/portfolio_1/portfolio_list.html:38
-#, python-format
-msgid ""
-"\n"
-"                        %(counter)s фотография\n"
-"                    "
-msgid_plural ""
-"\n"
-"                        %(counter)s фотографий\n"
-"                    "
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/portfolio_1/portfolio_list.html:48
-#, fuzzy
-#| msgid "Категории портфолио пока не добавлены."
-msgid "Категории пока не добавлены."
-msgstr "No portfolio categories have been added yet."
-
-#: templates/portfolio_1/preparation_guide.html:9
-msgid ""
-"Рекомендации по подготовке к фотосессии: одежда, макияж, аксессуары и "
-"настроение."
-msgstr ""
-"Recommendations for preparing for a photoshoot: clothing, makeup, accessories, and "
-"mood."
-
-#: templates/portfolio_1/preparation_guide.html:18
-msgid ""
-"Небольшая подготовка поможет вам чувствовать себя увереннее и получить более "
-"гармоничные фотографии."
-msgstr ""
-"A little preparation will help you feel more confident and get more "
-"harmonious photos."
-
-#: templates/portfolio_1/preparation_guide.html:25
-msgid "Выбор одежды"
-msgstr "Choosing clothes"
-
-#: templates/portfolio_1/preparation_guide.html:28
-msgid ""
-"Выбирайте одежду, в которой вам удобно и которая соответствует вашему "
-"характеру. Лучше избегать крупных надписей, слишком ярких принтов и большого "
-"количества разных цветов."
-msgstr ""
-"Choose clothing that is comfortable and suits your personality. "
-"It is best to avoid large lettering, overly bright prints, and an excessive "
-"number of different colors."
-
-#: templates/portfolio_1/preparation_guide.html:33
-msgid "Цветовая гамма"
-msgstr "Color palette"
-
-#: templates/portfolio_1/preparation_guide.html:36
-msgid ""
-"Для семейной или парной съёмки рекомендуется заранее подобрать одежду в "
-"похожей цветовой гамме. Вещи не должны быть одинаковыми, но должны хорошо "
-"сочетаться между собой."
-msgstr ""
-"For family or couples' photo sessions, it is recommended to select outfits "
-"in a similar color palette in advance. The clothes do not need to be identical, but they should "
-"coordinate well with one another."
-
-#: templates/portfolio_1/preparation_guide.html:41
-msgid "Макияж и причёска"
-msgstr "Hair and makeup"
-
-#: templates/portfolio_1/preparation_guide.html:44
-msgid ""
-"Макияж лучше сделать немного выразительнее обычного, но сохранить "
-"естественность. Причёска должна быть аккуратной и подходить к выбранному "
-"образу."
-msgstr ""
-"It is best to make your makeup slightly more defined than usual while maintaining "
-"a natural look. Your hairstyle should be neat and complement your chosen "
-"look."
-
-#: templates/portfolio_1/preparation_guide.html:49
-msgid "Что взять с собой"
-msgstr "What to bring"
-
-#: templates/portfolio_1/preparation_guide.html:52
-msgid ""
-"Возьмите запасной комплект одежды, удобную обувь, расчёску, косметику для "
-"небольшого обновления макияжа и воду."
-msgstr ""
-"Bring a spare set of clothes, comfortable shoes, a comb, makeup for " 
-"a quick touch-up, and water."
-
-#: templates/portfolio_1/preparation_guide.html:57
-msgid "Подготовка детей"
-msgstr "Preparing Children"
-
-#: templates/portfolio_1/preparation_guide.html:60
-msgid ""
-"Перед съёмкой ребёнку желательно хорошо отдохнуть и поесть. Можно взять "
-"любимую игрушку, воду и небольшой перекус."
-msgstr ""
-"Before the shoot, it is advisable for the child to be well-rested and have eaten. You can bring "
-"a favorite toy, water, and a small snack."
-
-#: templates/portfolio_1/preparation_guide.html:65
-msgid "Перед съёмкой"
-msgstr "Before the shoot"
-
-#: templates/portfolio_1/preparation_guide.html:68
-msgid ""
-"Постарайтесь хорошо выспаться и не планировать слишком много дел перед "
-"фотосессией. Лучше приехать заранее, чтобы спокойно подготовиться."
-msgstr ""
-"Try to get a good night's sleep and avoid planning too many things before "
-"the photo session. It is best to arrive early so you can get ready without rushing."
-
-#: templates/portfolio_1/preparation_guide.html:73
-#, fuzzy
-#| msgid "Записаться на съёмку"
-msgid "Во время фотосессии"
+#: templates/portfolio_1/available_dates.html:25
+#: templates/portfolio_1/booking.html:215
+#: templates/portfolio_1/portfolio_detail.html:286
+#: templates/portfolio_1/services.html:150
+msgid "Записаться на съёмку"
 msgstr "Book a photo session"
 
-#: templates/portfolio_1/preparation_guide.html:76
-msgid ""
-"Не переживайте, если вы не умеете позировать. Фотограф подскажет, куда "
-"смотреть, как встать и что делать в кадре."
-msgstr ""
-"Don't worry if you don't know how to pose. The photographer will tell you "
-"where to look, how to stand, and what to do in the shot."
+msgid "Календарь съёмок"
+msgstr "Shooting Calendar"
 
-#: templates/portfolio_1/preparation_guide.html:83
-#, fuzzy
-#| msgid "Записаться"
-msgid "Готовы записаться?"
-msgstr "Book now"
-
-#: templates/portfolio_1/preparation_guide.html:86
-#, fuzzy
-#| msgid "Выберите подходящий формат съёмки и оставьте заявку."
-msgid "Выберите подходящую дату и оставьте заявку на фотосессию."
-msgstr "Choose a suitable shooting format and submit a request."
-
-#: templates/portfolio_1/preparation_guide.html:91
-#, fuzzy
-#| msgid "Посмотреть все отзывы"
-msgid "Свободные даты"
-msgstr "View all reviews"
-
-#: templates/portfolio_1/reviews.html:9
-msgid "Отзывы клиентов о фотосессиях и работе фотографа."
-msgstr "Client reviews of photoshoots and the photographer's work."
-
-#: templates/portfolio_1/reviews.html:18
-msgid "Мнения клиентов, которые уже побывали на съёмке."
-msgstr "Feedback from clients who have already attended a shoot."
-
-#: templates/portfolio_1/reviews.html:61
-#, fuzzy
-#| msgid "Услуги пока не добавлены."
-msgid "Отзывы пока не добавлены."
-msgstr "No services have been added yet."
-
-#: templates/portfolio_1/reviews.html:68
-#, fuzzy
-#| msgid "Записаться на съёмку"
-msgid "Хотите записаться на съёмку?"
-msgstr "Book a photo session"
-
-#: templates/portfolio_1/reviews.html:71
+#: templates/portfolio_1/available_dates.html:33
 msgid ""
 "Выберите услугу и оставьте заявку. Фотограф свяжется с вами для уточнения "
 "деталей."
 msgstr ""
 "Choose a service and submit a request. The photographer will contact you to "
 "discuss the details."
+msgid ""
+"Выберите подходящий день. После отправки заявки фотограф свяжется с вами и "
+"подтвердит запись."
+msgstr ""
+"Choose a suitable day. After you submit your request, the photographer will contact you "
+"to confirm the appointment."
 
-#: templates/portfolio_1/services.html:9
-msgid "Услуги фотографа и запись на фотосессию."
-msgstr "Photography services and photoshoot booking."
+msgid "Календарь свободных дат"
+msgstr "Calendar of available dates"
 
-#: templates/portfolio_1/services.html:18
-msgid "Выберите подходящий формат съёмки и оставьте заявку."
-msgstr "Choose a suitable shooting format and submit a request."
+#: templates/portfolio_1/available_dates.html:53
+#: templates/portfolio_1/home.html:70
+#: templates/portfolio_1/portfolio_list.html:227
+msgid "Предыдущая страница"
+msgstr "Previous page"
 
-#: templates/portfolio_1/services.html:42
+msgid "Предыдущий месяц"
+msgstr "Previous month"
+
+#: templates/portfolio_1/available_dates.html:70
+msgid "Выберите месяц"
+msgstr "Select a month"
+
+#: templates/portfolio_1/available_dates.html:92
+#: templates/portfolio_1/available_dates.html:292
+#: templates/portfolio_1/home.html:96
+#: templates/portfolio_1/portfolio_list.html:253
+msgid "Следующая страница"
+msgstr "Next page"
+
+msgid "Следующий месяц"
+msgstr "Next month"
+
+#: templates/portfolio_1/available_dates.html:110
+msgid "Обозначения календаря"
+msgstr "Calendar Legend"
+
+msgid "Свободно"
+msgstr "Free"
+
+#: templates/portfolio_1/available_dates.html:120
+#: templates/portfolio_1/available_dates.html:218
+#: templates/portfolio_1/available_dates.html:238
+msgid "Недоступно"
+msgstr "Not available"
+
+#: templates/portfolio_1/available_dates.html:125
+#: templates/portfolio_1/available_dates.html:230
+msgid "Сегодня"
+msgstr "Today"
+
+#: templates/portfolio_1/available_dates.html:152
+msgid "Пн"
+msgstr "Mon"
+
+#: templates/portfolio_1/available_dates.html:156
+msgid "Вт"
+msgstr "Tue"
+
+#: templates/portfolio_1/available_dates.html:160
+msgid "Ср"
+msgstr "Wed"
+
+#: templates/portfolio_1/available_dates.html:164
+msgid "Чт"
+msgstr "Thu"
+
+#: templates/portfolio_1/available_dates.html:168
+msgid "Пт"
+msgstr "Fri"
+
+#: templates/portfolio_1/available_dates.html:172
+msgid "Сб"
+msgstr "Sat"
+
+#: templates/portfolio_1/available_dates.html:176
+msgid "Вс"
+msgstr "Sun"
+
+#: templates/portfolio_1/available_dates.html:197
+#, python-format
+msgid "Выбрать свободную дату %(selected_date)s"
+msgstr "Select available date %(selected_date)s"
+
+#: templates/portfolio_1/available_dates.html:216
+#: templates/portfolio_1/available_dates.html:234
+#, fuzzy
+#| msgid "Эта дата уже забронирована."
+msgid "Забронировано"
+msgstr "This date is already booked."
+
+#: templates/portfolio_1/available_dates.html:264
+msgid "Месяцы календаря"
+msgstr "Months of the calendar"
+
+msgid "Следующие шаги"
+msgstr "Next steps"
+
+#: templates/portfolio_1/available_dates.html:296
+msgid "Эта дата уже забронирована."
+msgstr "This date is already booked."
+
+msgid "Как забронировать дату"
+msgstr "How to book a date"
+
+#: templates/portfolio_1/available_dates.html:310
+msgid "Выберите день"
+msgstr "Select a day"
+
+#: templates/portfolio_1/available_dates.html:314
+msgid "Нажмите на свободную дату в календаре."
+msgstr "Click on an available date in the calendar."
+
+#: templates/portfolio_1/available_dates.html:326
+#: templates/portfolio_1/base.html:218 templates/portfolio_1/booking.html:250
+#: templates/portfolio_1/booking.html:436
+msgid "Отправить заявку"
+msgstr "Submit a request"
+
+msgid "Заполните заявку"
+msgstr "Fill out the application"
+
+#: templates/portfolio_1/available_dates.html:330
+msgid "Укажите услугу, контакты и информацию о будущей съёмке."
+msgstr ""
+"Please specify the service, contact details, and information about the "
+"upcoming shoot."
+
+#: templates/portfolio_1/available_dates.html:342
+msgid "Получите подтверждение"
+msgstr "Get confirmation"
+
+#: templates/portfolio_1/available_dates.html:346
+msgid "Фотограф свяжется с вами для согласования деталей."
+msgstr "The photographer will contact you to coordinate the details."
+
+msgid "Нужна другая дата?"
+msgstr "Need a different date?"
+
+#: templates/portfolio_1/available_dates.html:381
+msgid "Оставьте заявку без выбора дня"
+msgstr "Submit a request without selecting a day."
+
+#: templates/portfolio_1/available_dates.html:385
+msgid ""
+"Укажите желаемый период в сообщении, и фотограф предложит подходящие "
+"варианты."
+msgstr ""
+"Specify your preferred timeframe in the message, and the photographer will "
+"suggest suitable options."
+
+#: templates/portfolio_1/available_dates.html:392
+#: templates/portfolio_1/portfolio_detail.html:310
+msgid "Оставить заявку"
+msgstr "Submit a request"
+
+#: templates/portfolio_1/base.html:37
+msgid "Перейти к содержимому"
+msgstr "Skip to content"
+
+#: templates/portfolio_1/base.html:46
+#, fuzzy
+#| msgid "Главная"
+msgid "На главную"
+msgstr "Home"
+
+#: templates/portfolio_1/base.html:57 templates/portfolio_1/base.html:186
+msgid "Photographer"
+msgstr ""
+
+#: templates/portfolio_1/base.html:61
+msgid "Основная навигация"
+msgstr "Main navigation"
+
+#: templates/portfolio_1/base.html:65
+msgid "Закрыть меню"
+msgstr "Close menu"
+
+#: templates/portfolio_1/base.html:81 templates/portfolio_1/home.html:9
+msgid "Главная"
+msgstr "Home"
+
+#: templates/portfolio_1/base.html:87
+#: templates/portfolio_1/portfolio_list.html:10
+#: templates/portfolio_1/portfolio_list.html:41
+msgid "Портфолио"
+msgstr "Portfolio"
+
+#: templates/portfolio_1/base.html:93 templates/portfolio_1/services.html:9
+#: templates/portfolio_1/services.html:41
+#: templates/portfolio_1/services.html:73
+msgid "Услуги"
+msgstr "Services"
+
+#: templates/portfolio_1/base.html:133 templates/portfolio_1/faq.html:37
+#: templates/portfolio_1/booking.html:89 templates/portfolio_1/booking.html:138
+#: templates/portfolio_1/reviews.html:239
+msgid "Записаться"
+msgstr "Book now"
+
+#: templates/portfolio_1/base.html:139 templates/portfolio_1/base.html:141
+msgid "Открыть меню"
+msgstr "Open menu"
+
+#: templates/portfolio_1/base.html:194
+msgid "Социальные сети"
+msgstr "Social media"
+
+msgid "Все права защищены."
+msgstr "All rights reserved."
+
+#: templates/portfolio_1/base.html:222
+msgid ""
+"Копирование и использование фотографий без письменного разрешения автора "
+"запрещено."
+msgstr ""
+"Copying and using the photographs without the author's written permission is "
+"prohibited."
+
+#: templates/portfolio_1/base.html:231
+msgid "Наверх"
+msgstr "Back to top"
+
+#: templates/portfolio_1/booking.html:8
+#, fuzzy
+#| msgid "Записаться на съёмку"
+msgid "Запись на фотосессию"
+msgstr "Book a photo session"
+
+#: templates/portfolio_1/booking.html:12
+msgid ""
+"Заполните форму, чтобы записаться на фотосессию. Выберите услугу, дату и "
+"оставьте контактные данные."
+msgstr ""
+"Fill out the form to book a photoshoot. Select a service and a date, and "
+"provide your contact details."
+
+#: templates/portfolio_1/booking.html:34
+#, fuzzy
+#| msgid "Фотография"
+msgid "Фотограф"
+msgstr "Photo"
+
+#: templates/portfolio_1/booking.html:46
+msgid ""
+"Расскажите о будущей съёмке, и я помогу подобрать формат, место и подходящую "
+"дату."
+msgstr ""
+"Tell me about the upcoming shoot, and I’ll help you choose the format, "
+"location, and a suitable date."
+
+#: templates/portfolio_1/booking.html:53
+msgid "Перейти к записи"
+msgstr "Go to booking record"
+
+#: templates/portfolio_1/booking.html:85 templates/portfolio_1/services.html:37
+#: templates/portfolio_1/services.html:69
+msgid "Перед съёмкой"
+msgstr "Before the shoot"
+
+msgid "Перед отправкой"
+msgstr "Before shipping"
+
+msgid "Как проходит запись"
+msgstr "How the booking process works"
+
+#: templates/portfolio_1/booking.html:102
+msgid "Заполните форму"
+msgstr "Fill out the form."
+
+msgid "Укажите удобный способ связи, услугу и желаемую дату."
+msgstr ""
+"Please specify a convenient method of contact, the service, and your "
+"preferred date."
+
+#: templates/portfolio_1/booking.html:120
+msgid "Обсудим детали"
+msgstr "Let's discuss the details."
+
+#: templates/portfolio_1/booking.html:124
+msgid "Фотограф свяжется с вами и поможет выбрать формат, образ и локацию."
+msgstr ""
+"The photographer will contact you and help you choose the format, look, and "
+"location."
+
+msgid "Подтвердим запись"
+msgstr "Let's confirm the appointment."
+
+#: templates/portfolio_1/booking.html:142
+msgid "После согласования деталей выбранная дата будет закреплена за вами."
+msgstr ""
+"Once the details have been agreed upon, the selected date will be reserved "
+"for you."
+
+#: templates/portfolio_1/booking.html:157
+msgid "Ваш выбор"
+msgstr "Your choice"
+
+#: templates/portfolio_1/booking.html:181
+msgid "Дата"
+msgstr "Date"
+
+#: templates/portfolio_1/booking.html:200
+#, fuzzy
+#| msgid "Услуги"
+msgid "Все услуги"
+msgstr "Services"
+
+msgid "Написать напрямую"
+msgstr "Write directly"
+
+#: templates/portfolio_1/booking.html:219
+msgid "Выберите удобный способ связи."
+msgstr "Choose a convenient way to get in touch."
+
+msgid "Форма заявки"
+msgstr "Application form"
+
+#: templates/portfolio_1/booking.html:254
+msgid "Расскажите о будущей съёмке"
+msgstr "Tell me about the upcoming shoot."
+
+#: templates/portfolio_1/booking.html:258
+msgid "Обязательные поля отмечены звёздочкой."
+msgstr "Required fields are marked with an asterisk."
+
+msgid "В списке отображаются только свободные даты."
+msgstr "Only available dates are displayed in the list."
+
+#: templates/portfolio_1/booking.html:381
+msgid "Посмотреть все услуги"
+msgstr "View all services"
+
+msgid "Посмотреть расписание"
+msgstr "View the schedule"
+
+#: templates/portfolio_1/booking.html:440
+msgid ""
+"После отправки формы ваши данные будут использованы только для связи по "
+"поводу фотосессии."
+msgstr ""
+"After you submit the form, your data will be used solely to contact you "
+"regarding the photoshoot."
+
+#: templates/portfolio_1/faq.html:9
+msgid "Часто задаваемые вопросы"
+msgstr "Frequently Asked Questions"
+
+#: templates/portfolio_1/faq.html:16
+msgid ""
+"Ответы на самые популярные вопросы о фотосессиях, подготовке, стоимости и "
+"бронировании."
+msgstr ""
+"Answers to the most frequently asked questions about photo sessions, "
+"preparation, pricing, and booking."
+
+#: templates/portfolio_1/faq.html:30
+msgid "Полезная информация"
+msgstr "Useful information"
+
+#: templates/portfolio_1/faq.html:46
+msgid "Частые"
+msgstr "Frequent"
+
+#: templates/portfolio_1/faq.html:48
+msgid "вопросы"
+msgstr "questions"
+
+#: templates/portfolio_1/faq.html:53
+msgid ""
+"Здесь собраны ответы о подготовке, бронировании, процессе съёмки и получении "
+"готовых фотографий."
+msgstr ""
+"Here you will find answers regarding preparation, booking, the shoot itself, "
+"and receiving the finished photos."
+
+#: templates/portfolio_1/faq.html:123
+msgid "Вопросы скоро появятся"
+msgstr "Questions will appear soon."
+
+#: templates/portfolio_1/faq.html:127
+msgid "Раздел пока находится в процессе заполнения."
+msgstr "This section is currently being populated."
+
+#: templates/portfolio_1/home.html:17
+msgid "Профессиональная фотосъёмка, авторское портфолио и онлайн-запись."
+msgstr "Professional photography, a signature portfolio, and online booking."
+
+msgid "Предыдущий слайд"
+msgstr "Previous slide"
+
+msgid "Следующий слайд"
+msgstr "Next slide"
+
+#: templates/portfolio_1/home.html:109
+msgid "Навигация по странице"
+msgstr "Page navigation"
+
+msgid "Слайды главной страницы"
+msgstr "Home page slides"
+
+#: templates/portfolio_1/home.html:116
+#: templates/portfolio_1/portfolio_list.html:241
+#, python-format
+msgid "Открыть слайд %(number)s"
+msgstr "Open the slide %(number)s"
+
+#: templates/portfolio_1/home.html:136
+msgid "Направления"
+msgstr "Direction"
+
+#: templates/portfolio_1/home.html:140 templates/portfolio_1/home.html:209
+#: templates/portfolio_1/photo_detail.html:89
+#: templates/portfolio_1/photo_detail.html:116
+msgid "Портфолио фотографа"
+msgstr "Photographer portfolio"
+
+msgid "Истории в фотографиях"
+msgstr "Stories in Photographs"
+
+#: templates/portfolio_1/home.html:144
+msgid "Выберите близкое вам настроение и откройте полную серию."
+msgstr "Choose a mood that resonates with you and open the full series."
+
+#: templates/portfolio_1/home.html:182
+#: templates/portfolio_1/portfolio_detail.html:259
+#: templates/portfolio_1/portfolio_list.html:98
+msgid "Открыть серию"
+msgstr "Open the series"
+
+msgid "Все серии"
+msgstr "All series"
+
+#: templates/portfolio_1/home.html:216
+msgid "Работы скоро появятся"
+msgstr "The works will appear soon."
+
+#: templates/portfolio_1/home.html:218
+#, fuzzy
+#| msgid "Категории портфолио пока не добавлены."
+msgid "Категории портфолио пока не опубликованы."
+msgstr "No portfolio categories have been added yet."
+
+#: templates/portfolio_1/home.html:252
+#, fuzzy
+#| msgid "Портфолио фотографа"
+msgid "О фотографе"
+msgstr "Photographer portfolio"
+
+#: templates/portfolio_1/home.html:272
+msgid ""
+"Я создаю живые фотографии, в которых сохраняются настоящие эмоции, характер "
+"и атмосфера момента."
+msgstr ""
+"I create vibrant photos that capture genuine emotions, character, and the "
+"atmosphere of the moment."
+
+#: templates/portfolio_1/photo_detail.html:24
+#: templates/portfolio_1/review_form.html:54
+msgid "Вернуться в галерею"
+msgstr "Return to the gallery"
+
+msgid "Вернуться в серию"
+msgstr "Return to the series"
+
+#: templates/portfolio_1/photo_detail.html:40
+msgid "Другие фотографии из этой серии"
+msgstr "Other photos from this series"
+
+msgid "Открыть фотографию на весь экран"
+msgstr "Open the photo in full-screen mode"
+
+#: templates/portfolio_1/photo_detail.html:71
+msgid "Навигация между фотографиями"
+msgstr "Navigation between photos"
+
+#: templates/portfolio_1/photo_detail.html:79
+msgid "Предыдущая"
+msgstr "Previous"
+
+msgid "Все фотографии"
+msgstr "All photographies"
+
+#: templates/portfolio_1/photo_detail.html:97
+msgid "Следующая"
+msgstr "Next"
+
+#: templates/portfolio_1/photo_detail.html:114
+msgid "Эта серия"
+msgstr "This series"
+
+msgid "Другие фотографии"
+msgstr "Other photos"
+
+#: templates/portfolio_1/photo_detail.html:177
+msgid "По выбранным параметрам фотографии не найдены."
+msgstr "No photos were found matching the selected parameters."
+
+msgid "Полноэкранный просмотр фотографий"
+msgstr "Full-screen photo viewing"
+
+#: templates/portfolio_1/photo_detail.html:186
+msgid "Уменьшить фотографию"
+msgstr "Resize the photo"
+
+#: templates/portfolio_1/photo_detail.html:203
+msgid "Увеличить фотографию"
+msgstr "Enlarge photo"
+
+#: templates/portfolio_1/photo_detail.html:213
+#: templates/portfolio_1/portfolio_detail.html:92
+msgid "Сбросить фильтры"
+msgstr "Clear filters"
+msgid "Сбросить"
+msgstr "Clear"
+
+#: templates/portfolio_1/photo_detail.html:223
+msgid "Тёмный фон"
+msgstr "Dark background"
+
+#: templates/portfolio_1/photo_detail.html:233
+msgid "Серый фон"
+msgstr "Gray background"
+
+#: templates/portfolio_1/photo_detail.html:243
+msgid "Светлый фон"
+msgstr "Light background"
+
+#: templates/portfolio_1/photo_detail.html:255
+msgid "Закрыть"
+msgstr "Close"
+
+#: templates/portfolio_1/photo_detail.html:268
+msgid "Предыдущая фотография"
+msgstr "Previous photograph"
+
+#: templates/portfolio_1/photo_detail.html:304
+msgid "Следующая фотография"
+msgstr "Next photo"
+
+#: templates/portfolio_1/portfolio_detail.html:19
+msgid "Серия"
+msgstr "Series"
+
+#: templates/portfolio_1/portfolio_detail.html:45
+#: templates/portfolio_1/portfolio_list.html:90
+#, python-format
+msgid ""
+"\n"
+"%(counter)s фотография\n"
+msgid_plural ""
+"\n"
+"%(counter)s фотографий\n"
+msgstr[0] ""
+"\n"
+"%(counter)s photo\n"
+msgstr[1] ""
+"\n"
+"%(counter)s photos\n"
+
+
+#: templates/portfolio_1/portfolio_detail.html:55
+msgid "Формат"
+msgstr "Format"
+
+#: templates/portfolio_1/portfolio_detail.html:59
+msgid "Все"
+msgstr "All"
+
+#: templates/portfolio_1/portfolio_detail.html:83
+#: templates/portfolio_1/portfolio_list.html:37
+msgid "Избранные работы"
+msgstr "Featured work"
+
+#: templates/portfolio_1/portfolio_detail.html:139
+msgid "Избранная работа"
+msgstr "Featured work"
+
+#: templates/portfolio_1/portfolio_detail.html:144
+msgid "Открыть"
+msgstr "Open"
+
+#: templates/portfolio_1/portfolio_detail.html:161
+msgid "Навигация по страницам"
+msgstr "Page navigation"
+
+#: templates/portfolio_1/portfolio_detail.html:169
+msgid "Назад"
+msgstr "Back"
+
+#: templates/portfolio_1/portfolio_detail.html:174
+#, python-format
+msgid ""
+"\n"
+"%(current)s / %(total)s\n"
+msgstr ""
+
+#: templates/portfolio_1/portfolio_detail.html:184
+msgid "Дальше"
+msgstr "Next"
+
+#: templates/portfolio_1/portfolio_detail.html:203
+msgid "Категории портфолио пока не добавлены."
+msgstr "No portfolio categories have been added yet."
+
+msgid "Фотографии пока не добавлены"
+msgstr "Photos have not yet been added."
+
+#: templates/portfolio_1/portfolio_detail.html:207
+msgid "Эта серия находится в процессе заполнения."
+msgstr "This series is currently being populated."
+
+#: templates/portfolio_1/portfolio_detail.html:225
+msgid "Другие категории"
+msgstr "Other categories"
+
+msgid "Другие серии"
+msgstr "Other series"
+
+#: templates/portfolio_1/portfolio_detail.html:229
 msgid "Продолжительность:"
 msgstr "Duration:"
 
-#: templates/portfolio_1/services.html:44
-msgid "минут"
-msgstr "minutes"
+msgid "Продолжить просмотр"
+msgstr "Continue watching"
 
-#: templates/portfolio_1/services.html:50
-#: templates/portfolio_1/services.html:55
+msgid "Хотите такую съёмку?"
+msgstr "Do you want a shoot like this?"
+
+#: templates/portfolio_1/portfolio_detail.html:290
+msgid "Обсудим вашу идею"
+msgstr "Let's discuss your idea."
+
+#: templates/portfolio_1/portfolio_detail.html:294
+msgid ""
+"Расскажите о вашей идее, и мы подберём подходящую дату, образ и формат "
+"съёмки."
+msgstr ""
+"Tell us about your idea, and we’ll select a suitable date, look, and format "
+"for the shoot."
+
+#: templates/portfolio_1/portfolio_list.html:17
+msgid ""
+"Портфолио фотографа: индивидуальные, семейные, студийные и другие фотосессии."
+msgstr ""
+"Photographer's portfolio: individual, family, studio, and other photoshoots."
+
+msgid "Мои работы"
+msgstr "My work"
+
+#: templates/portfolio_1/portfolio_list.html:45
+msgid "Выберите направление съёмки и откройте полную серию фотографий."
+msgstr "Select a shooting direction and open the full series of photographs."
+
+#: templates/portfolio_1/portfolio_list.html:127
+#, fuzzy
+#| msgid "Категории портфолио пока не добавлены."
+msgid "Категории пока не добавлены"
+msgstr "No categories have been added yet."
+
+#: templates/portfolio_1/portfolio_list.html:130
+msgid "Раздел портфолио находится в стадии заполнения."
+msgstr "The portfolio section is currently being populated."
+
+#: templates/portfolio_1/review_form.html:9
+#: templates/portfolio_1/reviews.html:38 templates/portfolio_1/reviews.html:228
+msgid "Оставить отзыв"
+msgstr "Leave feedback"
+
+#: templates/portfolio_1/review_form.html:16
+msgid "Оставьте отзыв о фотосессии и поделитесь своими впечатлениями."
+msgstr "Leave a review of the photoshoot and share your impressions."
+
+#: templates/portfolio_1/review_form.html:30
+msgid "Ваши впечатления"
+msgstr "Your impressions"
+
+#: templates/portfolio_1/review_form.html:34
+msgid "Расскажите о съёмке"
+msgstr "Tell me about the shoot."
+
+#: templates/portfolio_1/review_form.html:38
+msgid ""
+"Мне важно знать, какие впечатления остались после фотосессии. Ваш отзыв "
+"поможет будущим клиентам лучше понять атмосферу съёмки."
+msgstr ""
+"It is important for me to know what impressions you were left with after the "
+"photoshoot. Your review will help future clients better understand the "
+"atmosphere of the session."
+
+#: templates/portfolio_1/review_form.html:44
+msgid ""
+"После отправки отзыв сначала проходит проверку и только затем появляется на "
+"сайте."
+msgstr ""
+"After submission, the review undergoes a verification process first and only "
+"then appears on the website."
+
+msgid "Вернуться к отзывам"
+msgstr "Back to reviews"
+
+#: templates/portfolio_1/review_form.html:67
+msgid "Форма отзыва"
+msgstr "Feedback form"
+
+#: templates/portfolio_1/review_form.html:71
+#: templates/portfolio_1/reviews.html:224
+msgid "Поделитесь впечатлениями"
+msgstr "Share your impressions"
+
+#: templates/portfolio_1/review_form.html:75
+msgid "Заполните несколько полей ниже. Фотографию добавлять необязательно."
+msgstr "Fill in a few fields below. Adding a photo is optional."
+
+msgid "Можно добавить фотографию с фотосессии."
+msgstr "You can add a photo from the photoshoot."
+
+#: templates/portfolio_1/review_form.html:177
+msgid "Отправить отзыв"
+msgstr "Submit a review"
+
+#: templates/portfolio_1/reviews.html:16
+#, fuzzy
+#| msgid "Отзывы клиентов о фотосессиях и работе фотографа."
+msgid "Отзывы клиентов о фотосессиях и впечатления от работы с фотографом."
+msgstr "Client reviews of photoshoots and the photographer's work."
+
+#: templates/portfolio_1/reviews.html:31 templates/portfolio_1/reviews.html:69
+msgid "Услуги пока не добавлены."
+msgstr "No services have been added yet."
+
+msgid "Отзывы клиентов"
+msgstr "Customer Reviews"
+
+#: templates/portfolio_1/reviews.html:48
+msgid "Что говорят"
+msgstr "What people are saying"
+
+#: templates/portfolio_1/reviews.html:50
+msgid "о моей работе"
+msgstr "about my work"
+
+#: templates/portfolio_1/reviews.html:55
+msgid ""
+"Здесь собраны впечатления людей, с которыми мы вместе создавали фотографии, "
+"сохраняли важные моменты и просто хорошо проводили время на съёмке."
+msgstr ""
+"Here we have gathered the impressions of the people with whom we created "
+"photos, captured important moments, and simply had a great time during the "
+"shoot."
+
+#: templates/portfolio_1/reviews.html:110
+msgid "История клиента"
+msgstr "Client Story"
+
+#: templates/portfolio_1/reviews.html:148
 msgid "Стоимость:"
 msgstr "Price:"
 
-#: templates/portfolio_1/services.html:61
-#, fuzzy
-#| msgid "Записаться на съёмку"
-msgid "Записаться на эту съёмку"
-msgstr "Book a photo session"
+msgid "Читать полностью"
+msgstr "Read more"
 
-#: templates/portfolio_1/services.html:66
+#: templates/portfolio_1/reviews.html:190
+msgid "Отзывы скоро появятся"
+msgstr "Reviews will appear soon."
+
+#: templates/portfolio_1/reviews.html:194
+msgid "После первых съёмок здесь появятся впечатления клиентов."
+msgstr "Client impressions will appear here after the first shoots."
+
+#: templates/portfolio_1/reviews.html:232
+msgid ""
+"Если вы уже были у меня на съёмке, буду рада узнать о ваших впечатлениях."
+msgstr ""
+"If you have already had a photo session with me, I would love to hear about "
+"your impressions."
+
+msgid "Написать отзыв"
+msgstr "Write a review"
+
+#: templates/portfolio_1/services.html:16
+msgid "Фотосессии, стоимость, продолжительность и запись на съёмку."
+msgstr "Photoshoots: pricing, duration, and booking."
+
+msgid "Форматы съёмки"
+msgstr "Shooting format"
+
+#: templates/portfolio_1/services.html:45
+#: templates/portfolio_1/services.html:77
+msgid "Выберите подходящий формат съёмки и оставьте заявку."
+msgstr "Choose a suitable shooting format and submit a request."
+msgid ""
+"Выберите подходящий формат. Детали каждой съёмки мы обсудим индивидуально."
+msgstr ""
+"Choose a suitable format. We will discuss the details of each shoot individually."
+
+msgid "Посмотреть форматы"
+msgstr "View formats"
+
+#: templates/portfolio_1/services.html:119
 #, fuzzy
-#| msgid "Категории портфолио пока не добавлены."
-msgid "Информация об услугах пока не добавлена."
-msgstr "No portfolio categories have been added yet."
+#| msgid "Продолжительность:"
+msgid "Продолжительность"
+msgstr "Duration:"
+
+#: templates/portfolio_1/services.html:124
+msgid "мин."
+msgstr "min."
+
+#: templates/portfolio_1/services.html:134
+#, fuzzy
+#| msgid "Стоимость:"
+msgid "Стоимость"
+msgstr "Price:"
+
+#: templates/portfolio_1/services.html:207
+msgid "Предыдущее фото"
+msgstr "Previous photo"
+
+#: templates/portfolio_1/services.html:232
+msgid "Следующее фото"
+msgstr "Next photo"
+
+#: venv/lib/python3.12/site-packages/django/contrib/messages/apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/contrib/sitemaps/apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/contrib/staticfiles/apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: venv/lib/python3.12/site-packages/django/core/paginator.py:33
+msgid "…"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/paginator.py:35
+msgid "That page number is not an integer"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/paginator.py:36
+msgid "That page number is less than 1"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/paginator.py:37
+msgid "That page contains no results"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:153
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:773
+msgid "Enter a valid URL."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:200
+msgid "Enter a valid integer."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:211
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: venv/lib/python3.12/site-packages/django/core/validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:309
+#: venv/lib/python3.12/site-packages/django/core/validators.py:318
+#: venv/lib/python3.12/site-packages/django/core/validators.py:332
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:311
+msgid "IPv4"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:320
+#: venv/lib/python3.12/site-packages/django/utils/ipv6.py:43
+msgid "IPv6"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:334
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:514
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:364
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:403
+msgid "Enter a number."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/core/validators.py:659
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/base.py:1633
+#: venv/lib/python3.12/site-packages/django/forms/models.py:932
+msgid "and"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/base.py:1635
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/constraints.py:20
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1161
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1164
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1214
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1216
+msgid "String (unlimited)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1325
+msgid "Comma-separated integers"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1426
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1430
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1565
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1434
+msgid "Date (without time)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1561
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1569
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1574
+msgid "Date (with time)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1701
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1703
+msgid "Decimal number"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
+msgid "Duration"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1920
+msgid "Email address"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1945
+msgid "File path"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2025
+msgid "Floating point number"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2067
+msgid "Integer"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2180
+msgid "Small integer"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2188
+msgid "IPv4 address"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2219
+msgid "IP address"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2310
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2364
+msgid "Positive big integer"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2379
+msgid "Positive integer"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2394
+msgid "Positive small integer"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2446
+msgid "Text"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2534
+msgid "Time"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2642
+msgid "URL"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2666
+msgid "Raw binary data"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2733
+msgid "Universally unique identifier"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:244
+msgid "File"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:420
+msgid "Image"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:974
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:977
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1271
+msgid "One-to-one relationship"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1328
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1330
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1378
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to
+#. the label
+#: venv/lib/python3.12/site-packages/django/forms/boundfield.py:188
+msgid ":?.!"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:91
+msgid "This field is required."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:313
+msgid "Enter a whole number."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:484
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:1241
+msgid "Enter a valid date."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:507
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:1242
+msgid "Enter a valid time."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:534
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:568
+msgid "Enter a valid duration."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:569
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:638
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:639
+msgid "No file was submitted."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:640
+msgid "The submitted file is empty."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:642
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:647
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:715
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:862
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:949
+#: venv/lib/python3.12/site-packages/django/forms/models.py:1621
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:951
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:1070
+#: venv/lib/python3.12/site-packages/django/forms/models.py:1619
+msgid "Enter a list of values."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:1071
+msgid "Enter a complete value."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:1313
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/fields.py:1343
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: venv/lib/python3.12/site-packages/django/forms/forms.py:97
+msgid ":"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:484
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/models.py:925
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/models.py:930
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/models.py:937
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/models.py:946
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/models.py:1383
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/models.py:1474
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/models.py:1623
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/utils.py:229
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/widgets.py:528
+msgid "Clear"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/widgets.py:529
+msgid "Currently"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/widgets.py:530
+msgid "Change"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/widgets.py:869
+msgid "Unknown"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/widgets.py:870
+msgid "Yes"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/forms/widgets.py:871
+msgid "No"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/tasks/base.py:34
+msgctxt "Task"
+msgid "Ready"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/tasks/base.py:36
+msgctxt "Task"
+msgid "Running"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/tasks/base.py:38
+msgctxt "Task"
+msgid "Failed"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/tasks/base.py:40
+msgctxt "Task"
+msgid "Successful"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:878
+msgid "yes,no,maybe"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:908
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:925
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:927
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:929
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:931
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:933
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:935
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:25
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:26
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:27
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:28
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:29
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:30
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:31
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:32
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:33
+msgid "September"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:34
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:35
+msgid "November"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:36
+msgid "December"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:39
+msgid "jan"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:40
+msgid "feb"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:41
+msgid "mar"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:42
+msgid "apr"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:43
+msgid "may"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:44
+msgid "jun"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:45
+msgid "jul"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:46
+msgid "aug"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:47
+msgid "sep"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:48
+msgid "oct"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:49
+msgid "nov"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:50
+msgid "dec"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/text.py:282
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: venv/lib/python3.12/site-packages/django/utils/text.py:301
+#: venv/lib/python3.12/site-packages/django/utils/timesince.py:135
+msgid ", "
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/utils/timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/utils/timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:64
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:115
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:353
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/generic/list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/static.py:68
+#: venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:8
+#: venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:7
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#~ msgid "Контакты"
+#~ msgstr "Contacts"
+
+#, fuzzy
+#~| msgid "Спасибо! Заявка отправлена. Фотограф свяжется с вами."
+#~ msgid "Заполните форму, и фотограф свяжется с вами."
+#~ msgstr ""
+#~ "Thanks! The application has been sent, and the photographer will contact "
+#~ "you."
+
+#~ msgid "Вы выбрали услугу:"
+#~ msgstr "You have selected the service:"
+
+#~ msgid "Свяжитесь со мной удобным способом, чтобы обсудить фотосессию."
+#~ msgstr "Contact me via your preferred method to discuss the photoshoot."
+
+#~ msgid "Электронная почта"
+#~ msgstr "E-mail"
+
+#~ msgid "Город"
+#~ msgstr "City"
+
+#~ msgid "Вы можете посмотреть свободные даты или сразу оставить заявку."
+#~ msgstr "You can view available dates or submit a request right away."
+
+#~ msgid "Пока слайды не добавлены."
+#~ msgstr "No slides have been added yet."
+
+#, python-format
+#~ msgid "Оценка %(rating)s из 5"
+#~ msgstr "Rating: %(rating)s out of 5"
+
+#~ msgid "Отзывов пока нет."
+#~ msgstr "There are no reviews yet."
+
+#~ msgid "Фильтры"
+#~ msgstr "Filters"
+
+#~ msgid "Только избранные"
+#~ msgstr "The Chosen Few"
+
+#~ msgid "Применить"
+#~ msgstr "Apply"
+
+#~ msgid "Фотографии"
+#~ msgstr "Photos"
+
+#~ msgid ""
+#~ "Рекомендации по подготовке к фотосессии: одежда, макияж, аксессуары и "
+#~ "настроение."
+#~ msgstr ""
+#~ "Recommendations for preparing for a photoshoot: clothing, makeup, "
+#~ "accessories, and mood."
+
+#~ msgid ""
+#~ "Небольшая подготовка поможет вам чувствовать себя увереннее и получить "
+#~ "более гармоничные фотографии."
+#~ msgstr ""
+#~ "A little preparation will help you feel more confident and get more "
+#~ "harmonious photos."
+
+#~ msgid "Выбор одежды"
+#~ msgstr "Choosing clothes"
+
+#~ msgid ""
+#~ "Выбирайте одежду, в которой вам удобно и которая соответствует вашему "
+#~ "характеру. Лучше избегать крупных надписей, слишком ярких принтов и "
+#~ "большого количества разных цветов."
+#~ msgstr ""
+#~ "Choose clothing that is comfortable and suits your personality. It is "
+#~ "best to avoid large lettering, overly bright prints, and an excessive "
+#~ "number of different colors."
+
+#~ msgid "Цветовая гамма"
+#~ msgstr "Color palette"
+
+#~ msgid ""
+#~ "Для семейной или парной съёмки рекомендуется заранее подобрать одежду в "
+#~ "похожей цветовой гамме. Вещи не должны быть одинаковыми, но должны хорошо "
+#~ "сочетаться между собой."
+#~ msgstr ""
+#~ "For family or couples' photo sessions, it is recommended to select "
+#~ "outfits in a similar color palette in advance. The clothes do not need to "
+#~ "be identical, but they should coordinate well with one another."
+
+#~ msgid "Макияж и причёска"
+#~ msgstr "Hair and makeup"
+
+#~ msgid ""
+#~ "Макияж лучше сделать немного выразительнее обычного, но сохранить "
+#~ "естественность. Причёска должна быть аккуратной и подходить к выбранному "
+#~ "образу."
+#~ msgstr ""
+#~ "It is best to make your makeup slightly more defined than usual while "
+#~ "maintaining a natural look. Your hairstyle should be neat and complement "
+#~ "your chosen look."
+
+#~ msgid "Что взять с собой"
+#~ msgstr "What to bring"
+
+#~ msgid ""
+#~ "Возьмите запасной комплект одежды, удобную обувь, расчёску, косметику для "
+#~ "небольшого обновления макияжа и воду."
+#~ msgstr ""
+#~ "Bring a spare set of clothes, comfortable shoes, a comb, makeup for a "
+#~ "quick touch-up, and water."
+
+#~ msgid "Подготовка детей"
+#~ msgstr "Preparing Children"
+
+#~ msgid ""
+#~ "Перед съёмкой ребёнку желательно хорошо отдохнуть и поесть. Можно взять "
+#~ "любимую игрушку, воду и небольшой перекус."
+#~ msgstr ""
+#~ "Before the shoot, it is advisable for the child to be well-rested and "
+#~ "have eaten. You can bring a favorite toy, water, and a small snack."
+
+#~ msgid ""
+#~ "Постарайтесь хорошо выспаться и не планировать слишком много дел перед "
+#~ "фотосессией. Лучше приехать заранее, чтобы спокойно подготовиться."
+#~ msgstr ""
+#~ "Try to get a good night's sleep and avoid planning too many things before "
+#~ "the photo session. It is best to arrive early so you can get ready "
+#~ "without rushing."
+
+#, fuzzy
+#~| msgid "Записаться на съёмку"
+#~ msgid "Во время фотосессии"
+#~ msgstr "Book a photo session"
+
+#~ msgid ""
+#~ "Не переживайте, если вы не умеете позировать. Фотограф подскажет, куда "
+#~ "смотреть, как встать и что делать в кадре."
+#~ msgstr ""
+#~ "Don't worry if you don't know how to pose. The photographer will tell you "
+#~ "where to look, how to stand, and what to do in the shot."
+
+#~ msgid "Выберите подходящую дату и оставьте заявку на фотосессию."
+#~ msgstr "Choose a suitable date and submit a request for a photoshoot."
+
+#~ msgid "Мнения клиентов, которые уже побывали на съёмке."
+#~ msgstr "Feedback from clients who have already attended a shoot."
+
+#~ msgid "минут"
+#~ msgstr "minutes"
+
+#, fuzzy
+#~| msgid "Записаться на съёмку"
+#~ msgid "Записаться на эту съёмку"
+#~ msgstr "Book a photo session"
+
+#, fuzzy
+#~| msgid "Категории портфолио пока не добавлены."
+#~ msgid "Информация об услугах пока не добавлена."
+#~ msgstr "No portfolio categories have been added yet."

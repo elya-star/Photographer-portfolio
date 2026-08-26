@@ -1,204 +1,251 @@
 {% extends "portfolio_1/base.html" %}
 {% load i18n %}
 
+{% block body_class %}
+reviews-page-body
+{% endblock %}
+
 {% block title %}
     {% translate "Отзывы" %}
+    {% if site_settings %}
+        — {{ site_settings.photographer_name }}
+    {% endif %}
 {% endblock %}
 
 {% block description %}
-    {% translate "Отзывы клиентов о фотосессиях, впечатления от съёмки и сотрудничества с фотографом." %}
+    {% translate "Отзывы клиентов о фотосессиях и впечатления от работы с фотографом." %}
 {% endblock %}
+
 
 {% block content %}
 
-<nav
-    class="breadcrumbs"
-    aria-label="{% translate 'Навигационная цепочка' %}"
->
+<main class="reviews-page">
 
-    <a href="{% url 'portfolio:home' %}">
-        {% translate "Главная" %}
-    </a>
+    <header class="reviews-hero">
 
-    <span class="breadcrumbs__separator">/</span>
+        <div class="container reviews-hero__container">
 
-    <span aria-current="page">
-        {% translate "Отзывы" %}
-    </span>
+            <div class="reviews-hero__top">
 
-</nav>
+                <p class="reviews-hero__subtitle">
+                    {% translate "Отзывы клиентов" %}
+                </p>
+
+                <a
+                    class="reviews-hero__leave-review"
+                    href="{% url 'portfolio:add_review' %}"
+                >
+                    {% translate "Оставить отзыв" %}
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </div>
 
 
-<section class="reviews-page">
+            <div class="reviews-hero__main">
 
-    <header class="reviews-page__header">
+                <h1 class="reviews-hero__title">
+                    {% translate "Что говорят" %}
+                    <span>
+                        {% translate "о моей работе" %}
+                    </span>
+                </h1>
 
-        <p class="reviews-page__subtitle">
+                <p class="reviews-hero__description">
+                    {% translate "Здесь собраны впечатления людей, с которыми мы вместе создавали фотографии, сохраняли важные моменты и просто хорошо проводили время на съёмке." %}
+                </p>
 
-            {% translate "Отзывы клиентов" %}
+            </div>
 
-        </p>
-
-        <h1 class="reviews-page__title">
-
-            {% translate "Что говорят о моей работе" %}
-
-        </h1>
-
-        <p class="reviews-page__description">
-
-            {% translate "Спасибо каждому клиенту за доверие. Ниже представлены реальные отзывы людей, которые уже побывали на фотосессии." %}
-
-        </p>
+        </div>
 
     </header>
 
 
     {% if reviews %}
 
-        <div class="reviews-page__grid">
+        <section
+            class="reviews-list"
+            aria-label="{% translate 'Отзывы клиентов' %}"
+        >
 
             {% for review in reviews %}
 
-                <article class="review-card">
+                <article
+                    class="review-story{% if forloop.counter|divisibleby:'2' %} review-story--reverse{% endif %}"
+                >
 
-                    <header class="review-card__header">
+                    {% if review.client_photo %}
 
-                        {% if review.client_photo %}
+                        <div class="review-story__media">
 
                             <img
-                                class="review-card__photo"
+                                class="review-story__image"
                                 src="{{ review.client_photo.url }}"
                                 alt="{{ review.client_name }}"
                                 loading="lazy"
                             >
 
-                        {% endif %}
-
-                        <div class="review-card__info">
-
-                            <h2 class="review-card__name">
-
-                                {{ review.client_name }}
-
-                            </h2>
-
-                            <div
-                                class="review-card__rating"
-                                aria-label="{% blocktranslate with rating=review.rating %}Оценка {{ rating }} из 5{% endblocktranslate %}"
+                            <span
+                                class="review-story__image-number"
+                                aria-hidden="true"
                             >
-
-                                {% for number in "12345" %}
-
-                                    {% if forloop.counter <= review.rating %}
-
-                                        <span aria-hidden="true">★</span>
-
-                                    {% else %}
-
-                                        <span aria-hidden="true">☆</span>
-
-                                    {% endif %}
-
-                                {% endfor %}
-
-                            </div>
+                                {% if forloop.counter < 10 %}0{% endif %}{{ forloop.counter }}
+                            </span>
 
                         </div>
 
-                    </header>
+                    {% else %}
 
-
-                    <blockquote class="review-card__text">
-
-                        {{ review.text|linebreaks }}
-
-                    </blockquote>
-
-
-                    <footer class="review-card__footer">
-
-                        <time
-                            datetime="{{ review.created_at|date:'Y-m-d' }}"
+                        <div
+                            class="review-story__media review-story__media--empty"
+                            aria-hidden="true"
                         >
 
-                            {{ review.created_at|date:"d.m.Y" }}
+                            <span class="review-story__empty-number">
+                                {% if forloop.counter < 10 %}0{% endif %}{{ forloop.counter }}
+                            </span>
 
-                        </time>
+                            <span class="review-story__empty-text">
+                                {% translate "История клиента" %}
+                            </span>
 
-                    </footer>
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="review-story__content">
+
+                        <div class="review-story__number">
+                            {% if forloop.counter < 10 %}0{% endif %}{{ forloop.counter }}
+                        </div>
+
+
+                        <div
+                            class="review-story__quote-mark"
+                            aria-hidden="true"
+                        >
+                            “
+                        </div>
+
+
+                    <div class="review-story__text-wrapper">
+
+                        <blockquote
+                            class="review-story__text"
+                            data-review-text
+                        >
+                            {{ review.text|linebreaksbr }}
+                        </blockquote>
+
+                        <button
+                            class="review-story__more"
+                            type="button"
+                            data-review-more
+                            hidden
+                        >
+                            {% translate "Читать полностью" %}
+                            <span aria-hidden="true">↓</span>
+                        </button>
+
+                    </div>
+
+
+                        <footer class="review-story__footer">
+
+                            <p class="review-story__name">
+                                {{ review.client_name }}
+                            </p>
+
+                            <time
+                                class="review-story__date"
+                                datetime="{{ review.created_at|date:'Y-m-d' }}"
+                            >
+                                {{ review.created_at|date:"d.m.Y" }}
+                            </time>
+
+                        </footer>
+
+                    </div>
 
                 </article>
 
             {% endfor %}
 
-        </div>
+        </section>
+
 
     {% else %}
 
-        <div class="reviews-page__empty">
+        <section class="reviews-empty">
 
-            <h2>
+            <div class="container reviews-empty__container">
 
-                {% translate "Отзывы пока отсутствуют" %}
+                <p class="reviews-empty__number">
+                    00
+                </p>
 
-            </h2>
+                <h2 class="reviews-empty__title">
+                    {% translate "Отзывы скоро появятся" %}
+                </h2>
 
-            <p>
+                <p class="reviews-empty__description">
+                    {% translate "После первых съёмок здесь появятся впечатления клиентов." %}
+                </p>
 
-                {% translate "Первые отзывы клиентов появятся здесь после проведённых фотосессий." %}
+            </div>
 
-            </p>
-
-        </div>
+        </section>
 
     {% endif %}
 
-</section>
 
+<section
+    class="leave-review-photo"
+    id="leave-review"
+    data-review-parallax
+>
 
-<section class="reviews-cta">
+    {% if site_settings and site_settings.reviews_background %}
+        <div
+            class="leave-review-photo__background"
+            style="background-image:url('{{ site_settings.reviews_background.url }}');"
+        ></div>
+    {% endif %}
 
-    <div class="reviews-cta__content">
+    <div class="leave-review-photo__overlay"></div>
 
-        <p class="reviews-cta__subtitle">
+    <div class="container leave-review-photo__container">
 
-            {% translate "Хотите стать следующим клиентом?" %}
+        <div class="leave-review-photo__content">
 
-        </p>
+            <p class="leave-review-photo__subtitle">
+                {% translate "Поделитесь впечатлениями" %}
+            </p>
 
-        <h2 class="reviews-cta__title">
+            <h2 class="leave-review-photo__title">
+                {% translate "Оставить отзыв" %}
+            </h2>
 
-            {% translate "Запишитесь на фотосессию" %}
+            <p class="leave-review-photo__description">
+                {% translate "Если вы уже были у меня на съёмке, буду рада узнать о ваших впечатлениях." %}
+            </p>
 
-        </h2>
+            <a
+                class="leave-review-photo__link"
+                href="{% url 'portfolio:add_review' %}"
+            >
+                {% translate "Написать отзыв" %}
+                <span aria-hidden="true">→</span>
+            </a>
 
-        <p class="reviews-cta__description">
-
-            {% translate "Выберите удобную дату и оставьте заявку. Я свяжусь с вами, чтобы обсудить идеи, формат съёмки и все детали." %}
-
-        </p>
+        </div>
 
     </div>
 
-    <div class="reviews-cta__actions">
-
-        <a
-            class="reviews-cta__button reviews-cta__button--secondary"
-            href="{% url 'portfolio:available_dates' %}"
-        >
-            {% translate "Свободные даты" %}
-        </a>
-
-        <a
-            class="reviews-cta__button reviews-cta__button--primary"
-            href="{% url 'portfolio:booking' %}"
-        >
-            {% translate "Записаться на съёмку" %}
-        </a>
-
-    </div>
-
 </section>
+
+</main>
 
 {% endblock %}

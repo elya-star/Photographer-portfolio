@@ -39,14 +39,11 @@ urlpatterns = [
         views.booking,
         name="booking",
     ),
+
     path(
-        "preparation-guide/",
-        views.preparation_guide,
-        name="preparation_guide",
+        "reviews/add/",
+        views.add_review,
+        name="add_review",
     ),
-    path(
-        "contacts/",
-        views.contacts,
-        name="contacts",
-    ),
+
 ]

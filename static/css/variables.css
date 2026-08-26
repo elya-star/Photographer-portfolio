@@ -1,6 +1,6 @@
 :root{
---font-family:"Inter",Arial,sans-serif;
---font-family-heading:"Inter",Arial,sans-serif;
+--font-family:"Manrope",Arial,sans-serif;
+--font-family-heading:"Cormorant Garamond",Georgia,serif;
 
 --container-width:1200px;
 --container-padding:1rem;
@@ -13,6 +13,16 @@
 --color-bg:#ffffff;
 --color-surface:#f7f7f5;
 --color-surface-hover:#efefec;
+
+--color-rock:#46211a;
+--color-cloud-shadow:#693d3d;
+--color-desert:#ba5536;
+--color-red-clay:#a43820;
+
+--color-about-bg:#1b1210;
+--color-about-surface:#291815;
+--color-about-text:#f4eee8;
+--color-about-muted:rgba(244,238,232,.65);
 
 --color-text:#1c1c1c;
 --color-text-light:#666666;

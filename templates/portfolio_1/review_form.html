@@ -1,0 +1,195 @@
+{% extends "portfolio_1/base.html" %}
+{% load i18n %}
+
+{% block body_class %}
+review-form-page-body
+{% endblock %}
+
+{% block title %}
+    {% translate "Оставить отзыв" %}
+    {% if site_settings %}
+        — {{ site_settings.photographer_name }}
+    {% endif %}
+{% endblock %}
+
+{% block description %}
+    {% translate "Оставьте отзыв о фотосессии и поделитесь своими впечатлениями." %}
+{% endblock %}
+
+{% block content %}
+
+<section class="review-form-page">
+
+    <div class="review-form-page__layout">
+
+        <div class="review-form-page__intro">
+
+            <div class="review-form-page__intro-inner">
+
+                <p class="review-form-page__subtitle">
+                    {% translate "Ваши впечатления" %}
+                </p>
+
+                <h1 class="review-form-page__title">
+                    {% translate "Расскажите о съёмке" %}
+                </h1>
+
+                <p class="review-form-page__description">
+                    {% translate "Мне важно знать, какие впечатления остались после фотосессии. Ваш отзыв поможет будущим клиентам лучше понять атмосферу съёмки." %}
+                </p>
+
+                <div class="review-form-page__note">
+
+                    <p>
+                        {% translate "После отправки отзыв сначала проходит проверку и только затем появляется на сайте." %}
+                    </p>
+
+                </div>
+
+                <a
+                    class="review-form-page__back"
+                    href="{% url 'portfolio:reviews' %}"
+                >
+                    <span aria-hidden="true">←</span>
+                    {% translate "Вернуться к отзывам" %}
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="review-form-page__form-side">
+
+            <div class="review-form-page__form-inner">
+
+                <p class="review-form-page__form-subtitle">
+                    {% translate "Форма отзыва" %}
+                </p>
+
+                <h2 class="review-form-page__form-title">
+                    {% translate "Поделитесь впечатлениями" %}
+                </h2>
+
+                <p class="review-form-page__form-description">
+                    {% translate "Заполните несколько полей ниже. Фотографию добавлять необязательно." %}
+                </p>
+
+
+                <form
+                    method="post"
+                    enctype="multipart/form-data"
+                    class="review-form"
+                    novalidate
+                >
+
+                    {% csrf_token %}
+
+
+                    {% if form.non_field_errors %}
+
+                        <div class="review-form__errors">
+
+                            {% for error in form.non_field_errors %}
+                                <p class="review-form__error">
+                                    {{ error }}
+                                </p>
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="review-form__group">
+
+                        <label
+                            for="{{ form.client_name.id_for_label }}"
+                            class="review-form__label"
+                        >
+                            {{ form.client_name.label }}
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        {{ form.client_name }}
+
+                        {% for error in form.client_name.errors %}
+                            <p class="review-form__error">
+                                {{ error }}
+                            </p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="review-form__group">
+
+                        <label
+                            for="{{ form.client_photo.id_for_label }}"
+                            class="review-form__label"
+                        >
+                            {{ form.client_photo.label }}
+                        </label>
+
+                        <div class="review-form__file">
+                            {{ form.client_photo }}
+                        </div>
+
+                        <p class="review-form__hint">
+                            {% translate "Можно добавить фотографию с фотосессии." %}
+                        </p>
+
+                        {% for error in form.client_photo.errors %}
+                            <p class="review-form__error">
+                                {{ error }}
+                            </p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="review-form__group">
+
+                        <label
+                            for="{{ form.text_ru.id_for_label }}"
+                            class="review-form__label"
+                        >
+                            {{ form.text_ru.label }}
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        {{ form.text_ru }}
+
+                        {% for error in form.text_ru.errors %}
+                            <p class="review-form__error">
+                                {{ error }}
+                            </p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="review-form__submit"
+                    >
+                        <span>
+                            {% translate "Отправить отзыв" %}
+                        </span>
+
+                        <span aria-hidden="true">
+                            →
+                        </span>
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

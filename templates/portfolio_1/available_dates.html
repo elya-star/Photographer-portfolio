@@ -2,197 +2,402 @@
 {% load i18n %}
 
 {% block title %}
-    {% translate "Свободные даты" %}
-    {% if site_settings %}
-        — {{ site_settings.photographer_name }}
-    {% endif %}
+{% translate "Свободные даты" %}
+{% if site_settings %}
+— {{ site_settings.photographer_name }}
+{% endif %}
 {% endblock %}
 
 {% block description %}
-    {% translate "Свободные даты для записи на фотосессию. Выберите подходящий день и оставьте заявку." %}
+{% translate "Календарь свободных дат для записи на фотосессию." %}
 {% endblock %}
 
 {% block content %}
 
-<section class="available-dates">
+<section class="dates-page">
 
-    <header class="available-dates__header">
-        <p class="available-dates__subtitle">
-            {% translate "Запись на фотосессию" %}
-        </p>
+    
+    <header class="dates-page__header">
+        
+        <div class="container">
+            
+<p class="dates-page__subtitle">
+{% translate "Календарь съёмок" %}
+</p>
 
-        <h1 class="available-dates__title">
-            {% translate "Свободные даты" %}
-        </h1>
+<h1 class="dates-page__title">
+{% translate "Свободные даты" %}
+</h1>
 
-        <p class="available-dates__description">
-            {% translate "Выберите подходящую дату и перейдите к оформлению заявки. После отправки заявки фотограф свяжется с вами для подтверждения записи." %}
-        </p>
-    </header>
+<p class="dates-page__description">
+{% translate "Выберите подходящий день. После отправки заявки фотограф свяжется с вами и подтвердит запись." %}
+</p>
 
-    {% if available_dates %}
+</div>
 
-        <div class="available-dates__grid">
+</header>
 
-            {% for available_date in available_dates %}
+<section
+class="dates-calendar-section"
+data-calendar-slider
+aria-label="{% translate 'Календарь свободных дат' %}"
+>
+ <div class="container">
 
-                <article class="date-card">
+<header class="calendar-navigation">
 
-                    <div class="date-card__calendar">
+<button
+class="calendar-navigation__button"
+type="button"
+data-calendar-previous
+aria-label="{% translate 'Предыдущий месяц' %}"
+>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path
+d="M15 5l-7 7 7 7"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+</svg>
+</button>
 
-                        <span class="date-card__month">
-                            {{ available_date.date|date:"F" }}
-                        </span>
+<div class="calendar-navigation__center">
 
-                        <span class="date-card__day">
-                            {{ available_date.date|date:"j" }}
-                        </span>
+<p class="calendar-navigation__subtitle">
+{% translate "Выберите месяц" %}
+</p>
 
-                        <span class="date-card__weekday">
-                            {{ available_date.date|date:"l" }}
-                        </span>
+<div class="calendar-navigation__titles" aria-live="polite">
 
-                    </div>
+{% for calendar_month in calendar_months %}
+<h2
+class="calendar-navigation__title{% if forloop.first %} is-active{% endif %}"
+data-calendar-title="{{ forloop.counter0 }}"
+>
+{{ calendar_month.date|date:"F Y" }}
+</h2>
+{% endfor %}
 
-                    <div class="date-card__content">
+</div>
 
-                        <h2 class="date-card__title">
-                            {{ available_date.date|date:"d.m.Y" }}
-                        </h2>
+</div>
 
-                        {% if available_date.note %}
-                            <p class="date-card__note">
-                                {{ available_date.note }}
-                            </p>
-                        {% else %}
-                            <p class="date-card__note">
-                                {% translate "Дата доступна для бронирования." %}
-                            </p>
-                        {% endif %}
+<button
+class="calendar-navigation__button"
+type="button"
+data-calendar-next
+aria-label="{% translate 'Следующий месяц' %}"
+>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path
+d="M9 5l7 7-7 7"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+</svg>
+</button>
 
-                        <a
-                            class="date-card__button"
-                            href="{% url 'portfolio:booking' %}?date={{ available_date.date|date:'Y-m-d' }}"
-                        >
-                            {% translate "Выбрать эту дату" %}
-                        </a>
+</header>
 
-                    </div>
+<div
+class="dates-legend"
+aria-label="{% translate 'Обозначения календаря' %}"
+>
 
-                </article>
+<div class="dates-legend__item">
+<span class="dates-legend__marker dates-legend__marker--available"></span>
+<span>{% translate "Свободно" %}</span>
+</div>
 
-            {% endfor %}
+<div class="dates-legend__item">
+<span class="dates-legend__marker dates-legend__marker--busy"></span>
+<span>{% translate "Недоступно" %}</span>
+</div>
 
-        </div>
+<div class="dates-legend__item">
+<span class="dates-legend__marker dates-legend__marker--today"></span>
+<span>{% translate "Сегодня" %}</span>
+</div>
 
-    {% else %}
+</div>
 
-        <div class="available-dates__empty">
+<div class="dates-calendar-viewport">
 
-            <h2>
-                {% translate "Свободных дат пока нет" %}
-            </h2>
+<div
+class="dates-calendar-track"
+data-calendar-track
+>
 
-            <p>
-                {% translate "На данный момент все опубликованные даты заняты или расписание ещё не обновлено." %}
-            </p>
+{% for calendar_month in calendar_months %}
 
-            <p>
-                {% translate "Вы можете оставить заявку без выбора даты, и фотограф предложит ближайшие доступные варианты." %}
-            </p>
+<section
+class="dates-calendar{% if forloop.first %} is-active{% endif %}"
+data-calendar-month="{{ forloop.counter0 }}"
+aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+>
 
-            <a
-                class="available-dates__booking-button"
-                href="{% url 'portfolio:booking' %}"
-            >
-                {% translate "Оставить заявку" %}
-            </a>
+<div
+class="dates-calendar__grid"
+role="grid"
+aria-label="{{ calendar_month.date|date:'F Y' }}"
+>
 
-        </div>
+<div class="dates-calendar__weekday">
+{% translate "Пн" %}
+</div>
+
+<div class="dates-calendar__weekday">
+{% translate "Вт" %}
+</div>
+
+<div class="dates-calendar__weekday">
+{% translate "Ср" %}
+</div>
+
+<div class="dates-calendar__weekday">
+{% translate "Чт" %}
+</div>
+
+<div class="dates-calendar__weekday">
+{% translate "Пт" %}
+</div>
+
+<div class="dates-calendar__weekday">
+{% translate "Сб" %}
+</div>
+
+<div class="dates-calendar__weekday">
+{% translate "Вс" %}
+</div>
+
+{% for week in calendar_month.weeks %}
+{% for day in week %}
+
+<div
+class="dates-calendar__day
+{% if not day.is_current_month %} dates-calendar__day--outside{% endif %}
+{% if day.is_past %} dates-calendar__day--past{% endif %}
+{% if day.is_blocked or day.is_booked %} dates-calendar__day--busy{% endif %}
+{% if day.is_available %} dates-calendar__day--available{% endif %}
+{% if day.is_today %} dates-calendar__day--today{% endif %}"
+role="gridcell"
+>
+
+{% if day.is_available %}
+
+<a
+class="dates-calendar__day-link"
+href="{% url 'portfolio:booking' %}?date={{ day.date|date:'Y-m-d' }}"
+aria-label="{% blocktranslate with selected_date=day.date|date:'d.m.Y' %}Выбрать свободную дату {{ selected_date }}{% endblocktranslate %}"
+title="{% translate 'Свободно' %}"
+>
+
+<span class="dates-calendar__day-number">
+{{ day.date|date:"j" }}
+</span>
+
+<span class="visually-hidden">
+{% translate "Свободно" %}
+</span>
+
+</a>
+
+{% else %}
+
+<div
+class="dates-calendar__day-content"
+{% if day.is_booked %}
+title="{% translate 'Забронировано' %}"
+{% elif day.is_blocked %}
+title="{% translate 'Недоступно' %}"
+{% endif %}
+>
+
+<span class="dates-calendar__day-number">
+{% if day.is_current_month %}
+{{ day.date|date:"j" }}
+{% endif %}
+</span>
+
+{% if day.is_today %}
+<span class="visually-hidden">
+{% translate "Сегодня" %}
+</span>
+{% elif day.is_booked %}
+<span class="visually-hidden">
+{% translate "Забронировано" %}
+</span>
+{% elif day.is_blocked %}
+<span class="visually-hidden">
+{% translate "Недоступно" %}
+</span>
+{% endif %}
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+{% endfor %}
+
+</div>
+
+</section>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+<div
+class="calendar-pagination"
+role="tablist"
+aria-label="{% translate 'Месяцы календаря' %}"
+>
+
+{% for calendar_month in calendar_months %}
+
+<button
+class="calendar-pagination__dot{% if forloop.first %} is-active{% endif %}"
+type="button"
+data-calendar-dot="{{ forloop.counter0 }}"
+aria-label="{{ calendar_month.date|date:'F Y' }}"
+aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+></button>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</section>
+
+<section class="dates-process">
+
+     <div class="container">
+
+<header class="dates-process__header">
+
+<p class="dates-process__subtitle">
+{% translate "Следующие шаги" %}
+</p>
+
+<h2 class="dates-process__title">
+{% translate "Как забронировать дату" %}
+</h2>
+
+</header>
+
+<div class="dates-process__grid">
+
+<article class="dates-process__item">
+
+<span class="dates-process__number">
+01
+</span>
+
+<h3>
+{% translate "Выберите день" %}
+</h3>
+
+<p>
+{% translate "Нажмите на свободную дату в календаре." %}
+</p>
+
+</article>
+
+<article class="dates-process__item">
+
+<span class="dates-process__number">
+02
+</span>
+
+<h3>
+{% translate "Заполните заявку" %}
+</h3>
+
+<p>
+{% translate "Укажите услугу, контакты и информацию о будущей съёмке." %}
+</p>
+
+</article>
+
+<article class="dates-process__item">
+
+<span class="dates-process__number">
+03
+</span>
+
+<h3>
+{% translate "Получите подтверждение" %}
+</h3>
+
+<p>
+{% translate "Фотограф свяжется с вами для согласования деталей." %}
+</p>
+
+</article>
+
+</div>
+</div>
+
+</section>
+
+<section
+    class="dates-photo-break"
+    data-dates-parallax
+>
+
+    {% if site_settings and site_settings.available_dates_cta_background %}
+
+        <div
+            class="dates-photo-break__background"
+            style="background-image:url('{{ site_settings.available_dates_cta_background.url }}');"
+        ></div>
 
     {% endif %}
 
-    <div class="available-dates__info">
+    <div class="dates-photo-break__overlay"></div>
 
-        <h2>
-            {% translate "Как проходит бронирование" %}
-        </h2>
+    <div class="container dates-photo-break__container">
 
-        <div class="available-dates__steps">
+        <div class="dates-photo-break__content">
 
-            <article class="booking-step">
-                <span class="booking-step__number">01</span>
-
-                <h3>
-                    {% translate "Выберите дату" %}
-                </h3>
-
-                <p>
-                    {% translate "Найдите подходящий свободный день в списке и нажмите кнопку выбора." %}
-                </p>
-            </article>
-
-            <article class="booking-step">
-                <span class="booking-step__number">02</span>
-
-                <h3>
-                    {% translate "Заполните заявку" %}
-                </h3>
-
-                <p>
-                    {% translate "Укажите имя, способ связи, желаемую услугу и дополнительную информацию." %}
-                </p>
-            </article>
-
-            <article class="booking-step">
-                <span class="booking-step__number">03</span>
-
-                <h3>
-                    {% translate "Дождитесь подтверждения" %}
-                </h3>
-
-                <p>
-                    {% translate "Фотограф свяжется с вами, чтобы обсудить детали и подтвердить запись." %}
-                </p>
-            </article>
-
-        </div>
-
-    </div>
-
-    <div class="available-dates__actions">
-
-        <div class="available-dates__actions-content">
-
-            <h2>
-                {% translate "Не нашли подходящую дату?" %}
-            </h2>
-
-            <p>
-                {% translate "Оставьте заявку и укажите желаемый период. Возможно, фотограф сможет предложить дополнительное время для съёмки." %}
+            <p class="dates-photo-break__subtitle">
+                {% translate "Нужна другая дата?" %}
             </p>
 
-        </div>
+            <h2 class="dates-photo-break__title">
+                {% translate "Оставьте заявку без выбора дня" %}
+            </h2>
 
-        <div class="available-dates__actions-buttons">
+            <p class="dates-photo-break__description">
+                {% translate "Укажите желаемый период в сообщении, и фотограф предложит подходящие варианты." %}
+            </p>
 
             <a
-                class="available-dates__primary-button"
+                class="dates-photo-break__link"
                 href="{% url 'portfolio:booking' %}"
             >
                 {% translate "Оставить заявку" %}
-            </a>
-
-            <a
-                class="available-dates__secondary-button"
-                href="{% url 'portfolio:contacts' %}"
-            >
-                {% translate "Связаться с фотографом" %}
+                <span aria-hidden="true">→</span>
             </a>
 
         </div>
 
     </div>
+
+</section>
 
 </section>
 

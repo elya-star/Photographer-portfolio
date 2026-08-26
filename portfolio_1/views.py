@@ -1,4 +1,9 @@
 from datetime import date
+import calendar
+
+from .telegram_notifications import (
+    send_telegram_booking_notification,
+)
 
 from django.conf import settings
 from django.contrib import messages
@@ -10,9 +15,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 from django.db import transaction
 
-from .forms import BookingRequestForm
+from .forms import BookingRequestForm, ReviewForm
 from .models import (
     AvailableDate,
+    BlockedDate,
+    BookingRequest,
     FAQ,
     HomeSlide,
     Photo,
@@ -21,6 +28,7 @@ from .models import (
     Service,
     SiteSettings,
     SocialLink,
+    FeatureSlide,
 )
 
 
@@ -48,7 +56,7 @@ def home(request: HttpRequest) -> HttpResponse:
                     is_active=True,
                     show_on_home=True,
                 )
-                .order_by("order", "title_ru")[:6]
+                .order_by("order", "title_ru")[:3]
             ),
 
             "services": (
@@ -73,6 +81,7 @@ def home(request: HttpRequest) -> HttpResponse:
 
 
 def portfolio_list(request: HttpRequest) -> HttpResponse:
+    context = get_common_context()
     categories = (
         PortfolioCategory.objects
         .filter(is_active=True)
@@ -85,9 +94,21 @@ def portfolio_list(request: HttpRequest) -> HttpResponse:
         .order_by("order", "title_ru")
     )
 
-    context = get_common_context()
+    feature_slides = (
+        FeatureSlide.objects
+        .filter(is_active=True)
+        .order_by(
+            "order",
+            "id",
+        )
+    )
 
-    context["categories"] = categories
+    context.update(
+        {
+            "categories": categories,
+            "feature_slides": feature_slides,
+        }
+    )
 
     return render(
         request,
@@ -221,17 +242,111 @@ def faq(request: HttpRequest) -> HttpResponse:
     )
 
 def available_dates(request: HttpRequest) -> HttpResponse:
-    dates = (
-        AvailableDate.objects
-        .filter(
-            is_available=True,
-            date__gte=date.today(),
+    today = date.today()
+
+    months_count = 3
+
+    blocked_dates = set(
+        BlockedDate.objects.filter(
+            date__gte=today,
+            is_active=True,
+        ).values_list(
+            "date",
+            flat=True,
         )
-        .order_by("date")
     )
 
+    booked_dates = set(
+        BookingRequest.objects.filter(
+            preferred_date__gte=today,
+            status__in=[
+                BookingRequest.Status.NEW,
+                BookingRequest.Status.CONTACTED,
+                BookingRequest.Status.CONFIRMED,
+            ],
+        ).values_list(
+            "preferred_date",
+            flat=True,
+        )
+    )
+
+    calendar_months = []
+
+    current_year = today.year
+    current_month = today.month
+
+    month_calendar = calendar.Calendar(
+        firstweekday=0,
+    )
+
+    for month_offset in range(months_count):
+        month_number = current_month + month_offset
+        year = current_year
+
+        while month_number > 12:
+            month_number -= 12
+            year += 1
+
+        month_date = date(
+            year,
+            month_number,
+            1,
+        )
+
+        weeks = []
+
+        for week in month_calendar.monthdatescalendar(
+            year,
+            month_number,
+        ):
+            week_days = []
+
+            for day_value in week:
+                is_current_month = (
+                    day_value.month == month_number
+                )
+                is_past = day_value < today
+                is_blocked = day_value in blocked_dates
+                is_booked = day_value in booked_dates
+
+                is_available = (
+                    is_current_month
+                    and not is_past
+                    and not is_blocked
+                    and not is_booked
+                )
+
+                week_days.append(
+                    {
+                        "date": day_value,
+                        "is_current_month": is_current_month,
+                        "is_today": day_value == today,
+                        "is_past": is_past,
+                        "is_blocked": is_blocked,
+                        "is_booked": is_booked,
+                        "is_available": is_available,
+                    }
+                )
+
+            weeks.append(week_days)
+
+        calendar_months.append(
+            {
+                "date": month_date,
+                "year": year,
+                "month": month_number,
+                "weeks": weeks,
+            }
+        )
+
     context = get_common_context()
-    context["available_dates"] = dates
+
+    context.update(
+        {
+            "calendar_months": calendar_months,
+            "today": today,
+        }
+    )
 
     return render(
         request,
@@ -254,14 +369,19 @@ def booking(request: HttpRequest) -> HttpResponse:
         ).first()
 
     if date_value:
-        selected_available_date = AvailableDate.objects.filter(
-            date=date_value,
-            is_available=True,
-            date__gte=date.today(),
-        ).first()
+        try:
+            parsed_date = date.fromisoformat(date_value)
+        except ValueError:
+            parsed_date = None
 
-        if selected_available_date:
-            selected_date = selected_available_date.date
+        if parsed_date and parsed_date >= date.today():
+            is_blocked = BlockedDate.objects.filter(
+                date=parsed_date,
+                is_active=True,
+            ).exists()
+
+            if not is_blocked:
+                selected_date = parsed_date
 
     if request.method == "POST":
         form = BookingRequestForm(request.POST)
@@ -269,13 +389,9 @@ def booking(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             booking_request = form.save()
 
-            if booking_request.preferred_date:
-                AvailableDate.objects.filter(
-                    date=booking_request.preferred_date,
-                    is_available=True,
-                ).update(
-                    is_available=False,
-                )
+            send_telegram_booking_notification(
+                booking_request
+            )
 
             service_title = (
                 str(booking_request.service)
@@ -328,7 +444,7 @@ def booking(request: HttpRequest) -> HttpResponse:
                     message=body,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[contact_email],
-                    fail_silently=True,
+                    fail_silently=False,
                 )
 
             messages.success(
@@ -372,25 +488,6 @@ def booking(request: HttpRequest) -> HttpResponse:
     )
 
 
-def contacts(request: HttpRequest) -> HttpResponse:
-    context = get_common_context()
-
-    return render(
-        request,
-        "portfolio_1/contacts.html",
-        context,
-    )
-
-
-def preparation_guide(request: HttpRequest) -> HttpResponse:
-    context = get_common_context()
-
-    return render(
-        request,
-        "portfolio_1/preparation_guide.html",
-        context,
-    )
-
 def photo_detail(
     request: HttpRequest,
     category_slug: str,
@@ -407,6 +504,40 @@ def photo_detail(
         pk=photo_id,
         category=category,
         is_active=True,
+    )
+
+    category_photos = list(
+        Photo.objects.filter(
+            category=category,
+            is_active=True,
+        ).order_by(
+            "order",
+            "id",
+        )
+    )
+
+    lightbox_photos = [
+        {
+            "id": item.pk,
+            "url": item.image.url,
+            "title": item.title or category.title,
+            "alt": (
+                item.alt_text
+                or item.title
+                or category.title
+            ),
+            "detail_url": item.get_absolute_url(),
+        }
+        for item in category_photos
+    ]
+
+    current_photo_index = next(
+        (
+            index
+            for index, item in enumerate(category_photos)
+            if item.pk == photo.pk
+        ),
+        0,
     )
 
     previous_photo = (
@@ -462,6 +593,9 @@ def photo_detail(
     context.update(
         {
             "category": category,
+            "category_photos": category_photos,
+            "lightbox_photos": lightbox_photos,
+            "current_photo_index": current_photo_index,
             "photo": photo,
             "previous_photo": previous_photo,
             "next_photo": next_photo,
@@ -472,5 +606,46 @@ def photo_detail(
     return render(
         request,
         "portfolio_1/photo_detail.html",
+        context,
+    )
+
+def add_review(request):
+    if request.method == "POST":
+
+        form = ReviewForm(
+            request.POST,
+            request.FILES,
+        )
+
+        if form.is_valid():
+
+            review = form.save(
+                commit=False
+            )
+
+            review.is_active = False
+
+            review.save()
+
+            messages.success(
+                request,
+                "Спасибо! Ваш отзыв отправлен "
+                "и появится после проверки."
+            )
+
+            return redirect(
+                "portfolio:reviews"
+            )
+
+    else:
+        form = ReviewForm()
+
+    context = get_common_context()
+
+    context["form"] = form
+
+    return render(
+        request,
+        "portfolio_1/review_form.html",
         context,
     )

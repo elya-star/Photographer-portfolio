@@ -1,6 +1,10 @@
 {% extends "portfolio_1/base.html" %}
 {% load i18n %}
 
+{% block body_class %}
+faq-page-body
+{% endblock %}
+
 {% block title %}
     {% translate "Часто задаваемые вопросы" %}
     {% if site_settings %}
@@ -14,104 +18,122 @@
 
 {% block content %}
 
-<section class="faq">
+<main class="faq-page">
 
-    <header class="faq__header">
+    <header class="faq-hero">
 
-        <p class="faq__subtitle">
-            {% translate "Полезная информация" %}
-        </p>
+        <div class="container faq-hero__container">
 
-        <h1 class="faq__title">
-            {% translate "Часто задаваемые вопросы" %}
-        </h1>
+            <div class="faq-hero__top">
 
-        <p class="faq__description">
-            {% translate "Здесь собраны ответы на самые распространённые вопросы. Если вы не нашли нужную информацию, свяжитесь со мной любым удобным способом." %}
-        </p>
+                <p class="faq-hero__subtitle">
+                    {% translate "Полезная информация" %}
+                </p>
+
+                <a
+                    class="faq-hero__booking"
+                    href="{% url 'portfolio:booking' %}"
+                >
+                    {% translate "Записаться" %}
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </div>
+
+            <div class="faq-hero__main">
+
+                <h1 class="faq-hero__title">
+                    {% translate "Частые" %}
+                    <span>
+                        {% translate "вопросы" %}
+                    </span>
+                </h1>
+
+                <p class="faq-hero__description">
+                    {% translate "Здесь собраны ответы о подготовке, бронировании, процессе съёмки и получении готовых фотографий." %}
+                </p>
+
+            </div>
+
+        </div>
 
     </header>
 
+
     {% if faq_list %}
 
-        <div class="faq__list">
+        <section class="faq-list">
 
-            {% for item in faq_list %}
+            <div class="container faq-list__container">
 
-                <details class="faq__item">
+                {% for item in faq_list %}
 
-                    <summary class="faq__question">
-                        {{ item.question }}
-                    </summary>
+                    <details class="faq-item">
 
-                    <div class="faq__answer">
+                        <summary class="faq-item__question">
 
-                        <p>
-                            {{ item.answer|linebreaks }}
-                        </p>
+                            <span class="faq-item__number">
+                                {% if forloop.counter < 10 %}0{% endif %}{{ forloop.counter }}
+                            </span>
 
-                    </div>
+                            <span class="faq-item__question-text">
+                                {{ item.question }}
+                            </span>
 
-                </details>
+                            <span
+                                class="faq-item__icon"
+                                aria-hidden="true"
+                            ></span>
 
-            {% endfor %}
+                        </summary>
 
-        </div>
+                        <div class="faq-item__answer">
+
+                            <div class="faq-item__answer-inner">
+
+                                <div class="faq-item__answer-space"></div>
+
+                                <div class="faq-item__answer-text">
+                                    {{ item.answer|linebreaks }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </details>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
 
     {% else %}
 
-        <div class="faq__empty">
+        <section class="faq-empty">
 
-            <h2>
-                {% translate "Вопросов пока нет" %}
-            </h2>
+            <div class="container faq-empty__container">
 
-            <p>
-                {% translate "В данный момент раздел находится в стадии заполнения." %}
-            </p>
+                <p class="faq-empty__number">
+                    00
+                </p>
 
-        </div>
+                <h2 class="faq-empty__title">
+                    {% translate "Вопросы скоро появятся" %}
+                </h2>
+
+                <p class="faq-empty__description">
+                    {% translate "Раздел пока находится в процессе заполнения." %}
+                </p>
+
+            </div>
+
+        </section>
 
     {% endif %}
 
-    <section class="faq__contact">
 
-        <div class="faq__contact-content">
-
-            <p class="faq__contact-subtitle">
-                {% translate "Остались вопросы?" %}
-            </p>
-
-            <h2 class="faq__contact-title">
-                {% translate "Свяжитесь со мной" %}
-            </h2>
-
-            <p class="faq__contact-description">
-                {% translate "Если вы не нашли ответ на свой вопрос, напишите мне. Я с удовольствием помогу подобрать подходящую фотосессию и отвечу на все ваши вопросы." %}
-            </p>
-
-        </div>
-
-        <div class="faq__contact-actions">
-
-            <a
-                class="faq__button faq__button--primary"
-                href="{% url 'portfolio:contacts' %}"
-            >
-                {% translate "Контакты" %}
-            </a>
-
-            <a
-                class="faq__button faq__button--secondary"
-                href="{% url 'portfolio:booking' %}"
-            >
-                {% translate "Записаться на съёмку" %}
-            </a>
-
-        </div>
-
-    </section>
-
-</section>
+</main>
 
 {% endblock %}

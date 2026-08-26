@@ -3,7 +3,7 @@ from datetime import date
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import BookingRequest, AvailableDate, Service
+from .models import BookingRequest, AvailableDate, Service, BlockedDate, Review
 
 
 class BookingRequestForm(forms.ModelForm):
@@ -64,18 +64,20 @@ class BookingRequestForm(forms.ModelForm):
                     "inputmode": "email",
                 }
             ),
+
+            "preferred_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                },
+                format="%Y-%m-%d",
+            ),
+
             "messenger": forms.TextInput(
                 attrs={
                     "placeholder": _(
                         "Telegram, WhatsApp или другая социальная сеть"
                     ),
                 }
-            ),
-            "preferred_date": forms.DateInput(
-                attrs={
-                    "type": "date",
-                },
-                format="%Y-%m-%d",
             ),
             "message": forms.Textarea(
                 attrs={
@@ -102,6 +104,17 @@ class BookingRequestForm(forms.ModelForm):
             is_active=True,
         ).order_by("order", "title_ru")
 
+        available_dates = AvailableDate.objects.filter(
+            is_available=True,
+            date__gte=date.today(),
+        ).order_by("date")
+
+        for field_name, field in self.fields.items():
+            if field_name == "consent":
+                field.widget.attrs["class"] = "form-checkbox"
+            else:
+                field.widget.attrs["class"] = "form-control"
+
     def clean_preferred_date(self):
         preferred_date = self.cleaned_data.get("preferred_date")
 
@@ -113,12 +126,12 @@ class BookingRequestForm(forms.ModelForm):
                 _("Нельзя выбрать прошедшую дату.")
             )
 
-        available = AvailableDate.objects.filter(
+        is_blocked = BlockedDate.objects.filter(
             date=preferred_date,
-            is_available=True,
+            is_active=True,
         ).exists()
 
-        if not available:
+        if is_blocked:
             raise forms.ValidationError(
                 _("Эта дата недоступна. Выберите другую.")
             )
@@ -147,12 +160,64 @@ class BookingRequestForm(forms.ModelForm):
                     BookingRequest.Status.NEW,
                     BookingRequest.Status.CONTACTED,
                     BookingRequest.Status.CONFIRMED,
-                ]
+                ],
             ).exists()
 
             if exists:
                 self.add_error(
                     "preferred_date",
-                    _("Эта дата уже забронирована.")
+                    _("На эту дату уже есть активная заявка.")
                 )
         return cleaned_data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["service"].queryset = Service.objects.filter(
+            is_active=True,
+        ).order_by("order", "title_ru")
+
+        for field_name, field in self.fields.items():
+            if field_name == "consent":
+                field.widget.attrs.update({
+                    "class": "form-checkbox",
+                })
+            else:
+                field.widget.attrs.update({
+                    "class": "form-control",
+                })
+
+class ReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = Review
+
+        fields = [
+            "client_name",
+            "client_photo",
+            "text_ru",
+        ]
+
+        labels = {
+            "client_name": _("Ваше имя"),
+            "client_photo": _("Фотография"),
+            "text_ru": _("Ваш отзыв"),
+        }
+
+        widgets = {
+            "client_name": forms.TextInput(
+                attrs={
+                    "placeholder": _("Ваше имя"),
+                    "autocomplete": "name",
+                }
+            ),
+
+            "text_ru": forms.Textarea(
+                attrs={
+                    "placeholder": _(
+                        "Расскажите о ваших впечатлениях от съёмки"
+                    ),
+                    "rows": 7,
+                }
+            ),
+        }

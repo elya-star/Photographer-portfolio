@@ -1,67 +1,278 @@
 {% extends "portfolio_1/base.html" %}
 {% load i18n %}
+{% block body_class %}home-page{% endblock %}
 
 {% block title %}
-    {% if site_settings %}
-        {{ site_settings.photographer_name }}
-    {% else %}
-        {% translate "Главная" %}
-    {% endif %}
+{% if site_settings %}
+{{ site_settings.photographer_name }}
+{% else %}
+{% translate "Главная" %}
+{% endif %}
 {% endblock %}
 
 {% block description %}
-    {% if site_settings %}
-        {{ site_settings.short_description }}
-    {% else %}
-        {% translate "Профессиональный фотограф. Индивидуальные фотосессии, портфолио, отзывы и онлайн-запись." %}
-    {% endif %}
+{% if site_settings and site_settings.short_description %}
+{{ site_settings.short_description|striptags }}
+{% else %}
+{% translate "Профессиональная фотосъёмка, авторское портфолио и онлайн-запись." %}
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<section class="hero">
+<section class="hero-slider" data-slider="hero">
+{% if slides %}
 
-    <div class="hero__content">
+<div class="hero-slider__track">
+{% for slide in slides %}
 
-        <p class="hero__subtitle">
-            {% translate "Профессиональная фотография" %}
-        </p>
+<article
+class="hero-slider__slide{% if forloop.first %} is-active{% endif %}"
+data-slide
+aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+>
+<picture class="hero-slider__picture">
+{% if slide.image_mobile %}
+<source
+media="(max-width:768px)"
+srcset="{{ slide.image_mobile.url }}"
+>
+{% endif %}
 
-        <h1 class="hero__title">
+<img
+class="hero-slider__image"
+src="{{ slide.image_desktop.url }}"
+alt="{{ slide.alt_text|default:slide.title }}"
+{% if forloop.first %}
+fetchpriority="high"
+{% else %}
+loading="lazy"
+{% endif %}
+>
+</picture>
 
-            {% if site_settings %}
-                {{ site_settings.photographer_name }}
-            {% else %}
-                {% translate "Портфолио фотографа" %}
+<div class="hero-slider__overlay"></div>
+
+
+</article>
+
+{% endfor %}
+</div>
+
+{% if slides|length > 1 %}
+
+<div class="hero-slider__navigation">
+
+    <button
+        class="hero-slider__nav-button hero-slider__nav-button--previous"
+        type="button"
+        data-slider-previous
+        aria-label="{% translate 'Предыдущий слайд' %}"
+    >
+        <svg viewBox="0 0 70 14" aria-hidden="true">
+            <path d="M7 1L1 7L7 13"></path>
+            <path d="M1 7H69"></path>
+        </svg>
+    </button>
+
+    <div class="hero-slider__fraction">
+
+        <span data-slider-current>
+            01
+        </span>
+
+        <span class="hero-slider__fraction-line"></span>
+
+        <span data-slider-total>
+            01
+        </span>
+
+    </div>
+
+    <button
+        class="hero-slider__nav-button hero-slider__nav-button--next"
+        type="button"
+        data-slider-next
+        aria-label="{% translate 'Следующий слайд' %}"
+    >
+        <svg viewBox="0 0 70 14" aria-hidden="true">
+            <path d="M63 1L69 7L63 13"></path>
+            <path d="M1 7H69"></path>
+        </svg>
+    </button>
+
+</div>
+
+<div
+class="hero-slider__pagination"
+role="tablist"
+aria-label="{% translate 'Слайды главной страницы' %}"
+>
+{% for slide in slides %}
+<button
+class="hero-slider__dot{% if forloop.first %} is-active{% endif %}"
+type="button"
+data-slider-dot="{{ forloop.counter0 }}"
+aria-label="{% blocktranslate with number=forloop.counter %}Открыть слайд {{ number }}{% endblocktranslate %}"
+aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+></button>
+{% endfor %}
+</div>
+
+
+{% endif %}
+
+{% else %}
+
+
+{% endif %}
+</section>
+
+<section class="home-categories">
+<div class="container">
+
+<header class="section-header">
+<p class="section-header__subtitle">
+{% translate "Направления" %}
+</p>
+
+<h2 class="section-header__title">
+{% translate "Истории в фотографиях" %}
+</h2>
+
+<p class="section-header__description">
+{% translate "Выберите близкое вам настроение и откройте полную серию." %}
+</p>
+</header>
+
+{% if featured_categories %}
+
+<div class="categories-grid">
+{% for category in featured_categories %}
+
+<article class="category-card">
+<a
+class="category-card__link"
+href="{{ category.get_absolute_url }}"
+>
+<picture>
+{% if category.cover_mobile %}
+<source
+media="(max-width:768px)"
+srcset="{{ category.cover_mobile.url }}"
+>
+{% endif %}
+
+<img
+class="category-card__image"
+src="{{ category.cover.url }}"
+alt="{{ category.title }}"
+loading="lazy"
+>
+</picture>
+
+<div class="category-card__overlay">
+<div class="category-card__content">
+
+<h3 class="category-card__title">
+{{ category.title }}
+</h3>
+
+<span class="category-card__button">
+{% translate "Открыть серию" %}
+
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path
+d="M5 12h14M13 5l7 7-7 7"
+fill="none"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+</svg>
+</span>
+
+</div>
+</div>
+</a>
+</article>
+
+{% endfor %}
+</div>
+
+<div class="section-footer">
+<a
+class="button button--secondary"
+href="{% url 'portfolio:portfolio_list' %}"
+>
+{% translate "Все серии" %}
+</a>
+</div>
+
+{% else %}
+
+<div class="empty-state">
+<h3>{% translate "Работы скоро появятся" %}</h3>
+<p>
+{% translate "Категории портфолио пока не опубликованы." %}
+</p>
+</div>
+
+{% endif %}
+
+</div>
+</section>
+<section class="home-about">
+
+    <div class="home-about__container">
+
+        <div class="home-about__visual">
+
+            {% if site_settings and site_settings.photographer_photo %}
+
+                <img
+                    class="home-about__image"
+                    src="{{ site_settings.photographer_photo.url }}"
+                    alt="{{ site_settings.photographer_name }}"
+                    loading="lazy"
+                >
+
             {% endif %}
 
-        </h1>
+            <span class="home-about__number">
+                01
+            </span>
 
-        {% if site_settings.short_description %}
+        </div>
 
-            <p class="hero__description">
+        <div class="home-about__content">
 
-                {{ site_settings.short_description }}
-
+            <p class="home-about__subtitle">
+                {% translate "О фотографе" %}
             </p>
 
-        {% endif %}
+            <h2 class="home-about__title">
+                {% if site_settings and site_settings.photographer_name %}
+                    {{ site_settings.photographer_name }}
+                {% else %}
+                    Katya
+                {% endif %}
+            </h2>
 
-        <div class="hero__actions">
+            {% if site_settings and site_settings.biography %}
 
-            <a
-                class="hero__button hero__button--primary"
-                href="{% url 'portfolio:booking' %}"
-            >
-                {% translate "Записаться на съёмку" %}
-            </a>
+                <div class="home-about__description">
+                    {{ site_settings.biography|linebreaks }}
+                </div>
 
-            <a
-                class="hero__button hero__button--secondary"
-                href="{% url 'portfolio:portfolio_list' %}"
-            >
-                {% translate "Смотреть портфолио" %}
-            </a>
+            {% else %}
+
+                <p class="home-about__description">
+                    {% translate "Я создаю живые фотографии, в которых сохраняются настоящие эмоции, характер и атмосфера момента." %}
+                </p>
+
+            {% endif %}
 
         </div>
 
@@ -69,429 +280,6 @@
 
 </section>
 
-<section class="home-slides">
 
-    <header class="section-header">
-
-        <p class="section-header__subtitle">
-            {% translate "Лучшие работы" %}
-        </p>
-
-        <h2 class="section-header__title">
-            {% translate "Избранные фотографии" %}
-        </h2>
-
-    </header>
-
-    {% if slides %}
-
-        <div class="home-slides__grid">
-
-            {% for slide in slides %}
-
-                <article class="slide-card">
-
-                    {% if slide.link %}
-                    <a href="{{ slide.link }}">
-                    {% endif %}
-
-                    <picture>
-
-                        {% if slide.image_mobile %}
-                            <source
-                                media="(max-width:768px)"
-                                srcset="{{ slide.image_mobile.url }}"
-                            >
-                        {% endif %}
-
-                        <img
-                            src="{{ slide.image_desktop.url }}"
-                            alt="{{ slide.alt_text|default:slide.title }}"
-                            loading="lazy"
-                        >
-
-                    </picture>
-
-                    {% if slide.title %}
-
-                        <div class="slide-card__content">
-
-                            <h3>
-
-                                {{ slide.title }}
-
-                            </h3>
-
-                        </div>
-
-                    {% endif %}
-
-                    {% if slide.link %}
-                    </a>
-                    {% endif %}
-
-                </article>
-
-            {% endfor %}
-
-        </div>
-
-    {% else %}
-
-        <p>
-
-            {% translate "Слайды пока не добавлены." %}
-
-        </p>
-
-    {% endif %}
-
-</section>
-
-<section class="home-portfolio">
-
-    <header class="section-header">
-
-        <p class="section-header__subtitle">
-            {% translate "Портфолио" %}
-        </p>
-
-        <h2 class="section-header__title">
-            {% translate "Категории съёмок" %}
-        </h2>
-
-        <p class="section-header__description">
-
-            {% translate "Выберите интересующее направление и посмотрите полные серии фотографий." %}
-
-        </p>
-
-    </header>
-
-    {% if featured_categories %}
-
-        <div class="portfolio-grid">
-
-            {% for category in featured_categories %}
-
-                <article class="portfolio-card">
-
-                    <a href="{{ category.get_absolute_url }}">
-
-                        <img
-                            src="{{ category.cover.url }}"
-                            alt="{{ category.title }}"
-                            loading="lazy"
-                        >
-
-                        <div class="portfolio-card__content">
-
-                            <h3>
-
-                                {{ category.title }}
-
-                            </h3>
-
-                            {% if category.description %}
-
-                                <p>
-
-                                    {{ category.description|truncatewords:20 }}
-
-                                </p>
-
-                            {% endif %}
-
-                        </div>
-
-                    </a>
-
-                </article>
-
-            {% endfor %}
-
-        </div>
-
-        <div class="section-footer">
-
-            <a
-                class="button"
-                href="{% url 'portfolio:portfolio_list' %}"
-            >
-                {% translate "Посмотреть всё портфолио" %}
-            </a>
-
-        </div>
-
-    {% else %}
-
-        <p>
-
-            {% translate "Категории портфолио пока не добавлены." %}
-
-        </p>
-
-    {% endif %}
-
-</section>
-<section class="home-services">
-
-    <header class="section-header">
-
-        <p class="section-header__subtitle">
-            {% translate "Услуги" %}
-        </p>
-
-        <h2 class="section-header__title">
-            {% translate "Фотосессии" %}
-        </h2>
-
-        <p class="section-header__description">
-
-            {% translate "Выберите подходящий формат съёмки. Если сомневаетесь — я помогу подобрать лучший вариант." %}
-
-        </p>
-
-    </header>
-
-    {% if services %}
-
-        <div class="services-grid">
-
-            {% for service in services %}
-
-                <article class="service-card">
-
-                    {% if service.image %}
-
-                        <img
-                            src="{{ service.image.url }}"
-                            alt="{{ service.title }}"
-                            loading="lazy"
-                        >
-
-                    {% endif %}
-
-                    <div class="service-card__content">
-
-                        <h3>
-
-                            {{ service.title }}
-
-                        </h3>
-
-                        <p>
-
-                            {{ service.description|truncatewords:30 }}
-
-                        </p>
-
-                        {% if service.price_text %}
-
-                            <p class="service-card__price">
-
-                                {{ service.price_text }}
-
-                            </p>
-
-                        {% elif service.price %}
-
-                            <p class="service-card__price">
-
-                                {{ service.price }} сом
-
-                            </p>
-
-                        {% endif %}
-
-                        {% if service.duration_minutes %}
-
-                            <p class="service-card__duration">
-
-                                {% blocktranslate with minutes=service.duration_minutes %}
-                                    Продолжительность: {{ minutes }} мин.
-                                {% endblocktranslate %}
-
-                            </p>
-
-                        {% endif %}
-
-                        <a
-                            class="service-card__button"
-                            href="{% url 'portfolio:booking' %}?service={{ service.pk }}"
-                        >
-                            {% translate "Записаться" %}
-                        </a>
-
-                    </div>
-
-                </article>
-
-            {% endfor %}
-
-        </div>
-
-        <div class="section-footer">
-
-            <a
-                class="button"
-                href="{% url 'portfolio:services' %}"
-            >
-                {% translate "Посмотреть все услуги" %}
-            </a>
-
-        </div>
-
-    {% else %}
-
-        <p>
-
-            {% translate "Услуги пока не добавлены." %}
-
-        </p>
-
-    {% endif %}
-
-</section>
-
-
-<section class="home-reviews">
-
-    <header class="section-header">
-
-        <p class="section-header__subtitle">
-            {% translate "Отзывы" %}
-        </p>
-
-        <h2 class="section-header__title">
-            {% translate "Что говорят мои клиенты" %}
-        </h2>
-
-    </header>
-
-    {% if reviews %}
-
-        <div class="reviews-grid">
-
-            {% for review in reviews %}
-
-                <article class="review-card">
-
-                    {% if review.client_photo %}
-
-                        <img
-                            src="{{ review.client_photo.url }}"
-                            alt="{{ review.client_name }}"
-                            loading="lazy"
-                        >
-
-                    {% endif %}
-
-                    <h3>
-
-                        {{ review.client_name }}
-
-                    </h3>
-
-                    <div
-                        class="review-card__rating"
-                        aria-label="{% blocktranslate with rating=review.rating %}Оценка {{ rating }} из 5{% endblocktranslate %}"
-                    >
-
-                        {% for number in "12345" %}
-
-                            {% if forloop.counter <= review.rating %}
-
-                                <span aria-hidden="true">★</span>
-
-                            {% else %}
-
-                                <span aria-hidden="true">☆</span>
-
-                            {% endif %}
-
-                        {% endfor %}
-
-                    </div>
-
-                    <blockquote>
-
-                        {{ review.text|truncatewords:35 }}
-
-                    </blockquote>
-
-                </article>
-
-            {% endfor %}
-
-        </div>
-
-        <div class="section-footer">
-
-            <a
-                class="button"
-                href="{% url 'portfolio:reviews' %}"
-            >
-                {% translate "Все отзывы" %}
-            </a>
-
-        </div>
-
-    {% else %}
-
-        <p>
-
-            {% translate "Отзывов пока нет." %}
-
-        </p>
-
-    {% endif %}
-
-</section>
-
-
-<section class="home-cta">
-
-    <div class="home-cta__content">
-
-        <p class="home-cta__subtitle">
-
-            {% translate "Давайте создадим красивые воспоминания" %}
-
-        </p>
-
-        <h2 class="home-cta__title">
-
-            {% translate "Готовы записаться на фотосессию?" %}
-
-        </h2>
-
-        <p class="home-cta__description">
-
-            {% translate "Посмотрите свободные даты или оставьте заявку прямо сейчас. Я свяжусь с вами в ближайшее время." %}
-
-        </p>
-
-    </div>
-
-    <div class="home-cta__actions">
-
-        <a
-            class="home-cta__button home-cta__button--secondary"
-            href="{% url 'portfolio:available_dates' %}"
-        >
-            {% translate "Свободные даты" %}
-        </a>
-
-        <a
-            class="home-cta__button home-cta__button--primary"
-            href="{% url 'portfolio:booking' %}"
-        >
-            {% translate "Записаться" %}
-        </a>
-
-    </div>
-
-</section>
 
 {% endblock %}

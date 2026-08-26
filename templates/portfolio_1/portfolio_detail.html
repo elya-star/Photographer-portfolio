@@ -2,384 +2,317 @@
 {% load i18n %}
 
 {% block title %}
-    {{ category.seo_title|default:category.title }}
+{{ category.seo_title|default:category.title }}
 {% endblock %}
 
 {% block description %}
-    {{ category.seo_description|default:category.description|striptags }}
+{{ category.seo_description|default:category.description|striptags }}
 {% endblock %}
 
 {% block content %}
 
-<nav
-    class="breadcrumbs"
-    aria-label="{% translate 'Навигационная цепочка' %}"
->
+<section class="portfolio-detail-hero">
 
-    <a href="{% url 'portfolio:home' %}">
-        {% translate "Главная" %}
-    </a>
+<div class="container portfolio-detail-hero__container">
 
-    <span class="breadcrumbs__separator">/</span>
+<p class="portfolio-detail-hero__subtitle">
+{% translate "Серия" %}
+</p>
 
-    <a href="{% url 'portfolio:portfolio_list' %}">
-        {% translate "Портфолио" %}
-    </a>
+<h1 class="portfolio-detail-hero__title">
+{{ category.title }}
+</h1>
 
-    <span class="breadcrumbs__separator">/</span>
+{% if category.description %}
+<div class="portfolio-detail-hero__description">
+{{ category.description|linebreaks }}
+</div>
+{% endif %}
 
-    <span>{{ category.title }}</span>
-
-</nav>
-
-
-<header class="portfolio-header">
-
-    <h1 class="portfolio-header__title">
-
-        {{ category.title }}
-
-    </h1>
-
-    {% if category.description %}
-
-        <p class="portfolio-header__description">
-
-            {{ category.description }}
-
-        </p>
-
-    {% endif %}
-
-</header>
-
-
-<section class="portfolio-filters">
-
-    <h2>
-
-        {% translate "Фильтры" %}
-
-    </h2>
-
-    <form
-        method="get"
-        class="portfolio-filters__form"
-    >
-
-        <div class="portfolio-filters__group">
-
-            <label for="orientation">
-
-                {% translate "Ориентация фотографии" %}
-
-            </label>
-
-            <select
-                name="orientation"
-                id="orientation"
-            >
-
-                <option value="">
-                    {% translate "Все фотографии" %}
-                </option>
-
-                {% for value, label in orientation_choices %}
-
-                    <option
-                        value="{{ value }}"
-                        {% if selected_orientation == value %}
-                            selected
-                        {% endif %}
-                    >
-
-                        {{ label }}
-
-                    </option>
-
-                {% endfor %}
-
-            </select>
-
-        </div>
-
-        <div class="portfolio-filters__checkbox">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    name="featured"
-                    value="1"
-                    {% if featured_only %}
-                        checked
-                    {% endif %}
-                >
-
-                {% translate "Только избранные" %}
-
-            </label>
-
-        </div>
-
-        <div class="portfolio-filters__actions">
-
-            <button type="submit">
-
-                {% translate "Применить" %}
-
-            </button>
-
-            {% if selected_orientation or featured_only %}
-
-                <a href="{{ category.get_absolute_url }}">
-
-                    {% translate "Сбросить фильтры" %}
-
-                </a>
-
-            {% endif %}
-
-        </div>
-
-    </form>
+</div>
 
 </section>
 
+{% if photos %}
 
 <section class="portfolio-gallery">
 
-    <header class="section-header">
+<div class="container">
 
-        <h2>
+<div class="portfolio-gallery__toolbar">
 
-            {% translate "Фотографии" %}
+<p class="portfolio-gallery__count">
+{% blocktranslate count counter=page_obj.paginator.count %}
+{{ counter }} фотография
+{% plural %}
+{{ counter }} фотографий
+{% endblocktranslate %}
+</p>
 
-        </h2>
+<form class="portfolio-gallery__filters" method="get">
 
-        <p>
+<label class="portfolio-gallery__filter">
+<span>{% translate "Формат" %}</span>
 
-            {{ page_obj.paginator.count }}
+<select name="orientation" onchange="this.form.submit()">
+<option value="">
+{% translate "Все" %}
+</option>
 
-            {% translate "работ найдено" %}
+{% for value, label in orientation_choices %}
+<option
+value="{{ value }}"
+{% if selected_orientation == value %}selected{% endif %}
+>
+{{ label }}
+</option>
+{% endfor %}
+</select>
+</label>
 
-        </p>
+<label class="portfolio-gallery__featured">
+<input
+type="checkbox"
+name="featured"
+value="1"
+{% if featured_only %}checked{% endif %}
+onchange="this.form.submit()"
+>
 
-    </header>
+<span>
+{% translate "Избранные" %}
+</span>
+</label>
 
-    {% if photos %}
+{% if selected_orientation or featured_only %}
+<a
+class="portfolio-gallery__reset"
+href="{{ category.get_absolute_url }}"
+>
+{% translate "Сбросить" %}
+</a>
+{% endif %}
 
-        <div class="portfolio-gallery__grid">
+</form>
 
-            {% for photo in photos %}
+</div>
 
-                <article class="portfolio-photo">
+<div class="portfolio-gallery__grid">
 
-                    <a href="{{ photo.get_absolute_url }}">
+{% for photo in photos %}
 
-                        <figure>
+<article
+class="portfolio-gallery__item portfolio-gallery__item--{{ photo.orientation }}"
+>
 
-                            {% if photo.thumbnail %}
+<a
+class="portfolio-gallery__link"
+href="{{ photo.get_absolute_url }}"
+>
 
-                                <img
-                                    src="{{ photo.thumbnail.url }}"
-                                    alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
-                                    loading="lazy"
-                                >
+{% if photo.thumbnail %}
+<img
+class="portfolio-gallery__image"
+src="{{ photo.thumbnail.url }}"
+alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
+loading="lazy"
+>
+{% else %}
+<img
+class="portfolio-gallery__image"
+src="{{ photo.image.url }}"
+alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
+loading="lazy"
+>
+{% endif %}
 
-                            {% else %}
+<div class="portfolio-gallery__overlay">
 
-                                <img
-                                    src="{{ photo.image.url }}"
-                                    alt="{{ photo.alt_text|default:photo.title|default:category.title }}"
-                                    loading="lazy"
-                                >
+{% if photo.title %}
+<h2 class="portfolio-gallery__title">
+{{ photo.title }}
+</h2>
+{% endif %}
 
-                            {% endif %}
+{% if photo.is_featured %}
+<span class="portfolio-gallery__badge">
+{% translate "Избранная работа" %}
+</span>
+{% endif %}
 
-                            {% if photo.title %}
+<span class="portfolio-gallery__action">
+{% translate "Открыть" %} →
+</span>
 
-                                <figcaption>
+</div>
 
-                                    {{ photo.title }}
+</a>
 
-                                </figcaption>
+</article>
 
-                            {% endif %}
+{% endfor %}
 
-                        </figure>
-
-                        {% if photo.is_featured %}
-
-                            <span class="portfolio-photo__badge">
-
-                                {% translate "Избранная" %}
-
-                            </span>
-
-                        {% endif %}
-
-                    </a>
-
-                </article>
-
-            {% endfor %}
-
-        </div>
-
-    {% else %}
-
-        <div class="portfolio-gallery__empty">
-
-            <p>
-
-                {% translate "По выбранным параметрам фотографии не найдены." %}
-
-            </p>
-
-        </div>
-
-    {% endif %}
-
-</section>
-
+</div>
 
 {% if page_obj.paginator.num_pages > 1 %}
 
 <nav
-    class="pagination"
-    aria-label="{% translate 'Навигация по страницам' %}"
+class="portfolio-pagination"
+aria-label="{% translate 'Навигация по страницам' %}"
 >
 
-    {% if page_obj.has_previous %}
+{% if page_obj.has_previous %}
+<a
+class="portfolio-pagination__link"
+href="?page={{ page_obj.previous_page_number }}{% if selected_orientation %}&orientation={{ selected_orientation }}{% endif %}{% if featured_only %}&featured=1{% endif %}"
+>
+← {% translate "Назад" %}
+</a>
+{% endif %}
 
-        <a
-            href="?page={{ page_obj.previous_page_number }}{% if selected_orientation %}&orientation={{ selected_orientation }}{% endif %}{% if featured_only %}&featured=1{% endif %}"
-        >
+<span class="portfolio-pagination__current">
+{% blocktranslate with current=page_obj.number total=page_obj.paginator.num_pages %}
+{{ current }} / {{ total }}
+{% endblocktranslate %}
+</span>
 
-            ← {% translate "Предыдущая" %}
-
-        </a>
-
-    {% endif %}
-
-    <span>
-
-        {% blocktranslate with current=page_obj.number total=page_obj.paginator.num_pages %}
-            Страница {{ current }} из {{ total }}
-        {% endblocktranslate %}
-
-    </span>
-
-    {% if page_obj.has_next %}
-
-        <a
-            href="?page={{ page_obj.next_page_number }}{% if selected_orientation %}&orientation={{ selected_orientation }}{% endif %}{% if featured_only %}&featured=1{% endif %}"
-        >
-
-            {% translate "Следующая" %} →
-
-        </a>
-
-    {% endif %}
+{% if page_obj.has_next %}
+<a
+class="portfolio-pagination__link"
+href="?page={{ page_obj.next_page_number }}{% if selected_orientation %}&orientation={{ selected_orientation }}{% endif %}{% if featured_only %}&featured=1{% endif %}"
+>
+{% translate "Дальше" %} →
+</a>
+{% endif %}
 
 </nav>
 
 {% endif %}
 
+</div>
+
+</section>
+
+{% else %}
+
+<section class="portfolio-gallery portfolio-gallery--empty">
+<div class="container">
+
+<div class="empty-state">
+<h2>
+{% translate "Фотографии пока не добавлены" %}
+</h2>
+
+<p>
+{% translate "Эта серия находится в процессе заполнения." %}
+</p>
+</div>
+
+</div>
+</section>
+
+{% endif %}
 
 {% if other_categories %}
 
-<section class="related-categories">
+<section class="portfolio-related">
 
-    <header class="section-header">
+<div class="container">
 
-        <h2>
+<header class="portfolio-related__header">
 
-            {% translate "Другие категории" %}
+<p class="portfolio-related__subtitle">
+{% translate "Другие серии" %}
+</p>
 
-        </h2>
+<h2 class="portfolio-related__title">
+{% translate "Продолжить просмотр" %}
+</h2>
 
-    </header>
+</header>
 
-    <div class="related-categories__grid">
+<div class="portfolio-related__grid">
 
-        {% for item in other_categories %}
+{% for item in other_categories %}
 
-            <article class="related-category">
+<article class="portfolio-related__card">
 
-                <a href="{{ item.get_absolute_url }}">
+<a
+class="portfolio-related__link"
+href="{{ item.get_absolute_url }}"
+>
 
-                    <img
-                        src="{{ item.cover.url }}"
-                        alt="{{ item.title }}"
-                        loading="lazy"
-                    >
+<img
+class="portfolio-related__image"
+src="{{ item.cover.url }}"
+alt="{{ item.title }}"
+loading="lazy"
+>
 
-                    <h3>
+<div class="portfolio-related__overlay">
 
-                        {{ item.title }}
+<h3 class="portfolio-related__name">
+{{ item.title }}
+</h3>
 
-                    </h3>
+<span>
+{% translate "Открыть серию" %} →
+</span>
 
-                    <p>
+</div>
 
-                        {% blocktranslate count counter=item.photos_count %}
-                            {{ counter }} фотография
-                        {% plural %}
-                            {{ counter }} фотографий
-                        {% endblocktranslate %}
+</a>
 
-                    </p>
+</article>
 
-                </a>
+{% endfor %}
 
-            </article>
+</div>
 
-        {% endfor %}
-
-    </div>
+</div>
 
 </section>
 
 {% endif %}
 
+<section
+class="portfolio-detail-cta"
+style="--portfolio-cta-image:url('{{ category.cover.url }}');"
+>
 
-<section class="portfolio-cta">
+<div class="container portfolio-detail-cta__container">
 
-    <div class="portfolio-cta__content">
+<p class="portfolio-detail-cta__subtitle">
+{% translate "Хотите такую съёмку?" %}
+</p>
 
-        <h2>
+<h2 class="portfolio-detail-cta__title">
+{% translate "Обсудим вашу идею" %}
+</h2>
 
-            {% translate "Понравились фотографии?" %}
+<p class="portfolio-detail-cta__description">
+{% translate "Расскажите о вашей идее, и мы подберём подходящую дату, образ и формат съёмки." %}
+</p>
 
-        </h2>
+<div class="button-group">
 
-        <p>
+<a
+class="button button--secondary button--large"
+href="{% url 'portfolio:available_dates' %}"
+>
+{% translate "Свободные даты" %}
+</a>
 
-            {% translate "Запишитесь на фотосессию и создадим красивые кадры вместе." %}
+<a
+class="button button--large"
+href="{% url 'portfolio:booking' %}"
+>
+{% translate "Оставить заявку" %}
+</a>
 
-        </p>
+</div>
 
-    </div>
-
-    <div class="portfolio-cta__actions">
-
-        <a
-            class="button"
-            href="{% url 'portfolio:available_dates' %}"
-        >
-            {% translate "Свободные даты" %}
-        </a>
-
-        <a
-            class="button"
-            href="{% url 'portfolio:booking' %}"
-        >
-            {% translate "Записаться" %}
-        </a>
-
-    </div>
+</div>
 
 </section>
 

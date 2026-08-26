@@ -4,266 +4,250 @@
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<title>
+{% block title %}
+{% if site_settings %}
+{{ site_settings.photographer_name }}
+{% else %}
+Portfolio
+{% endif %}
+{% endblock %}
+</title>
 
-    <title>
-    {% block title %}
-        Portfolio
-    {% endblock %}
-    </title>
+<meta name="description" content="{% block description %}{% endblock %}">
 
-    <meta
-        name="description"
-        content="{% block description %}{% endblock %}"
-    >
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Manrope:wght@300;400;500&display=swap"
+>
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    {% block extra_css %}
-    {% endblock %}
+{% block extra_css %}{% endblock %}
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
+
+<a class="skip-link" href="#main-content">
+{% translate "Перейти к содержимому" %}
+</a>
 
 <header class="site-header">
+<div class="container site-header__container">
 
-    <div class="container">
+<a
+    class="site-logo"
+    href="{% url 'portfolio:home' %}"
+    aria-label="{% translate 'На главную' %}"
+>
+    <span class="site-logo__name">
+        {% if site_settings and site_settings.photographer_name %}
+            {{ site_settings.photographer_name }}
+        {% else %}
+            Katya
+        {% endif %}
+    </span>
 
-        <div class="site-logo">
-            <a href="{% url 'portfolio:home' %}">
-                {% if site_settings %}
-                    {{ site_settings.photographer_name }}
-                {% else %}
-                    Portfolio
-                {% endif %}
-            </a>
-        </div>
+    <span class="site-logo__profession">
+        {% translate "Photographer" %}
+    </span>
+</a>
 
-        <nav class="site-nav">
+<nav class="site-navigation" id="site-navigation" aria-label="{% translate 'Основная навигация' %}">
+    <button
+    class="site-navigation__close"
+    type="button"
+    aria-label="{% translate 'Закрыть меню' %}"
+    data-menu-close
+    >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path
+    d="M6 6l12 12M18 6L6 18"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.7"
+    stroke-linecap="round"
+    />
+    </svg>
+    </button>
+<ul class="site-navigation__list">
+<li class="site-navigation__item">
+<a class="site-navigation__link" href="{% url 'portfolio:home' %}">
+{% translate "Главная" %}
+</a>
+</li>
 
-            <a href="{% url 'portfolio:home' %}">
-                {% translate "Главная" %}
-            </a>
+<li class="site-navigation__item">
+<a class="site-navigation__link" href="{% url 'portfolio:portfolio_list' %}">
+{% translate "Портфолио" %}
+</a>
+</li>
 
-            <a href="{% url 'portfolio:portfolio_list' %}">
-                {% translate "Портфолио" %}
-            </a>
+<li class="site-navigation__item">
+<a class="site-navigation__link" href="{% url 'portfolio:services' %}">
+{% translate "Услуги" %}
+</a>
+</li>
 
-            <a href="{% url 'portfolio:services' %}">
-                {% translate "Услуги" %}
-            </a>
+<li class="site-navigation__item">
+<a class="site-navigation__link" href="{% url 'portfolio:reviews' %}">
+{% translate "Отзывы" %}
+</a>
+</li>
 
-            <a href="{% url 'portfolio:reviews' %}">
-                {% translate "Отзывы" %}
-            </a>
+<li class="site-navigation__item">
+<a class="site-navigation__link" href="{% url 'portfolio:faq' %}">
+FAQ
+</a>
+</li>
 
-            <a href="{% url 'portfolio:faq' %}">
-                FAQ
-            </a>
+<li class="site-navigation__item">
+<a class="site-navigation__link" href="{% url 'portfolio:available_dates' %}">
+{% translate "Свободные даты" %}
+</a>
+</li>
 
-            <a href="{% url 'portfolio:available_dates' %}">
-                {% translate "Свободные даты" %}
-            </a>
+</ul>
 
-            <a href="{% url 'portfolio:contacts' %}">
-                {% translate "Контакты" %}
-            </a>
+<div class="site-navigation__actions">
+<form action="{% url 'set_language' %}" method="post" class="language-switcher">
+{% csrf_token %}
 
-        </nav>
+<input type="hidden" name="next" value="{{ request.get_full_path }}">
 
-        <div class="header-actions">
+<button type="submit" name="language" value="ru" {% if LANGUAGE_CODE == "ru" %}disabled{% endif %}>
+RU
+</button>
 
-            <form
-                action="{% url 'set_language' %}"
-                method="post"
-                class="language-form"
-            >
-                {% csrf_token %}
+<button type="submit" name="language" value="en" {% if LANGUAGE_CODE == "en" %}disabled{% endif %}>
+EN
+</button>
+</form>
 
-                <input
-                    type="hidden"
-                    name="next"
-                    value="{{ request.get_full_path }}"
-                >
+<a class="button button--small" href="{% url 'portfolio:booking' %}">
+{% translate "Записаться" %}
+</a>
+</div>
+</nav>
 
-                <button
-                    type="submit"
-                    name="language"
-                    value="ru"
-                    {% if LANGUAGE_CODE == "ru" %}disabled{% endif %}
-                >
-                    RU
-                </button>
+<div class="site-header__right">
+<button class="menu-toggle" type="button" aria-label="{% translate 'Открыть меню' %}" aria-controls="site-navigation" aria-expanded="false">
+<span class="visually-hidden">
+{% translate "Открыть меню" %}
+</span>
 
-                <button
-                    type="submit"
-                    name="language"
-                    value="en"
-                    {% if LANGUAGE_CODE == "en" %}disabled{% endif %}
-                >
-                    EN
-                </button>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+</button>
+</div>
 
-            </form>
-
-            <a
-                class="booking-button"
-                href="{% url 'portfolio:booking' %}"
-            >
-                {% translate "Записаться" %}
-            </a>
-
-        </div>
-
-    </div>
-
+</div>
 </header>
 
+<div class="site-overlay" aria-hidden="true"></div>
+
 {% if messages %}
-<section class="messages">
-
-    <div class="container">
-
-        {% for message in messages %}
-
-            <div class="message message--{{ message.tags }}">
-                {{ message }}
-            </div>
-
-        {% endfor %}
-
-    </div>
-
+<section class="messages" aria-live="polite">
+<div class="container">
+{% for message in messages %}
+<div class="alert alert--{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
+{{ message }}
+</div>
+{% endfor %}
+</div>
 </section>
 {% endif %}
 
-<main class="site-main">
-
-    <div class="container">
-
-        {% block content %}
-        {% endblock %}
-
-    </div>
-
+<main class="site-main" id="main-content">
+{% block content %}{% endblock %}
 </main>
 
 <footer class="site-footer">
 
     <div class="container">
 
-        <div class="footer-about">
+        <div class="site-footer__top">
 
-            {% if site_settings %}
+            <a
+                class="site-footer__brand"
+                href="{% url 'portfolio:home' %}"
+            >
+                <span class="site-footer__name">
+                    {{ site_settings.photographer_name|default:"Katya" }}
+                </span>
 
-                <h3>
-                    {{ site_settings.photographer_name }}
-                </h3>
+                <span class="site-footer__profession">
+                    {% translate "Photographer" %}
+                </span>
+            </a>
 
-                {% if site_settings.city %}
-                    <p>{{ site_settings.address }}</p>
-                {% endif %}
+            {% if social_links %}
 
-                {% if site_settings.phone %}
-                    <p>
+                <nav
+                    class="site-footer__socials"
+                    aria-label="{% translate 'Социальные сети' %}"
+                >
+                    {% for social in social_links %}
 
-                        <a href="tel:{{ site_settings.phone }}">
-                            {{ site_settings.phone }}
+                        <a
+                            href="{{ social.url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {{ social.name }}
                         </a>
 
-                    </p>
-                {% endif %}
-
-                {% if site_settings.email %}
-                    <p>
-
-                        <a href="mailto:{{ site_settings.email }}">
-                            {{ site_settings.email }}
-                        </a>
-
-                    </p>
-                {% endif %}
+                    {% endfor %}
+                </nav>
 
             {% endif %}
 
         </div>
 
-        <div class="footer-menu">
+        <div class="site-footer__bottom">
 
-            <h4>{% translate "Навигация" %}</h4>
+            <p class="site-footer__copyright">
+                © {% now "Y" %}
+                {{ site_settings.photographer_name|default:"Katya" }}.
+                {% translate "Все права защищены." %}
+            </p>
 
-            <a href="{% url 'portfolio:portfolio_list' %}">
-                {% translate "Портфолио" %}
-            </a>
-
-            <a href="{% url 'portfolio:services' %}">
-                {% translate "Услуги" %}
-            </a>
-
-            <a href="{% url 'portfolio:reviews' %}">
-                {% translate "Отзывы" %}
-            </a>
-
-            <a href="{% url 'portfolio:faq' %}">
-                FAQ
-            </a>
-
-            <a href="{% url 'portfolio:preparation_guide' %}">
-                {% translate "Подготовка к фотосессии" %}
-            </a>
-
-            <a href="{% url 'portfolio:booking' %}">
-                {% translate "Записаться" %}
-            </a>
+            <p class="site-footer__rights">
+                {% translate "Копирование и использование фотографий без письменного разрешения автора запрещено." %}
+            </p>
 
         </div>
-
-        <div class="footer-socials">
-
-            <h4>{% translate "Социальные сети" %}</h4>
-
-            {% for social in social_links %}
-
-                <a
-                    href="{{ social.url }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {{ social.name }}
-                </a>
-
-            {% empty %}
-
-                <p>
-                    {% translate "Социальные сети пока не добавлены." %}
-                </p>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-
-        {% if site_settings and site_settings.copyright %}
-            <p>{{ site_settings.copyright }}</p>
-        {% else %}
-            <p>© Portfolio</p>
-        {% endif %}
 
     </div>
 
 </footer>
 
-<script src="{% static 'js/script.js' %}"></script>
+<button class="back-to-top" type="button" aria-label="{% translate 'Наверх' %}">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</button>
+
+<script src="{% static 'js/script.js' %}" defer></script>
 
 {% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+    const preferredDate=document.getElementById(
+        "{{ form.preferred_date.id_for_label }}"
+    );
+
+    if(preferredDate){
+        preferredDate.min="{{ today }}";
+    }
+});
+</script>
 {% endblock %}
 
 </body>
