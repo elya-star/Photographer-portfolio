@@ -264,8 +264,9 @@ color:var(--color-white);
 
 .site-footer{
 padding:clamp(2.5rem,5vw,4rem) 0 var(--space-5);
-background:#120d0b;
-color:var(--color-white);
+background: var(--color-about-bg);
+color: var(--color-about-text);
+
 }
 
 .site-footer__top{

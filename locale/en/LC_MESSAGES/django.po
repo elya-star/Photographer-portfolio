@@ -817,8 +817,8 @@ msgid "Другие серии"
 msgstr "Other series"
 
 #: templates/portfolio_1/portfolio_detail.html:229
-msgid "Продолжительность:"
-msgstr "Duration:"
+msgid "Продолжительность: "
+msgstr "Duration: "
 
 msgid "Продолжить просмотр"
 msgstr "Continue watching"
