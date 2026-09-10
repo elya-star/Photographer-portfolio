@@ -127,17 +127,10 @@ has-overlay-header
                             </div>
                         {% endif %}
 
-                        {% if service.price %}
+                        {% if service.price_text %}
                             <div class="service-section__meta-row">
-
-                                <span>
-                                    {% translate "Стоимость" %}
-                                </span>
-
-                                <strong>
-                                    {{ service.price }}
-                                </strong>
-
+                                <span>{% translate "Стоимость" %}</span>
+                                <strong>{{ service.price_text }}</strong>
                             </div>
                         {% endif %}
 

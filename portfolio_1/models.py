@@ -553,7 +553,13 @@ class Service(TimeStampedModel):
         if get_language() == "en" and self.price_text_en:
             return self.price_text_en
 
-        return self.price_text_ru
+        if self.price_text_ru:
+            return self.price_text_ru
+
+        if self.price is not None:
+            return f"{self.price:,.0f} сом"
+
+        return ""
 
     def __str__(self):
         return self.title_ru
