@@ -505,16 +505,21 @@ class Service(TimeStampedModel):
         blank=True,
     )
 
-    coupon_text = models.CharField(
-        "Купон",
-        max_length=100,
-        blank=True,
-        help_text="Например: Скидка 10% или -15% на первую съёмку",
-    )
-
     coupon_active = models.BooleanField(
         "Показывать купон",
         default=False,
+    )
+
+    coupon_text_ru = models.CharField(
+        "Текст купона на русском",
+        max_length=150,
+        blank=True,
+    )
+
+    coupon_text_en = models.CharField(
+        "Текст купона на английском",
+        max_length=150,
+        blank=True,
     )
 
     duration_minutes = models.PositiveIntegerField(
@@ -558,6 +563,13 @@ class Service(TimeStampedModel):
             return self.description_en
 
         return self.description_ru
+
+    @property
+    def coupon_text(self):
+        if get_language() == "en" and self.coupon_text_en:
+            return self.coupon_text_en
+
+        return self.coupon_text_ru
 
 
     @property

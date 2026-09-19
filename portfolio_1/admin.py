@@ -430,8 +430,9 @@ class ServiceAdmin(admin.ModelAdmin):
             "Акция/купон", 
             {
                 "fields": (
-                    "coupon_text",
                     "coupon_active",
+                    "coupon_text_ru",
+                    "coupon_text_en",
                 )
             },
         ),
