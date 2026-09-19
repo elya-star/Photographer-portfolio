@@ -1351,3 +1351,18 @@ min-width:0;
     }
 
 }
+
+@media (max-width: 768px) {
+
+    .hero-slider {
+        height: 70svh;
+        min-height: 500px;
+    }
+
+    .hero-slider__image {
+        object-fit: contain;
+        object-position: center;
+        background: #f8f8f5;
+    }
+
+}
