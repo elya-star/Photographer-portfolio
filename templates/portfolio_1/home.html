@@ -32,23 +32,16 @@ data-slide
 aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
 >
 <picture class="hero-slider__picture">
-{% if slide.image_mobile %}
-<source
-media="(max-width:768px)"
-srcset="{{ slide.image_mobile.url }}"
->
-{% endif %}
-
-<img
-class="hero-slider__image"
-src="{{ slide.image_desktop.url }}"
-alt="{{ slide.alt_text|default:slide.title }}"
-{% if forloop.first %}
-fetchpriority="high"
-{% else %}
-loading="lazy"
-{% endif %}
->
+    <img
+        class="hero-slider__image"
+        src="{{ slide.image_desktop.url }}"
+        alt="{{ slide.alt_text|default:slide.title }}"
+        {% if forloop.first %}
+            fetchpriority="high"
+        {% else %}
+            loading="lazy"
+        {% endif %}
+    >
 </picture>
 
 <div class="hero-slider__overlay"></div>

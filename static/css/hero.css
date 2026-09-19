@@ -333,66 +333,7 @@ font-size:var(--fs-base);
 }
 }
 
-@media(max-width:576px){
-    .hero-slider {
-        aspect-ratio: 16 / 10;
-        max-height: 430px;
-    }
 
-    .hero-slider__container {
-        padding-top: calc(var(--header-height) + var(--space-3));
-        padding-bottom: var(--space-5);
-    }
-
-.hero-slider__subtitle{
-margin-bottom:var(--space-2);
-font-size:.65rem;
-letter-spacing:.14em;
-}
-
-.hero-slider__title{
-margin-bottom:var(--space-3);
-font-size: clamp(1.8rem, 9vw, 3rem);
-line-height:.98;
-}
-
-.hero-slider__description{
-margin-bottom:var(--space-4);
-        font-size: .85rem;
-        line-height: 1.45;
-}
-
-    .hero-slider__content .button-group {
-        width: auto;
-        flex-direction: row;
-        align-items: center;
-        gap: var(--space-2);
-    }
-
-    .hero-slider__content .button {
-        width: auto;
-        min-height: 42px;
-        padding-inline: 1.1rem;
-        font-size: .68rem;
-    }
-
-.hero-slider__dot{
-width:24px;
-}
-
-.hero-slider__dot.is-active{
-width:38px;
-}
-
-.hero-slider__image{
-object-position:center center;
-}
-
-.hero-slider__empty{
-height:100svh;
-min-height:600px;
-}
-}
 
 @media(max-width:390px){
 .hero-slider__content .button-group{
