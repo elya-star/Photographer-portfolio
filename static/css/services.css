@@ -1231,3 +1231,30 @@ border-top:0!important;
 }
 
 }
+
+.service-card__image {
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card__coupon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+
+    padding: .55rem .9rem;
+
+    background: var(--color-primary);
+    color: var(--color-white);
+
+    border-radius: var(--radius-round);
+
+    font-family: var(--font-family);
+    font-size: .7rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+
+    box-shadow: var(--shadow-sm);
+}

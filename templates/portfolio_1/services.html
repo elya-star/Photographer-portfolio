@@ -181,6 +181,12 @@ has-overlay-header
                                             alt="{{ service.title }}"
                                             loading="lazy"
                                         >
+
+                                        {% if service.coupon_active and service.coupon_text %}
+                                            <div class="service-card__coupon">
+                                                {{ service.coupon_text }}
+                                            </div>
+                                        {% endif %}
                                     </figure>
                                 {% endif %}
 

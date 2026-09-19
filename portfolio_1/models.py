@@ -505,6 +505,18 @@ class Service(TimeStampedModel):
         blank=True,
     )
 
+    coupon_text = models.CharField(
+        "Купон",
+        max_length=100,
+        blank=True,
+        help_text="Например: Скидка 10% или -15% на первую съёмку",
+    )
+
+    coupon_active = models.BooleanField(
+        "Показывать купон",
+        default=False,
+    )
+
     duration_minutes = models.PositiveIntegerField(
         "Продолжительность в минутах",
         blank=True,

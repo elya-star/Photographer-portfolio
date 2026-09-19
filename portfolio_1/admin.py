@@ -427,6 +427,15 @@ class ServiceAdmin(admin.ModelAdmin):
             },
         ),
         (
+            "Акция/купон", 
+            {
+                "fields": (
+                    "coupon_text",
+                    "coupon_active",
+                )
+            },
+        ),
+        (
             "Дополнительно",
             {
                 "fields": (
